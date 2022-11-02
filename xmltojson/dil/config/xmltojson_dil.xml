@@ -47,14 +47,15 @@
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>xmltojson</uri>
+                            <uri>xmltojson://?keepStrings=false&amp;removeNamespaces=false&amp;removeRoot=false&amp;hasTypes=false&amp;typeValueMismatch=ORIGINAL</uri>
+                            <!--
                             <options>
                                 <keepStrings>false</keepStrings>
                                 <removeNamespaces>false</removeNamespaces>
                                 <removeRoot>false</removeRoot>
                                 <hasTypes>false</hasTypes>
                                 <typeValueMismatch>ORIGINAL</typeValueMismatch>
-                            </options>
+                            </options>-->
                             <links>
                                 <link>
                                     <id>3</id>
@@ -67,7 +68,6 @@
                                     <bound>out</bound>
                                 </link>
                             </links>
-
                         </step>
                         <step>
                             <id>4</id>

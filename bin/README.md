@@ -11,16 +11,18 @@ Runs an integration test on Assimbly gateway. It does this by deploying the conf
 into the deploy directory of Assimbly (${user.home}/.assimbly/deploy).
 
 Note: Some integration tests need other software besides Assimbly Gateway. For example MongoDB for the globalvariables module or SMB for the SMB module.
-Note 2: For now only bash script (Windows users need to run it from GIT Bash)
+Note 2: For now only bash script (Windows users need to run it from GIT Bash).
 
 ### Usage:
 
 To run an integration test:
 
-```integrationtest modulename testdir delay```
+```integrationtest testdir [delay] [testtype]```
 
 - Testdir: The name of the test directory that contains the configuration file. The directory is placed in {componentname}/{testname}
 - Delay (optional): How long the script waits in seconds until the test runs. It waits until the configuration is deployed (default=10s)
+- Testtype (optional): Type of test. If the value is 'create' the expected testdata is created. If the
+value is "check" then a comparison between expected and actual data is done.
 
 **example**
 
@@ -29,6 +31,10 @@ To run an integration test:
 **example with delay set**
 
 ```test docconverter/camel2 15s```
+
+**example with testtype set**
+
+```test docconverter/camel2 create```
 
 
 ---

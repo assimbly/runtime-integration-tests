@@ -1,0 +1,27 @@
+<camelContext id="xslt-component" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="0" maxPoolSize="10" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="46b298f0-d055-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/Xslt?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <to uri="activemq:ID_627a4dd438c74a06a0000039_test_46b298f0-d055-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="4f986df1-d055-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a4dd438c74a06a0000039_test_46b298f0-d055-11ec-83f5-3747809ef661"/>
+    <to uri="xslt:http://localhost:9002/1/xsltfile?saxon=true&amp;saxonExtensionFunctions=#uuid-function"/>
+    <to uri="activemq:ID_627a4dd438c74a06a0000039_test_4f986df1-d055-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+  </route>
+  <route id="46b2c000-d055-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a4dd438c74a06a0000039_test_4f986df1-d055-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>
