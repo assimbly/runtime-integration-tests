@@ -1,0 +1,69 @@
+<dil>
+    <integrations>
+        <integration>
+            <flows>
+                <flow>
+                    <id>edifactstandards_test1</id>
+                    <name>edifactstandards_test1</name>
+                    <type>esb</type>
+                    <steps>
+                        <step>
+                            <id>1</id>
+                            <type>source</type>
+                            <uri>https://0.0.0.0:9001/1/edifactstandardstoxml</uri>
+                        </step>
+                        <step>
+                            <id>2</id>
+                            <type>action</type>
+                            <uri>setbody:message:edifactstandards</uri>
+                        </step>
+                        <step>
+                            <id>3</id>
+                            <type>action</type>
+                            <uri>edifactstandardstoxml:IFTMIN_D96A_UTF_8</uri>
+                        </step>
+                        <step>
+                            <id>4</id>
+                            <type>sink</type>
+                            <uri>velocity:${bodyAs(String)}</uri>
+                        </step>
+                    </steps>
+                </flow>
+            </flows>
+        </integration>
+    </integrations>
+	<core>
+        <messages>
+            <message>
+                <id>edifactstandards</id>
+                <body><![CDATA[UNA:+.? '
+        UNB+UNOA:2+8714252014808::14+8714252011517::14+130402:1219+24535'
+        UNH+24546+IFTMIN:D:96A:UN'
+        BGM+340+347605+9'
+        DTM+137:20130402:102'
+        DTM+2:20130404:102'
+        DTM+200:20130403:102'
+        TSR+11++N'
+        FTX+DEL+++EXACT DONDERDAG 4.4 TUSSEN 8.15-12.00 UUR:AFLEVEREN'
+        TOD+6++CIP'
+        NAD+DP+++DUMMY B.V.+VERLENGDE VOORBEELDWEG 123+AMSTERDAM++1234AB+670'
+        NAD+CZ+++DUMMY WIRE CABLE B.V.+INDUSTRIEGEBIED?: 1234:VOORBEELDWEG 10+AMSTERDAM++1234 AB+670'
+        CTA+IC+:JANE DOE'
+        COM+?+31(0)12 3456789:TE'
+        NAD+SF+++DUMMY WIRE CABLE B.V.+INDUSTRIEGEBIED?: 1234:VOORBEELDWEG 10+AMSTERDAM++1234 AB+670'
+        CTA+IC+:JANE DOE'
+        COM+?+31(0)12 3456789:TE'
+        NAD+FW+++LOGISTICS B.V.++++1234 AB+670'
+        GID+1.0+1.0:E827::9'
+        HAN+UST::9'
+        MEA+AAE+G+KGM:24.0'
+        MEA+AAE+GMC+MTQ:80.0'
+        DIM+1+MTR:41.0:41.0:48.0'
+        PCI+33E'
+        GIN+BJ+00387142520086154710'
+        UNT+98126+24546'
+        UNZ+1+24535']]></body>
+            </message>
+        </messages>
+    </core>	
+</dil>
