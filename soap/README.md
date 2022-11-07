@@ -1,11 +1,10 @@
-# component
+# soap
 
-Copy this example component.
+Call a SOAP Webservice.
 
 ### Component Type
 
 Custom (Dovetail)
-Default (Camel)
 
 ### Prerequisites
 
@@ -26,7 +25,18 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>soap:http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso</uri>
+    <options>
+        <params>WSDL</params>
+        <action>FullCountryInfo</action>
+        <extract>true</extract>
+        <smart>true</smart>
+        <httpHeaders>W3siX2lkIjoiNjJjZTk1MTY1NWYwMmUwMDExMDAwNGE3IiwibmFtZSI6IkFwaVRva2VuIiwidmFsdWUiOiIxMjMifV0=</httpHeaders>							
+    </options>
+</step>
 ```
 
 #### JSON
@@ -48,7 +58,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <to uri="soap://http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?params=WSDL&amp;action=FullCountryInfo&amp;extract=true&amp;smart=true&amp;httpHeaders=W3siX2lkIjoiNjJjZTk1MTY1NWYwMmUwMDExMDAwNGE3IiwibmFtZSI6IkFwaVRva2VuIiwidmFsdWUiOiIxMjMifV0="/>
     <to uri="direct:b"/>
 </route>
 ```

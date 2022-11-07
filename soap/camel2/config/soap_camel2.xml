@@ -1,0 +1,41 @@
+<camelContext id="ID_627a597438c74a06a0000089" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="7203e7f0-d05c-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/SOAP?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <setBody>
+      <constant>
+        <![CDATA[<FullCountryInfo>
+ <sCountryISOCode>NL</sCountryISOCode>
+</FullCountryInfo>]]>
+      </constant>
+    </setBody>
+    <to uri="activemq:ID_627a597438c74a06a0000089_test_7203e7f0-d05c-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="351cf5f1-0290-11ed-a49b-958802077852">
+    <from uri="activemq:ID_627a597438c74a06a0000089_test_7203e7f0-d05c-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="Content-Type">
+      <constant>text/xml</constant>
+    </setHeader>
+    <to uri="activemq:ID_627a597438c74a06a0000089_test_351cf5f1-0290-11ed-a49b-958802077852?timeToLive=86400000"/>
+  </route>
+  <route id="cdad6880-d069-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a597438c74a06a0000089_test_351cf5f1-0290-11ed-a49b-958802077852"/>
+    <to uri="soap://http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?params=WSDL&amp;action=FullCountryInfo&amp;extract=true&amp;smart=true&amp;httpHeaders=W3siX2lkIjoiNjJjZTk1MTY1NWYwMmUwMDExMDAwNGE3IiwibmFtZSI6IkFwaVRva2VuIiwidmFsdWUiOiIxMjMifV0="/>
+    <to uri="activemq:ID_627a597438c74a06a0000089_test_cdad6880-d069-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+  </route>
+  <route id="72040f00-d05c-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a597438c74a06a0000089_test_cdad6880-d069-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

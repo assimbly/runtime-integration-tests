@@ -1,11 +1,10 @@
-# component
+# base64
 
-Copy this example component.
+Convert text from and to base64
 
 ### Component Type
 
 Custom (Dovetail)
-Default (Camel)
 
 ### Prerequisites
 
@@ -16,9 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
@@ -26,7 +22,11 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>texttobase64</uri>
+</step>
 ```
 
 #### JSON
@@ -48,7 +48,9 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <marshal>
+        <base64/>
+    </marshal>
     <to uri="direct:b"/>
 </route>
 ```

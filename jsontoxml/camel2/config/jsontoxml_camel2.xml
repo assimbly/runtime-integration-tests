@@ -1,0 +1,57 @@
+<camelContext id="ID_627a62da38c74a06a0000173" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="76a092d0-d062-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/JsonToXml?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+	<setBody>
+      <constant>{
+  "Formula1": {
+    "Drivers": {
+      "Driver": [
+        {
+          "Age": 19,
+          "Name": "Max Verstappen"
+        },
+        {
+          "Age": 30,
+          "Name": "Nico Hulkenberg"
+        }
+      ]
+    },
+    "Teams": {
+      "Team": [
+        {
+          "Principal": "Christian Horner",
+          "Name": "Redbull Racing"
+        },
+        {
+          "Principal": "Carlos Ghosn, Jérôme Stoll, Cyril Abiteboul",
+          "Name": "Renault"
+        }
+      ]
+    }
+  }
+}</constant>
+    </setBody>
+    <to uri="activemq:ID_627a62da38c74a06a0000173_test_76a092d0-d062-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="252c6691-f213-11ec-8614-5d67b7090bd4">
+    <from uri="activemq:ID_627a62da38c74a06a0000173_test_76a092d0-d062-11ec-83f5-3747809ef661"/>
+    <to uri="dataformat:custom-xmljson:unmarshal?addRoot=false&amp;checkJsonKeys=false&amp;changeArrayElements=false"/>
+    <to uri="activemq:ID_627a62da38c74a06a0000173_test_252c6691-f213-11ec-8614-5d67b7090bd4?timeToLive=86400000"/>
+  </route>
+  <route id="76a0b9e0-d062-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a62da38c74a06a0000173_test_252c6691-f213-11ec-8614-5d67b7090bd4"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

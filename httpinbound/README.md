@@ -1,10 +1,9 @@
-# component
+# http inbound
 
-Copy this example component.
+Creates an HTTP endpoint
 
 ### Component Type
 
-Custom (Dovetail)
 Default (Camel)
 
 ### Prerequisites
@@ -16,9 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
@@ -26,7 +22,11 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>1</id>
+    <type>source</type>
+    <uri>https://0.0.0.0:9001/1/httpinbound</uri>
+</step>
 ```
 
 #### JSON
@@ -47,8 +47,8 @@ No
 
 ```xml
 <route id="1">
-    <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <from uri="jetty:https://0.0.0.0:9001/1/HttpInbound?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
     <to uri="direct:b"/>
 </route>
 ```

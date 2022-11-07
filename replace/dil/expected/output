@@ -1,0 +1,8 @@
+Message Body: <persons>
+							  <person>
+								<name>Norman Doe</name>
+							  </person>
+							  <person>
+								<name>Jane Doe</name>
+							  </person>
+							</persons>

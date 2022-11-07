@@ -1,11 +1,10 @@
-# component
+# pdf2text
 
-Copy this example component.
+Convert a PDF to Text
 
 ### Component Type
 
 Custom (Dovetail)
-Default (Camel)
 
 ### Prerequisites
 
@@ -16,9 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
@@ -26,7 +22,11 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>4</id>
+    <type>action</type>
+    <uri>pdftotext:id</uri>
+</step>
 ```
 
 #### JSON
@@ -48,7 +48,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <to uri="pdf2txt:d6571783-d06c-11ec-83f5-3747809ef661"/>
     <to uri="direct:b"/>
 </route>
 ```

@@ -1,0 +1,8 @@
+Rule 3: <persons>
+							  <person>
+								<name>John Not Doe</name>
+							  </person>
+							  <person>
+								<name>Blabla Doe</name>
+							  </person>
+							</persons>

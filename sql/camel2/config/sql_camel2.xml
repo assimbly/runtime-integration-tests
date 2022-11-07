@@ -1,0 +1,61 @@
+<camelContext id="ID_627a596b38c74a00130005c8" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="9416e5e0-d05c-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/SQL?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+	<setBody>
+      <constant>
+        <![CDATA[<persons>
+			  <person>
+				<name>John Doe</name>
+			  </person>
+			  <person>
+				<name>Jane Does</name>
+			  </person>
+			</persons>
+			]]>
+      </constant>
+    </setBody>
+    <to uri="activemq:ID_627a596b38c74a00130005c8_test_9416e5e0-d05c-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="cc29ebb0-010f-11ed-8ceb-ed604de06c7b">
+    <from uri="activemq:ID_627a596b38c74a00130005c8_test_9416e5e0-d05c-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="timestamp">
+      <simple>${date-with-timezone:now:Europe/Amsterdam:yyyy-MM-dd'T'HH:mm:ss}</simple>
+    </setHeader>
+    <setHeader headerName="name">
+      <simple>name</simple>
+    </setHeader>
+    <setHeader headerName="value">
+      <simple>value</simple>
+    </setHeader>
+    <setHeader headerName="route">
+      <simple>Mysql5.7</simple>
+    </setHeader>
+    <setHeader headerName="escape">
+      <simple>no</simple>
+    </setHeader>
+    <to uri="activemq:ID_627a596b38c74a00130005c8_test_cc29ebb0-010f-11ed-8ceb-ed604de06c7b?timeToLive=86400000"/>
+  </route>
+  <route id="cc2a12c0-010f-11ed-8ceb-ed604de06c7b">
+    <from uri="activemq:ID_627a596b38c74a00130005c8_test_cc29ebb0-010f-11ed-8ceb-ed604de06c7b"/>
+    <to uri="sql-component://dovetail@monitoring.ch4wip2sipng.eu-west-1.rds.amazonaws.com:3306?password=RAW(T25lVHdvMTI=)&amp;database=monitoring&amp;connectionType=mysql&amp;useSSL=false&amp;tlsVersion=&amp;escapeChars=false&amp;query=RAW(U0VMRUNUIHZlcnNpb24oKQ==)"/>
+    <to uri="activemq:ID_627a596b38c74a00130005c8_test_cc2a12c0-010f-11ed-8ceb-ed604de06c7b?timeToLive=86400000"/>
+  </route>
+  <route id="9416e5e1-d05c-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a596b38c74a00130005c8_test_cc2a12c0-010f-11ed-8ceb-ed604de06c7b"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>Message Body:
+
+${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

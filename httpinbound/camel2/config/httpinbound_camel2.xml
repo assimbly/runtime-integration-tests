@@ -1,0 +1,41 @@
+<camelContext id="ID_627a64ad38c74a00130006eb" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <onException>
+    <exception>java.net.SocketException</exception>
+    <redeliveryPolicy maximumRedeliveries="3" redeliveryDelay="3000"/>
+  </onException>
+  <route id="20aef780-d063-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/HttpInbound?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <to uri="activemq:ID_627a64ad38c74a00130006eb_test_20aef780-d063-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="ce173190-d08f-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a64ad38c74a00130006eb_test_20aef780-d063-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelHttpMethod">
+  <constant>GET</constant>
+</setHeader>
+    <setHeader headerName="user-agent">
+  <constant>Dovetail/4.12.0</constant>
+</setHeader>
+    <to uri="http4://www.testingmcafeesites.com/testcat_al.html?transferException=true&amp;cookieStore=#flowCookieStore&amp;throwExceptionOnFailure=true&amp;maxTotalConnections=20&amp;connectionsPerRoute=2"/>
+    <removeHeaders pattern="CamelHttpMethod" excludePattern="breadcrumbId"/>
+    <removeHeaders pattern="user-agent" excludePattern="breadcrumbId"/>
+    <to uri="activemq:ID_627a64ad38c74a00130006eb_test_ce173190-d08f-11ec-83f5-3747809ef661"/>
+  </route>
+  <route id="20aef781-d063-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a64ad38c74a00130006eb_test_ce173190-d08f-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>Message Body:
+
+${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

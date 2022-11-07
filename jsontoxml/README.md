@@ -1,11 +1,10 @@
-# component
+# jsontoxml
 
-Copy this example component.
+Transforms JSON to XML
 
 ### Component Type
 
 Custom (Dovetail)
-Default (Camel)
 
 ### Prerequisites
 
@@ -16,9 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
@@ -26,7 +22,16 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>jsontoxml</uri>
+    <options>
+        <false>false</false>
+        <checkJsonKeys>false</checkJsonKeys>
+        <changeArrayElements>false</changeArrayElements>
+    </options>
+</step>
 ```
 
 #### JSON
@@ -48,7 +53,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <to uri="dataformat:custom-xmljson:unmarshal?addRoot=false&amp;checkJsonKeys=false&amp;changeArrayElements=false"/>
     <to uri="direct:b"/>
 </route>
 ```

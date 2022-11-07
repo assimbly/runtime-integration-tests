@@ -1,10 +1,9 @@
-# component
+# removeheaders
 
-Copy this example component.
+Remove headers with a regular expression.
 
 ### Component Type
 
-Custom (Dovetail)
 Default (Camel)
 
 ### Prerequisites
@@ -16,8 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
 
 # Config Examples
 
@@ -26,7 +23,14 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>removeheaders:Lastname</uri>
+    <options>
+        <excludePattern>breadcrumbId</excludePattern>
+    </options>
+</step>
 ```
 
 #### JSON
@@ -48,7 +52,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <removeHeaders pattern="Lastname" excludePattern="breadcrumbId"/>
     <to uri="direct:b"/>
 </route>
 ```

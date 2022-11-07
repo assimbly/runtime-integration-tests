@@ -1,0 +1,5 @@
+{
+  "code": 500,
+  "error": "org.apache.camel.ExchangeTimedOutException: The OUT message was not received within: 20000 millis due reply message with correlationID: Camel-1B92F24E93F952A-0000000000000062 not received on destination: temp-queue://ID:DESKTOP-FMIR5F0-64949-1667548425898-100:1:1. Exchange[1B92F24E93F952A-0000000000000061]",
+  "info": "Something went wrong calling the HTTP service. Please refer to the logs for more information."
+}

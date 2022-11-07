@@ -1,10 +1,9 @@
-# component
+# aggregate
 
-Copy this example component.
+Aggregates messages to one message
 
 ### Component Type
 
-Custom (Dovetail)
 Default (Camel)
 
 ### Prerequisites
@@ -16,9 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
@@ -26,7 +22,15 @@ No
 #### XML
 
 ```xml
-
+ <step>
+    <id>4</id>
+    <type>router</type>
+    <uri>aggregate</uri>
+    <options>
+        <aggregateType>xml</aggregateType>
+        <completionSize>2</completionSize>
+    </options>
+</step>
 ```
 
 #### JSON
@@ -48,7 +52,15 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <setProperty propertyName="Aggregate-Type">
+        <simple>text/xml</simple>
+    </setProperty>
+    <aggregate strategyRef="CurrentAggregateStrategy" completionSize="3">
+        <correlationExpression>
+            <constant>true</constant>
+        </correlationExpression>
+        <to uri="activemq:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661_aggregator?timeToLive=86400000"/>
+    </aggregate>
     <to uri="direct:b"/>
 </route>
 ```

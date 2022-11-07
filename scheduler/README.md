@@ -1,10 +1,11 @@
 # component
 
-Copy this example component.
+Scheduler
+
+Note: this just print output to the log
 
 ### Component Type
 
-Custom (Dovetail)
 Default (Camel)
 
 ### Prerequisites
@@ -16,9 +17,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
@@ -26,7 +24,15 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>1</id>
+    <type>source</type>
+    <uri>quartz://ID_627a612138c74a0013000639_timer</uri>
+    <options>
+        <cron>0+*+*+*+*+?</cron>
+        <trigger.timeZone>Europe/Amsterdam</trigger.timeZone>
+    </options>
+</step>
 ```
 
 #### JSON
@@ -47,8 +53,7 @@ No
 
 ```xml
 <route id="1">
-    <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <from uri="quartz2://ID_627a612138c74a0013000639_timer?cron=0+*+*+*+*+?&amp;trigger.timeZone=Europe/Amsterdam"/>
     <to uri="direct:b"/>
 </route>
 ```

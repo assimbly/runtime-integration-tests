@@ -1,11 +1,10 @@
-# component
+# setcookie 
 
-Copy this example component.
+Sets a cookie
 
 ### Component Type
 
 Custom (Dovetail)
-Default (Camel)
 
 ### Prerequisites
 
@@ -16,8 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
 
 # Config Examples
 
@@ -26,7 +23,16 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>setcookie:org.assimbly</uri>
+    <options>
+        <name>MyCookie</name>
+        <value>MyCookie</value>
+        <isSecure>false</isSecure>
+    </options>
+</step>
 ```
 
 #### JSON
@@ -48,7 +54,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <to uri="bean://flowCookieStore?method=addStringAsCookie(${exchange},'MyCookie','MyCookie','dovetail.world','',false)"/>
     <to uri="direct:b"/>
 </route>
 ```

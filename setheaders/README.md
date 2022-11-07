@@ -1,11 +1,10 @@
-# component
+# setheaders
 
-Copy this example component.
+Set multiple headers at once.
 
 ### Component Type
 
-Custom (Dovetail)
-Default (Camel)
+Custom (Assimbly)
 
 ### Prerequisites
 
@@ -16,16 +15,20 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
 
+Note: also a message needs to be set (see dil test)
+
 #### XML
 
 ```xml
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>setheaders:message:names</uri>
+</step>
 
 ```
 
@@ -48,7 +51,12 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <setHeader headerName="lastName">
+        <simple>Doe</simple>
+    </setHeader>
+    <setHeader headerName="firstName">
+        <simple>John</simple>
+    </setHeader>
     <to uri="direct:b"/>
 </route>
 ```

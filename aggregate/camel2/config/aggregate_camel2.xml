@@ -1,0 +1,65 @@
+<camelContext id="ID_627a6b7338c74a00130007f9" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="04a6c550-d067-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/Aggregate?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <setBody>
+      <constant>
+        <![CDATA[<persons>
+			  <person>
+				<name>John Doe</name>
+			  </person>
+			  <person>
+				<name>Jane Doe</name>
+			  </person>
+			</persons>
+			]]>
+      </constant>
+    </setBody>
+    <to uri="activemq:ID_627a6b7338c74a00130007f9_test_04a6c550-d067-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="797f5ea0-d0f8-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a6b7338c74a00130007f9_test_04a6c550-d067-11ec-83f5-3747809ef661"/>
+    <split streaming="false" parallelProcessing="false">
+      <xpath saxon="true" threadSafety="true">/names/name</xpath>
+      <setHeader headerName="CamelSplitIndex">
+        <simple>${exchangeProperty.CamelSplitIndex}</simple>
+      </setHeader>
+      <setHeader headerName="CamelSplitSize">
+        <simple>${exchangeProperty.CamelSplitSize}</simple>
+      </setHeader>
+      <setHeader headerName="CamelSplitComplete">
+        <simple>${exchangeProperty.CamelSplitComplete.toString().trim()}</simple>
+      </setHeader>
+      <to uri="activemq:ID_627a6b7338c74a00130007f9_test_797f5ea0-d0f8-11ec-83f5-3747809ef661_BottomCenter_split?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    </split>
+  </route>
+  <route id="75be5f00-d0f8-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a6b7338c74a00130007f9_test_797f5ea0-d0f8-11ec-83f5-3747809ef661_BottomCenter_split"/>
+    <setProperty propertyName="Aggregate-Type">
+      <simple>text/xml</simple>
+    </setProperty>
+    <aggregate strategyRef="CurrentAggregateStrategy" completionSize="3">
+      <correlationExpression>
+        <constant>true</constant>
+      </correlationExpression>
+      <to uri="activemq:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661_aggregator?timeToLive=86400000"/>
+    </aggregate>
+  </route>
+  <route id="04a6ec60-d067-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661_aggregator"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>Message Body:
+
+${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

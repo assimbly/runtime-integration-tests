@@ -1,6 +1,6 @@
-# component
+# simple replace
 
-Copy this example component.
+Replaces simple expression in body by headers.
 
 ### Component Type
 
@@ -26,7 +26,23 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>4</id>
+    <type>action</type>
+    <uri>simplereplace</uri>
+    <links>
+        <link>
+            <id>4</id>
+            <transport>sync</transport>
+            <bound>in</bound>
+        </link>
+        <link>
+            <id>5</id>
+            <transport>sync</transport>
+            <bound>out</bound>
+        </link>
+    </links>
+</step>
 ```
 
 #### JSON
@@ -48,7 +64,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <to uri="dataformat:simple-replace:unmarshal"/>
     <to uri="direct:b"/>
 </route>
 ```

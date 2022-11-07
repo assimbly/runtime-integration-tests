@@ -1,11 +1,10 @@
-# component
+# removecookie
 
-Copy this example component.
+Removes a cookie
 
 ### Component Type
 
 Custom (Dovetail)
-Default (Camel)
 
 ### Prerequisites
 
@@ -16,8 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
 
 # Config Examples
 
@@ -26,7 +23,14 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>removecookie:assimbly.org</uri>
+    <options>
+        <name>MyCookie</name>
+    </options>
+</step>
 ```
 
 #### JSON
@@ -48,7 +52,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <to uri="bean://flowCookieStore?method=removeStringAsCookie(${exchange},'MyCookie','dovetail.world')"/>
     <to uri="direct:b"/>
 </route>
 ```

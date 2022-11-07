@@ -1,6 +1,6 @@
-# component
+# log
 
-Copy this example component.
+Logs to the console (stdout).
 
 ### Component Type
 
@@ -16,9 +16,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
@@ -26,7 +23,11 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>log</uri>
+</step>
 ```
 
 #### JSON
@@ -48,7 +49,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <to uri="log:org.assimbly?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=true&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=true&amp;showStackTrace=true"/>
     <to uri="direct:b"/>
 </route>
 ```

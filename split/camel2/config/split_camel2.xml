@@ -1,0 +1,58 @@
+<camelContext id="ID_627a596f38c74a0374000321" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="84601220-d05c-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/Split?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <setBody>
+      <constant>
+        <![CDATA[<persons>
+			  <person>
+				<name>John Doe</name>
+			  </person>
+			  <person>
+				<name>Jane Does</name>
+			  </person>
+			</persons>
+			]]>
+      </constant>
+    </setBody>
+    <to uri="activemq:ID_627a596f38c74a0374000321_test_84601220-d05c-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="915da660-d069-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a596f38c74a0374000321_test_84601220-d05c-11ec-83f5-3747809ef661"/>
+    <split streaming="false" parallelProcessing="false">
+      <xpath saxon="true" threadSafety="true">/persons/person</xpath>
+      <setHeader headerName="CamelSplitIndex">
+        <simple>${exchangeProperty.CamelSplitIndex}</simple>
+      </setHeader>
+      <setHeader headerName="CamelSplitSize">
+        <simple>${exchangeProperty.CamelSplitSize}</simple>
+      </setHeader>
+      <setHeader headerName="CamelSplitComplete">
+        <simple>${exchangeProperty.CamelSplitComplete.toString().trim()}</simple>
+      </setHeader>
+      <to uri="activemq:ID_627a596f38c74a0374000321_test_915da660-d069-11ec-83f5-3747809ef661_BottomCenter_split?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    </split>
+    <to uri="activemq:ID_627a596f38c74a0374000321_test_915da660-d069-11ec-83f5-3747809ef661_split?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="99602041-d069-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a596f38c74a0374000321_test_915da660-d069-11ec-83f5-3747809ef661_BottomCenter_split"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>Message Body:
+
+        ${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+  <route id="84601221-d05c-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a596f38c74a0374000321_test_915da660-d069-11ec-83f5-3747809ef661_split"/>
+    <to uri="log:nl.kabisa.flux//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false"/>
+  </route>
+</camelContext>

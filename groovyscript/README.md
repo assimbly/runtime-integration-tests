@@ -1,10 +1,9 @@
-# component
+# groovyscript
 
-Copy this example component.
+Runs Groovy scripts.
 
 ### Component Type
 
-Custom (Dovetail)
 Default (Camel)
 
 ### Prerequisites
@@ -16,9 +15,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL
@@ -26,7 +22,11 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>groovy:Ly8gU2V0dGluZyB0aGUgYm9keSBvZiB0aGUgbWVzc2FnZQpyZXN1bHQgPSAiTXkgbmV3IGJvZHkiCgo=</uri>
+</step>
 ```
 
 #### JSON
@@ -48,7 +48,7 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <to uri="sandbox://groovy?script=RAW(Ly8gU2V0dGluZyB0aGUgYm9keSBvZiB0aGUgbWVzc2FnZQpyZXN1bHQgPSAiTXkgbmV3IGJvZHkiCgo=)"/>
     <to uri="direct:b"/>
 </route>
 ```
