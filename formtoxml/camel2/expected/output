@@ -1,0 +1,8 @@
+Message Body:
+
+        <?xml version="1.0" encoding="utf-8"?>
+<items>
+  <surname>Catalão</surname>
+  <name>Pedro</name>
+  <myage>36</myage>
+</items>

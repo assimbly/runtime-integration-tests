@@ -16,9 +16,6 @@ No
 - camel2: happy flow
 - dil: happy flow
 
-## Config Examples
-
-
 # Config Examples
 
 ## DIL

@@ -1,23 +1,19 @@
-# component
+# exchangepattern
 
-Copy this example component.
+Sets the exchangepattern explicitly either to InOnly (One-Way) or InOut (Request-Reply)
 
 ### Component Type
 
-Custom (Dovetail)
 Default (Camel)
 
 ### Prerequisites
 
-No
+Note that there is one Request-Reply message, while the other One-way is logged to the console.
 
 ## Tests
 
 - camel2: happy flow
 - dil: happy flow
-
-## Config Examples
-
 
 # Config Examples
 

@@ -1,0 +1,5 @@
+{
+  "code": 500,
+  "error": "java.lang.NullPointerException",
+  "info": "HTTP service couldn't read your request, did you supply a correct body?"
+}

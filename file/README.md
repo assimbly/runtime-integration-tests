@@ -1,23 +1,19 @@
-# component
+# File
 
 Copy this example component.
 
 ### Component Type
 
-Custom (Dovetail)
 Default (Camel)
 
 ### Prerequisites
 
-No
+- 
 
 ## Tests
 
 - camel2: happy flow
 - dil: happy flow
-
-## Config Examples
-
 
 # Config Examples
 
@@ -26,7 +22,11 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>file:/my/directory</uri>
+</step>
 ```
 
 #### JSON

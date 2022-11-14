@@ -1,11 +1,10 @@
-# component
+# flowlink
 
-Copy this example component.
+Links two separate with each other.
 
 ### Component Type
 
-Custom (Dovetail)
-Default (Camel)
+Custom (Assimbly)
 
 ### Prerequisites
 
@@ -15,9 +14,6 @@ No
 
 - camel2: happy flow
 - dil: happy flow
-
-## Config Examples
-
 
 # Config Examples
 
