@@ -1,11 +1,10 @@
-# component
+# multipart
 
-Copy this example component.
+Converts a binary body to a multipart form data body
 
 ### Component Type
 
 Custom (Dovetail)
-Default (Camel)
 
 ### Prerequisites
 
@@ -23,7 +22,14 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>multipart:SecondPart</uri>                            
+    <options>
+        <contentType>multipart/form-data</contentType>
+    </options>
+</step>
 ```
 
 #### JSON
@@ -45,7 +51,10 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <setHeader headerName="MultipartFieldName">
+        <simple>SecondPart</simple>
+    </setHeader>
+    <process ref="multipartProcessor"/>
     <to uri="direct:b"/>
 </route>
 ```

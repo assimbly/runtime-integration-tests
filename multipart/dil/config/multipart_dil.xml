@@ -3,14 +3,14 @@
         <integration>
             <flows>
                 <flow>
-                    <id>pdftotext_test1</id>
-                    <name>pdftotext_test1</name>
+                    <id>multipart_test1</id>
+                    <name>multipart_test1</name>
                     <type>esb</type>
                     <steps>
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>https://0.0.0.0:9001/1/pdftotext</uri>
+                            <uri>https://0.0.0.0:9001/1/multipart</uri>
                             <links>
                                 <link>
                                     <id>2</id>
@@ -22,7 +22,15 @@
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>setheaders:message:userhome</uri>
+                            <uri>setbody:<![CDATA[<persons>
+							  <person>
+								<name>John Doe</name>
+							  </person>
+							  <person>
+								<name>Jane Doe</name>
+							  </person>
+							</persons>]]>
+                            </uri>
                             <links>
                                 <link>
                                     <id>2</id>
@@ -39,34 +47,13 @@
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>pollenrich:file://C:\Users\Raymond</uri>
-                            <options>
-                                <fileName>test.pdf</fileName>
-                                <delete>false</delete>
-                                <noop>true</noop>
-                                <idempotent>false</idempotent>
-                                <synchronous>true</synchronous>
-                            </options>
+                            <uri>multipart:SecondPart</uri>                            
+							<options>
+								<contentType>multipart/form-data</contentType>
+							</options>
                             <links>
                                 <link>
                                     <id>3</id>
-                                    <transport>sync</transport>
-                                    <bound>in</bound>
-                                </link>
-                                <link>
-                                    <id>3b</id>
-                                    <transport>sync</transport>
-                                    <bound>out</bound>
-                                </link>
-                            </links>
-                        </step>
-                        <step>
-                            <id>3b</id>
-                            <type>action</type>
-                            <uri>log</uri>
-                            <links>
-                                <link>
-                                    <id>3b</id>
                                     <transport>sync</transport>
                                     <bound>in</bound>
                                 </link>
@@ -79,28 +66,11 @@
                         </step>
                         <step>
                             <id>4</id>
-                            <type>action</type>
-                            <uri>pdftotext:id</uri>
-                            <links>
-                                <link>
-                                    <id>4</id>
-                                    <transport>sync</transport>
-                                    <bound>in</bound>
-                                </link>
-                                <link>
-                                    <id>5</id>
-                                    <transport>sync</transport>
-                                    <bound>out</bound>
-                                </link>
-                            </links>
-                        </step>
-                        <step>
-                            <id>5</id>
                             <type>sink</type>
                             <uri>velocity:Message Body: ${bodyAs(String)}</uri>
                             <links>
                                 <link>
-                                    <id>5</id>
+                                    <id>4</id>
                                     <transport>sync</transport>
                                     <bound>in</bound>
                                 </link>
@@ -111,15 +81,4 @@
             </flows>
         </integration>
     </integrations>
-    <core>
-        <messages>
-            <message>
-                <id>1</id>
-                <name>userhome</name>
-                <headers>
-                    <path type="header" language="groovy">System.getProperty("user.home")</path>
-                </headers>
-            </message>
-        </messages>
-    </core>
 </dil>

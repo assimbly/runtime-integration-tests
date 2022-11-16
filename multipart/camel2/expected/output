@@ -1,0 +1,16 @@
+Message Body:
+
+----------------------------Dovetail
+Content-Disposition: form-data; name="SecondPart"; filename="UndefinedFileName"
+Content-Type: multipart/form-data
+Content-Transfer-Encoding: binary
+
+<persons>
+			  <person>
+				<name>John Doe</name>
+			  </person>
+			  <person>
+				<name>Jane Doe</name>
+			  </person>
+			</persons>
+----------------------------Dovetail--

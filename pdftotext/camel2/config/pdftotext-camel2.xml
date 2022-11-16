@@ -10,6 +10,12 @@
   <route id="1f0cfcc0-d062-11ec-83f5-3747809ef661">
     <from uri="jetty:https://0.0.0.0:9001/1/PDFToText?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
+    <setHeader headerName="userhome">
+      <groovy>System.getProperty("user.home").toLowerCase()</groovy>
+    </setHeader>
+    <pollEnrich timeout="15000">
+      <simple>file://${header.userhome}?fileName=test.pdf&amp;delete=false&amp;noop=true&amp;synchronous=true&amp;idempotent=false</simple>
+    </pollEnrich>
     <to uri="activemq:ID_627a627338c74a000e000731_test_1f0cfcc0-d062-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
   </route>
   <route id="d6571783-d06c-11ec-83f5-3747809ef661">

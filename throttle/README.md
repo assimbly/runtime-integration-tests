@@ -1,10 +1,9 @@
-# component
+# throttle
 
-Copy this example component.
+Throttles a message in memory for a number of miliseconds
 
 ### Component Type
 
-Custom (Dovetail)
 Default (Camel)
 
 ### Prerequisites
@@ -23,7 +22,14 @@ No
 #### XML
 
 ```xml
-
+<step>
+    <id>3</id>
+    <type>action</type>
+    <uri>throttle</uri>
+    <options>
+        <timeperiod>10000</timeperiod>
+    </options>
+</step>
 ```
 
 #### JSON
@@ -45,10 +51,9 @@ No
 ```xml
 <route id="1">
     <from uri="direct:a"/>
-    <to uri="example:com"/>
+    <throttle timePeriodMillis="5000">
+        <constant>1</constant>
+    </throttle>
     <to uri="direct:b"/>
 </route>
 ```
-
-
-
