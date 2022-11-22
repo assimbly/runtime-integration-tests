@@ -1,0 +1,79 @@
+<camelContext id="ID_627a64e338c74a03740004de" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>
+    <exception>java.lang.Exception</exception>
+    <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+    <setExchangePattern pattern="InOut"/>
+  </onException>
+
+  <route id="4ea92390-d063-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/fmuta?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <setBody>
+      <simple>
+        Regelnr;Datum;DagboekType;Dagboeknr;Periode;BoekJaar;BoekstukNr;HeaderOmschrijving;RegelOmschrijving;Tegenrekening;Debnr;Crednr;Factuurnr;Bedrag;Incl_Excl;Journaliseren;Valutacode;Koers;Krediet_bep;Bedrag_Krediet_bep;Vervaldatum_Factuur;Vervaldatum_Bedrag_Krediet_bep;BTWCode;BTWBedrag;Weeknr;Referentie;Betalingswijze;BedragRekening;Kostenplaats;Kostendrager;AantalKostendrager;Verschilcode;kolom30;Stornoboeking
+        1;12042016;V;;4;2016;29320160410;Omzet week 14;Omzet week 14;80555;293;;29320160410;107056,40;Excl;;EUR;1;;0;19042016;19042016;21;22481,85;14;Omzet;B;;;;;;;
+        2;12042016;V;;4;2016;29320160410;Omzet week 14;Omzet week 14;80555;293;;29320160410;33,63;Excl;;EUR;1;;0;19042016;19042016;6;2,02;14;Omzet;B;;;;;;;
+        1;12042016;V;;4;2016;19320160410;Omzet week 14;Omzet week 14;80555;193;;19320160410;43262,48;Excl;;EUR;1;;0;19042016;19042016;21;9085,12;14;Omzet;B;;;;;;;
+        \n
+      </simple>
+    </setBody>
+    <to uri="direct:ID_627a64e338c74a03740004de_test_4ea92390-d063-11ec-83f5-3747809ef661?exchangePattern=InOut"/>
+  </route>
+
+  <route id="95fa2731-d090-11ec-83f5-3747809ef661">
+    <from uri="direct:ID_627a64e338c74a03740004de_test_4ea92390-d063-11ec-83f5-3747809ef661"/>
+    <unmarshal>
+      <univocity-csv headerExtractionEnabled="true" asMap="true" delimiter=";"/>
+    </unmarshal>
+    <to uri="fmuta:enrich?decimalSeparator=,"/>
+    <marshal>
+      <univocity-csv delimiter=";" lineSeparator="&#13;&#10;" quoteAllFields="false">
+        <univocity-header>Regelnr</univocity-header>
+        <univocity-header>DagboekType</univocity-header>
+        <univocity-header>Dagboeknr</univocity-header>
+        <univocity-header>Periode</univocity-header>
+        <univocity-header>BoekJaar</univocity-header>
+        <univocity-header>BoekstukNr</univocity-header>
+        <univocity-header>Omschrijving</univocity-header>
+        <univocity-header>Datum</univocity-header>
+        <univocity-header>Tegenrekening</univocity-header>
+        <univocity-header>Debnr</univocity-header>
+        <univocity-header>Crednr</univocity-header>
+        <univocity-header>Factuurnr</univocity-header>
+        <univocity-header>Bedrag</univocity-header>
+        <univocity-header>Journaliseren</univocity-header>
+        <univocity-header>Valutacode</univocity-header>
+        <univocity-header>Koers</univocity-header>
+        <univocity-header>Krediet_bep</univocity-header>
+        <univocity-header>Bedrag_Krediet_bep</univocity-header>
+        <univocity-header>Vervaldatum_Factuur</univocity-header>
+        <univocity-header>Vervaldatum_Bedrag_Krediet_bep</univocity-header>
+        <univocity-header>BTWCode</univocity-header>
+        <univocity-header>BTWBedrag</univocity-header>
+        <univocity-header>Weeknr</univocity-header>
+        <univocity-header>Referentie</univocity-header>
+        <univocity-header>Betalingswijze</univocity-header>
+        <univocity-header>BedragRekening</univocity-header>
+        <univocity-header>Kostenplaats</univocity-header>
+        <univocity-header>Kostendrager</univocity-header>
+        <univocity-header>AantalKostendrager</univocity-header>
+        <univocity-header>Verschilcode</univocity-header>
+        <univocity-header>kolom30</univocity-header>
+        <univocity-header>Stornoboeking</univocity-header>
+      </univocity-csv>
+    </marshal>
+    <to uri="direct:ID_627a64e338c74a03740004de_test_95fa2731-d090-11ec-83f5-3747809ef661"/>
+  </route>
+
+  <route id="4ea92391-d063-11ec-83f5-3747809ef661">
+    <from uri="direct:ID_627a64e338c74a03740004de_test_95fa2731-d090-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

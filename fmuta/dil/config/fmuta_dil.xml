@@ -1,0 +1,66 @@
+<dil>
+    <integrations>
+        <integration>
+            <flows>
+                <flow>
+                    <id>fmuta_test1</id>
+                    <name>fmuta_test1</name>
+                    <type>esb</type>
+                    <steps>
+                        <step>
+                            <id>1</id>
+                            <type>source</type>
+                            <uri>https://0.0.0.0:9001/1/fmuta</uri>
+                        </step>
+                        <step>
+                            <id>2</id>
+                            <type>action</type>
+                            <uri>setbody:Regelnr;Datum;DagboekType;Dagboeknr;Periode;BoekJaar;BoekstukNr;HeaderOmschrijving;RegelOmschrijving;Tegenrekening;Debnr;Crednr;Factuurnr;Bedrag;Incl_Excl;Journaliseren;Valutacode;Koers;Krediet_bep;Bedrag_Krediet_bep;Vervaldatum_Factuur;Vervaldatum_Bedrag_Krediet_bep;BTWCode;BTWBedrag;Weeknr;Referentie;Betalingswijze;BedragRekening;Kostenplaats;Kostendrager;AantalKostendrager;Verschilcode;kolom30;Stornoboeking
+                                1;12042016;V;;4;2016;29320160410;Omzet week 14;Omzet week 14;80555;293;;29320160410;107056,40;Excl;;EUR;1;;0;19042016;19042016;21;22481,85;14;Omzet;B;;;;;;;
+                                2;12042016;V;;4;2016;29320160410;Omzet week 14;Omzet week 14;80555;293;;29320160410;33,63;Excl;;EUR;1;;0;19042016;19042016;6;2,02;14;Omzet;B;;;;;;;
+                                1;12042016;V;;4;2016;19320160410;Omzet week 14;Omzet week 14;80555;193;;19320160410;43262,48;Excl;;EUR;1;;0;19042016;19042016;21;9085,12;14;Omzet;B;;;;;;;
+                                \n
+                            </uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
+                        </step>
+                        <step>
+                            <id>3</id>
+                            <type>action</type>
+                            <uri>univocity-csv:unmarshal</uri>
+                            <options>
+                                <headerExtractionEnabled>true</headerExtractionEnabled>
+                                <asMap>true</asMap>
+                                <delimiter>;</delimiter>
+                            </options>
+                        </step>
+                        <step>
+                            <id>4</id>
+                            <type>action</type>
+                            <uri>fmuta:enrich</uri>
+                            <options>
+                                <decimalSeparator>,</decimalSeparator>
+                            </options>
+                        </step>
+                        <step>
+                            <id>5</id>
+                            <type>action</type>
+                            <uri>univocity-csv:marshal</uri>
+                            <options>
+                                <delimiter>;</delimiter>
+                                <lineSeparator>&#13;&#10;</lineSeparator>
+                                <quoteAllFields>false</quoteAllFields>
+                            </options>
+                        </step>
+                        <step>
+                            <id>6</id>
+                            <type>sink</type>
+                            <uri>velocity:${bodyAs(String)}</uri>
+                        </step>
+                    </steps>
+                </flow>
+            </flows>
+        </integration>
+    </integrations>
+</dil>
