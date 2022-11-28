@@ -49,7 +49,6 @@
                             <uri>univocity-csv:marshal</uri>
                             <options>
                                 <delimiter>;</delimiter>
-                                <lineSeparator>&#13;&#10;</lineSeparator>
                                 <quoteAllFields>false</quoteAllFields>
                             </options>
                         </step>

@@ -31,7 +31,7 @@
     </unmarshal>
     <to uri="fmuta:enrich?decimalSeparator=,"/>
     <marshal>
-      <univocity-csv delimiter=";" lineSeparator="&#13;&#10;" quoteAllFields="false">
+      <univocity-csv delimiter=";" quoteAllFields="false">
         <univocity-header>Regelnr</univocity-header>
         <univocity-header>DagboekType</univocity-header>
         <univocity-header>Dagboeknr</univocity-header>

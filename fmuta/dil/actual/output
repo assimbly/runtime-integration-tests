@@ -1,19 +1,5 @@
-"id","name","price","description","calories"
-"1","Belgian Waffles","$5.95","
-       Two of our famous Belgian Waffles with plenty of real maple syrup
-       ","650"
-"2","Strawberry Belgian Waffles","$7.95","
-        Light Belgian waffles covered with strawberries and whipped cream
-        ","900"
-"3","Berry-Berry Belgian Waffles","$8.95","
-        Belgian waffles covered with assorted fresh berries and whipped cream
-        ","900"
-"4","French Toast","$4.50","
-        Thick slices made from our homemade sourdough bread
-        ","600"
-"5","Homestyle Breakfast","$6.95","
-        Two eggs, bacon or sausage, toast, and our ever-popular hash browns
-        ","950"
-"6","Homestyle Breakfast","$6.95","
-        Two eggs, bacon or sausage, toast, and our ever-popular hash browns
-        ","950"
+0;12042016;V;;4;2016;29320160410;;293;;;129573,90;;EUR;;;0;19042016;19042016;;;14;Omzet;B;;;;;;;;Omzet week 14
+1;12042016;V;;4;2016;;80555;293;;29320160410;107056,40;;EUR;1;;0;;;21;22481,85;14;;;;;;;;;;Omzet week 14
+2;12042016;V;;4;2016;;80555;293;;29320160410;33,63;;EUR;1;;0;;;6;2,02;14;;;;;;;;;;Omzet week 14
+0;12042016;V;;4;2016;19320160410;;193;;;52347,60;;EUR;;;0;19042016;19042016;;;14;Omzet;B;;;;;;;;Omzet week 14
+1;12042016;V;;4;2016;;80555;193;;19320160410;43262,48;;EUR;1;;0;;;21;9085,12;14;;;;;;;;;;Omzet week 14
