@@ -1,0 +1,56 @@
+<dil>
+    <integrations>
+        <integration>
+            <flows>
+                <flow>
+                    <id>googledriveoutbound_test1</id>
+                    <name>googledriveoutbound_test1</name>
+                    <type>esb</type>
+                    <steps>
+                        <step>
+                            <id>1</id>
+                            <type>source</type>
+                            <uri>https://0.0.0.0:9001/1/googledriveoutbound</uri>
+                        </step>
+                        <step>
+                            <id>2</id>
+                            <type>action</type>
+                            <uri>velocity:test from dovetail</uri>
+                        </step>
+                        <step>
+                            <id>3</id>
+                            <type>action</type>
+                            <uri>setheaders:message:camelfilename</uri>
+                        </step>
+                        <step>
+                            <id>4</id>
+                            <type>action</type>
+                            <uri>googledrive</uri>
+                            <options>
+                                <accessToken>ya29.a0AeTM1ifFCJiT51WgaePV6ch2d3oN4nttJLHSIVrEec2e6s1RBuwRj5whvmS2RzcJ3fUOp9yHofP-7qJ4CzsAj8bwimQzAXwvIMRdv3PESGk9gSNa7yuQT4qCylylgzu1iAsp4pMsIEUEGYfJVYA2Z_bwomnZaCgYKAZkSARISFQHWtWOmarpZknCmb260lwNM0WgLcA0163</accessToken>
+                                <refreshToken>1//075L3lVFCD7GwCgYIARAAGAcSNwF-L9IrqUedMgl4lxHL7T_rN-NYnzVgwe9M54qEZeqKBNZsezPeTzV4qV4JEa7M3pSf-XwIS8w</refreshToken>
+                                <directoryId>1yKUGTe_TW38Westyebaw3h9W-g48h-rN</directoryId>
+                            </options>
+                        </step>
+                        <step>
+                            <id>5</id>
+                            <type>sink</type>
+                            <uri>velocity:${bodyAs(String)}</uri>
+                        </step>
+                    </steps>
+                </flow>
+            </flows>
+        </integration>
+    </integrations>
+    <core>
+        <messages>
+            <message>
+                <id>1</id>
+                <name>camelfilename</name>
+                <headers>
+                    <CamelFileName type="header" language="constant">juca.txt</CamelFileName>
+                </headers>
+            </message>
+        </messages>
+    </core>
+</dil>
