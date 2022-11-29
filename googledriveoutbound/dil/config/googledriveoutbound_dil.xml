@@ -27,9 +27,9 @@
                             <type>action</type>
                             <uri>googledrive</uri>
                             <options>
-                                <accessToken>ya29.a0AeTM1ifFCJiT51WgaePV6ch2d3oN4nttJLHSIVrEec2e6s1RBuwRj5whvmS2RzcJ3fUOp9yHofP-7qJ4CzsAj8bwimQzAXwvIMRdv3PESGk9gSNa7yuQT4qCylylgzu1iAsp4pMsIEUEGYfJVYA2Z_bwomnZaCgYKAZkSARISFQHWtWOmarpZknCmb260lwNM0WgLcA0163</accessToken>
-                                <refreshToken>1//075L3lVFCD7GwCgYIARAAGAcSNwF-L9IrqUedMgl4lxHL7T_rN-NYnzVgwe9M54qEZeqKBNZsezPeTzV4qV4JEa7M3pSf-XwIS8w</refreshToken>
-                                <directoryId>1yKUGTe_TW38Westyebaw3h9W-g48h-rN</directoryId>
+                                <accessToken>AAABBBCCCDDDEEEFFFGGHHH</accessToken>
+                                <refreshToken>AAABBBCCCDDDEEEFFFGGHHH</refreshToken>
+                                <directoryId>AAABBBCCCDDDEEEFFFGGHHH</directoryId>
                             </options>
                         </step>
                         <step>

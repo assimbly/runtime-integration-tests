@@ -32,7 +32,7 @@
   </route>
   <route id="66d6ab71-6f43-11ed-98ef-1921d2513c6b">
     <from uri="activemq:ID_627a629b38c74a06a0000140_test_c2601910-6fcd-11ed-845b-fbaa1700ffee"/>
-    <to uri="googledrive://?accessToken=ya29.a0AeTM1iclCJF8OPVXuZ7GNEf859JjcwWwNZ2XZJ_wKKUbFYSZB7jOvgI_E-uJwfDKhJeoRFfv7lpAbzFIPCUX4F9PmDeJ2CNmCAS5nfLlMStdUeFzueHo9diIopq4safQRRIFxlMeTSg-a-WqYG6BUmEml_ERaCgYKAZ8SARISFQHWtWOmjwCSwhGgmKgRm6UPP9I8nw0163&amp;refreshToken=1//07GfgJ3XaNVTRCgYIARAAGAcSNwF-L9IrY_sGyTVYw_tOX7H0L3vwdkCBAgToOKn3D-rz3_Y9V_4JTQ640BYhvbVnt5uTt1SULTs&amp;directoryId=1yKUGTe_TW38Westyebaw3h9W-g48h-rN"/>
+    <to uri="googledrive://?accessToken=AAABBBCCCDDDEEEFFFGGHHH&amp;refreshToken=AAABBBCCCDDDEEEFFFGGHHH&amp;directoryId=AAABBBCCCDDDEEEFFFGGHHH"/>
     <to uri="activemq:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b?timeToLive=86400000"/>
   </route>
   <route id="639070f2-6fce-11ed-a6f1-5904354a115f">
