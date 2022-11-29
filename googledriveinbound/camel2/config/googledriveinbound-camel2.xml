@@ -1,0 +1,26 @@
+<camelContext id="ID_627a62f838c74a06a0000184" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+    <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+    <setExchangePattern pattern="InOnly"/>
+  </onException>
+  <route id="76a0e781-d08f-11ec-83f5-3747809ef661">
+    <from uri="googledrive://?accessToken=ya29.a0AeTM1ifFCJiT51WgaePV6ch2d3oN4nttJLHSIVrEec2e6s1RBuwRj5whvmS2RzcJ3fUOp9yHofP-7qJ4CzsAj8bwimQzAXwvIMRdv3PESGk9gSNa7yuQT4qCylylgzu1iAsp4pMsIEUEGYfJVYA2Z_bwomnZaCgYKAZkSARISFQHWtWOmarpZknCmb260lwNM0WgLcA0163&amp;refreshToken=1//075L3lVFCD7GwCgYIARAAGAcSNwF-L9IrqUedMgl4lxHL7T_rN-NYnzVgwe9M54qEZeqKBNZsezPeTzV4qV4JEa7M3pSf-XwIS8w&amp;directoryId=1yKUGTe_TW38Westyebaw3h9W-g48h-rN&amp;delay=1000&amp;initialDelay=1000&amp;moveTo=.dovetail&amp;gSuiteFiles=Ignore"/>
+    <to uri="activemq:ID_627a62f838c74a06a0000184_test_76a0e781-d08f-11ec-83f5-3747809ef661"/>
+  </route>
+  <route id="a8cea491-d062-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a62f838c74a06a0000184_test_76a0e781-d08f-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+    <to uri="activemq:ID_627a62f838c74a06a0000184_test_a8cea491-d062-11ec-83f5-3747809ef661"/>
+  </route>
+  <route id="94764820-6f06-11ed-9f2b-8d06814fa0af">
+    <from uri="activemq:ID_627a62f838c74a06a0000184_test_a8cea491-d062-11ec-83f5-3747809ef661"/>
+    <to uri="log:nl.kabisa.flux//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false"/>
+  </route>
+</camelContext>
