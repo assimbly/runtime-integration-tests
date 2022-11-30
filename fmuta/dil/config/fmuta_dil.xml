@@ -50,6 +50,38 @@
                             <options>
                                 <delimiter>;</delimiter>
                                 <quoteAllFields>false</quoteAllFields>
+                                <headers>Regelnr</headers>
+                                <headers>DagboekType</headers>
+                                <headers>Dagboeknr</headers>
+                                <headers>Periode</headers>
+                                <headers>BoekJaar</headers>
+                                <headers>BoekstukNr</headers>
+                                <headers>Omschrijving</headers>
+                                <headers>Datum</headers>
+                                <headers>Tegenrekening</headers>
+                                <headers>Debnr</headers>
+                                <headers>Crednr</headers>
+                                <headers>Factuurnr</headers>
+                                <headers>Bedrag</headers>
+                                <headers>Journaliseren</headers>
+                                <headers>Valutacode</headers>
+                                <headers>Koers</headers>
+                                <headers>Krediet_bep</headers>
+                                <headers>Bedrag_Krediet_bep</headers>
+                                <headers>Vervaldatum_Factuur</headers>
+                                <headers>Vervaldatum_Bedrag_Krediet_bep</headers>
+                                <headers>BTWCode</headers>
+                                <headers>BTWBedrag</headers>
+                                <headers>Weeknr</headers>
+                                <headers>Referentie</headers>
+                                <headers>Betalingswijze</headers>
+                                <headers>BedragRekening</headers>
+                                <headers>Kostenplaats</headers>
+                                <headers>Kostendrager</headers>
+                                <headers>AantalKostendrager</headers>
+                                <headers>Verschilcode</headers>
+                                <headers>kolom30</headers>
+                                <headers>Stornoboeking</headers>
                             </options>
                         </step>
                         <step>
