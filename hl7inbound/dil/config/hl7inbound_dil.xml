@@ -1,0 +1,25 @@
+<dil>
+    <integrations>
+        <integration>
+            <flows>
+                <flow>
+                    <id>hl7xml_test1</id>
+                    <name>hl7xml_test1</name>
+                    <type>esb</type>
+                    <steps>
+                        <step>
+                            <id>1</id>
+                            <type>source</type>
+                            <uri>hl7xml:0.0.0.0:10000</uri>
+                        </step>
+                        <step>
+                            <id>2</id>
+                            <type>sink</type>
+                            <uri>velocity:${bodyAs(String)}</uri>
+                        </step>
+                    </steps>
+                </flow>
+            </flows>
+        </integration>
+    </integrations>
+</dil>
