@@ -1,0 +1,45 @@
+<camelContext id="ID_627a629b38c74a06a0000140" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+    <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+    <setExchangePattern pattern="InOnly"/>
+  </onException>
+  <interceptFrom>
+    <to uri="bean:dovetailTracer?method=traceEvent"/>
+  </interceptFrom>
+  <route id="531dd840-d062-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/googledriveoutbound?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <to uri="activemq:ID_627a629b38c74a06a0000140_test_531dd840-d062-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="531dd841-d062-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a629b38c74a06a0000140_test_531dd840-d062-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>test from dovetail</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+    <to uri="activemq:ID_627a629b38c74a06a0000140_test_531dd841-d062-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+  </route>
+  <route id="c2601910-6fcd-11ed-845b-fbaa1700ffee">
+    <from uri="activemq:ID_627a629b38c74a06a0000140_test_531dd841-d062-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelFileName">
+      <simple>juca.txt</simple>
+    </setHeader>
+    <to uri="activemq:ID_627a629b38c74a06a0000140_test_c2601910-6fcd-11ed-845b-fbaa1700ffee?timeToLive=86400000"/>
+  </route>
+  <route id="66d6ab71-6f43-11ed-98ef-1921d2513c6b">
+    <from uri="activemq:ID_627a629b38c74a06a0000140_test_c2601910-6fcd-11ed-845b-fbaa1700ffee"/>
+    <to uri="googledrive://?accessToken=AAABBBCCCDDDEEEFFFGGHHH&amp;refreshToken=AAABBBCCCDDDEEEFFFGGHHH&amp;directoryId=AAABBBCCCDDDEEEFFFGGHHH"/>
+    <to uri="activemq:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b?timeToLive=86400000"/>
+  </route>
+  <route id="639070f2-6fce-11ed-a6f1-5904354a115f">
+    <from uri="activemq:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>${body}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>
