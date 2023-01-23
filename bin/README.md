@@ -11,7 +11,7 @@ Runs an integration test on Assimbly gateway. It does this by deploying the conf
 into the deploy directory of Assimbly (${user.home}/.assimbly/deploy).
 
 Note: Some integration tests need other software besides Assimbly Gateway. For example MongoDB for the globalvariables module or SMB for the SMB module.
-Note 2: For now only bash script (Windows users need to run it from GIT Bash).
+Note 2: For now only bash script are supported (Windows users need to run it from GIT Bash).
 
 ### Usage:
 

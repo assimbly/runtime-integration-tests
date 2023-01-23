@@ -3,10 +3,11 @@
   <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
   <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
   <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="0" maxPoolSize="10" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
-  <onException>      <exception>java.lang.Exception</exception>
+  <onException>
+      <exception>java.lang.Exception</exception>
       <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
       <setExchangePattern pattern="InOut"/>
-</onException>
+  </onException>
   <route id="46b298f0-d055-11ec-83f5-3747809ef661">
     <from uri="jetty:https://0.0.0.0:9001/1/Xslt?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
