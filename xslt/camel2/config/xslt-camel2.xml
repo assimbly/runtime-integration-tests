@@ -11,6 +11,19 @@
   <route id="46b298f0-d055-11ec-83f5-3747809ef661">
     <from uri="jetty:https://0.0.0.0:9001/1/Xslt?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
+    <setBody>
+      <constant>
+        <![CDATA[<persons>
+			  <person>
+				<name>John Doe</name>
+			  </person>
+			  <person>
+				<name>Jane Doe</name>
+			  </person>
+			</persons>
+			]]>
+      </constant>
+    </setBody>
     <to uri="activemq:ID_627a4dd438c74a06a0000039_test_46b298f0-d055-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
   </route>
   <route id="4f986df1-d055-11ec-83f5-3747809ef661">

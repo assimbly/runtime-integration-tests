@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Envelope xmlns="http://www.blujaysolutions.com/2017/IFTMIN"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.blujaysolutions.com/2017/IFTMIN file:///C:/Users/jss/Documents/seacon/germany_interfaces/develop/iftmin_D96A/IFTMIN_D96A.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.blujaysolutions.com/2017/IFTMIN file:///C:/Users/jss/Documents/seacon/germany_interfaces/develop/iftmin_D96A/IFTMIN_D96A.xsd">
    <Interchange>
       <UNB>
          <F0020>24535</F0020>

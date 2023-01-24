@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edifactmessages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:noNamespaceSchemaLocation="file:///C:/Users/Bart/Documents/dw/raet/Medewerker.xsd">
+                  xsi:noNamespaceSchemaLocation="file:///C:/Users/Bart/Documents/dw/raet/Medewerker.xsd">
    <raetSystemName>HRIS</raetSystemName>
    <messages>
       <message>
@@ -69,7 +69,7 @@
          <illnessMutationDate>20170905</illnessMutationDate>
          <illnessPerc>99</illnessPerc>
          <illnessCode>7</illnessCode>
-         <ouCode>23PU   4DU</ouCode>
+         <ouCode>23PU 4DU</ouCode>
          <illnessRemark>N.V.T.</illnessRemark>
       </message>
       <message>
@@ -136,7 +136,7 @@
          <illnessMutationDate>20170905</illnessMutationDate>
          <illnessPerc>99</illnessPerc>
          <illnessCode>7</illnessCode>
-         <ouCode>23PU   4DU</ouCode>
+         <ouCode>23PU 4DU</ouCode>
          <illnessRemark>N.V.T.</illnessRemark>
       </message>
       <message>
@@ -203,7 +203,7 @@
          <illnessMutationDate>20170905</illnessMutationDate>
          <illnessPerc>99</illnessPerc>
          <illnessCode>7</illnessCode>
-         <ouCode>23PU   4DU</ouCode>
+         <ouCode>23PU 4DU</ouCode>
          <illnessRemark>N.V.T.</illnessRemark>
       </message>
    </messages>

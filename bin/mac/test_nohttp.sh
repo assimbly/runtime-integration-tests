@@ -7,12 +7,9 @@ WAIT="10"
 CHECK=false
 CREATE=false
 
-
-echo "Starting integration test"
-echo ""
-
 if [ -n "$1" ]; then
-  echo "Module: $1";
+  # echo "Module: $1";
+  :
 else
   echo "Parameter testDir is empty."
   PRINT_USAGE=true
@@ -22,22 +19,26 @@ if [ -n "$2" ]; then
 
   if [ "$2" == "create" ]; then
      CREATE=true
-    mkdir -p "../../$1/actual"
-    mkdir -p "../../$1/expected"
+     echo "Create test directories"
+     mkdir -p "../../$1/actual"
+     mkdir -p "../../$1/expected"
   elif [ "$2" == "check" ]; then
     CHECK=true
   else
     WAIT="$2"
-    echo "Wait: $2""s";
+    # echo "Wait: $2""s";
   fi
 
 else
-  echo "Wait: 10s"
+  :
+  # echo "Wait: 10s"
 fi
 
 if [ -n "$3" ]; then
     if [ "$3" == "create" ]; then
       CREATE=true
+      mkdir -p "../../$1/actual"
+      mkdir -p "../../$1/expected"
     elif [ "$3" == "check" ]; then
       CHECK=true
     fi
@@ -60,7 +61,8 @@ cd "$parent_path"
 
 if [ -d "$SOURCE_DIR" ]
 then
-    echo "Source directory: $SOURCE_DIR"
+    :
+    # echo "Source directory: $SOURCE_DIR"
 else
     echo "Error: Source Directory $SOURCE_DIR does not exists."
     set -o errexit
@@ -68,7 +70,8 @@ fi
 
 if [ -d "$DEPLOY_DIR" ]
 then
-    echo "Deploy Directory: $DEPLOY_DIR"
+    :
+    # echo "Deploy Directory: $DEPLOY_DIR"
 else
     echo "Error: Deploy Directory $DEPLOY_DIR does not exists."
     set -o errexit
@@ -86,19 +89,14 @@ fi
 SOURCE_FILE=`cat $SOURCE_DIR/config/*.xml`
 SOURCE_FILE=${SOURCE_FILE/https/http}
 SOURCE_FILE=${SOURCE_FILE/&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext/}
-echo ""
-echo "File with no SSL. "
-echo "${SOURCE_FILE}"
-echo $SOURCE_FILE > "${DEPLOY_DIR}/${COMPONENT}.xml"
 
-echo ""
-echo "Wait for deployment"
-echo ""
+echo $SOURCE_FILE > "${DEPLOY_DIR}/${COMPONENT}.xml"
 
 sleep "$WAIT"
 
-echo "Result:"
-echo ""
+#echo ""
+#echo "Result:"
+# echo ""
 
 if "$CHECK" = true; then
   rm -f "$SOURCE_DIR/actual/"*
@@ -117,17 +115,14 @@ rm "$DEPLOY_DIR/$COMPONENT"*
 if "$CHECK" = true; then
   RESULT=$(diff -s -r "$SOURCE_DIR/actual" "$SOURCE_DIR/expected")
   echo
-  echo "Result: $RESULT"
-  if [[ "$RESULT" == .*"identical" ]]; then
-    echo "Test failed"
+  if [[ "$RESULT" == *"identical"* ]]; then
+    echo "Test successful"
   else
-    echo "Test succeeded"
+    echo "Result: $RESULT"
+    echo "Test failed"
   fi
   echo
-
-  echo "Finished"
 else
   echo
   echo "Finished"
 fi
-

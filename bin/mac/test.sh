@@ -38,6 +38,8 @@ fi
 if [ -n "$3" ]; then
     if [ "$3" == "create" ]; then
       CREATE=true
+      mkdir -p "../../$1/actual"
+      mkdir -p "../../$1/expected"
     elif [ "$3" == "check" ]; then
       CHECK=true
     fi
@@ -109,15 +111,13 @@ rm "$DEPLOY_DIR/$COMPONENT"*
 if "$CHECK" = true; then
   RESULT=$(diff -s -r "$SOURCE_DIR/actual" "$SOURCE_DIR/expected")
   echo
-  echo "Result: $RESULT"
-  if [[ "$RESULT" == .*"identical" ]]; then
-    echo "Test failed"
+  if [[ "$RESULT" == *"identical"* ]]; then
+    echo "Test successful"
   else
-    echo "Test succeeded"
+    echo "Result: $RESULT"
+    echo "Test failed"
   fi
   echo
-
-  echo "Finished"
 else
   echo
   echo "Finished"

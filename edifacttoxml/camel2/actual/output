@@ -1,6 +1,6 @@
 Message Body:
-
-<env:unEdifact xmlns:env="urn:org.milyn.edi.unedifact.v41">
+ 
+ <env:unEdifact xmlns:env="urn:org.milyn.edi.unedifact.v41">
 	<env:UNB>
 		<env:syntaxIdentifier>
 			<env:id>UNOA</env:id>

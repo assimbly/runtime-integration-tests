@@ -13,6 +13,9 @@
     <setHeader headerName="path">
       <groovy>System.getProperty("user.home")</groovy>
     </setHeader>
+    <setHeader name="path">
+      <simple>${header.path.replace('\','/')}</simple>
+    </setHeader>
     <to uri="log:com.mycompany.order1?showAll=true&amp;multiline=true"/>
     <pollEnrich timeout="0">
       <simple>file://${header.path}?fileName=simplesheet2.xlsx&amp;delete=false&amp;noop=true</simple>

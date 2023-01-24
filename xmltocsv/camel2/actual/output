@@ -1,19 +1,16 @@
-"id","name","price","description","calories"
-"1","Belgian Waffles","$5.95","
-   Two of our famous Belgian Waffles with plenty of real maple syrup
-   ","650"
-"2","Strawberry Belgian Waffles","$7.95","
-    Light Belgian waffles covered with strawberries and whipped cream
-    ","900"
-"3","Berry-Berry Belgian Waffles","$8.95","
-    Belgian waffles covered with assorted fresh berries and whipped cream
-    ","900"
-"4","French Toast","$4.50","
-    Thick slices made from our homemade sourdough bread
-    ","600"
-"5","Homestyle Breakfast","$6.95","
-    Two eggs, bacon or sausage, toast, and our ever-popular hash browns
-    ","950"
-"6","Homestyle Breakfast","$6.95","
-    Two eggs, bacon or sausage, toast, and our ever-popular hash browns
-    ","950"
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 Not Found</title>
+</head>
+<body><h2>HTTP ERROR 404 Not Found</h2>
+<table>
+<tr><th>URI:</th><td>/1/xmltocsv</td></tr>
+<tr><th>STATUS:</th><td>404</td></tr>
+<tr><th>MESSAGE:</th><td>Not Found</td></tr>
+<tr><th>SERVLET:</th><td>org.apache.camel.component.jetty.CamelContinuationServlet-7937f570</td></tr>
+</table>
+<hr/><a href="https://eclipse.org/jetty">Powered by Jetty:// 9.4.50.v20221201</a><hr/>
+
+</body>
+</html>
