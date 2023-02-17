@@ -1,0 +1,15 @@
+Message Body:
+ 
+ <?xml version="1.0" encoding="UTF-8"?>
+<items>
+  <item>
+    <firstname> Joe</firstname>
+    <lastname>Foo</lastname>
+    <age>21</age>
+  </item>
+  <item>
+    <firstname> John</firstname>
+    <lastname>Doe</lastname>
+    <age>30</age>
+  </item>
+</items>

@@ -1,0 +1,50 @@
+<camelContext id="ID_6331642fd7e3b7000f0000cf" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>
+    <exception>java.lang.Exception</exception>
+    <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+    <setExchangePattern pattern="InOnly"/>
+  </onException>
+  <interceptFrom>
+    <to uri="bean:dovetailTracer?method=traceEvent"/>
+  </interceptFrom>
+
+  <route id="abec7f50-6660-11ed-a11f-298af0b10fe8">
+    <from uri="jetty:https://0.0.0.0:9001/1/oauth?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <to uri="direct:ID_6331642fd7e3b7000f0000cf_test_abec7f50-6660-11ed-a11f-298af0b10fe8?exchangePattern=InOut"/>
+  </route>
+
+  <route id="abec7f50-6660-11ed-a11f-298af0b10fe9">
+    <from uri="direct:ID_6331642fd7e3b7000f0000cf_test_abec7f50-6660-11ed-a11f-298af0b10fe8"/>
+
+    <to uri="globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_refresh_token?operation=SET&amp;value=RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABC==)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+    <to uri="globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_access_token?operation=SET&amp;value=RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHI==)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+    <to uri="globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_expire_date?operation=SET&amp;value=RAW(MTY2ODY4NDI3OTE2Mw==)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+    <to uri="globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_refresh_flag?operation=SET&amp;value=RAW(MA==)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+    <to uri="globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_redirect_uri?operation=SET&amp;value=RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGH=)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+    <to uri="globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_client_id?operation=SET&amp;value=RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJK)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+    <to uri="globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_client_secret?operation=SET&amp;value=RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQ==)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+    <to uri="globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_scope?operation=SET&amp;value=RAW(aHR0cHM6Ly9kZXZlbG9wbWVudC5kb3ZldGFpbC53b3JsZC9vYXV0aDJ0b2tlbi90ZXN0LzIwZjQ0Y2IwLTNk)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+
+    <to uri="direct:ID_6331642fd7e3b7000f0000cf_test_abec7f50-6660-11ed-a11f-298af0b10fe9"/>
+  </route>
+
+  <route id="20f44cb0-3d76-11ed-b962-0978946afb23">
+    <from uri="direct:ID_6331642fd7e3b7000f0000cf_test_abec7f50-6660-11ed-a11f-298af0b10fe9"/>
+    <to uri="oauth2token://?id=20f44cb0-3d76-11ed-b962-0978946afb23&amp;tokenName=OAuth2Token&amp;tenant=default&amp;expiryDelay=30"/>
+    <to uri="direct:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661"/>
+  </route>
+
+  <route id="04a6ec60-d067-11ec-83f5-3747809ef661">
+    <from uri="direct:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>${header.OAuth2Token}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+
+</camelContext>

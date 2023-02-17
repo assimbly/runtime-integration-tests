@@ -1,0 +1,17 @@
+Message Body:
+ 
+ <?xml version="1.0" encoding="UTF-8"?>
+<Enriched>
+   <persons>
+      <person>
+         <name>John Doe</name>
+      </person>
+      <person>
+         <name>Jane Doe</name>
+      </person>
+   </persons>
+   <names>
+      <name>Joao Doe</name>
+      <name>Jani Doe</name>
+   </names>
+</Enriched>

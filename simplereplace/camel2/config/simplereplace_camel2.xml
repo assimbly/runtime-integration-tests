@@ -1,0 +1,24 @@
+<camelContext id="ID_627a598038c74a000e000645" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="57be2310-d05c-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/simplereplace?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <setHeader headerName="name"><simple>Pedro</simple></setHeader>
+    <setHeader headerName="company"><simple>Dovetail</simple></setHeader>
+    <setBody>
+      <constant>hello ${header.name}, welcome to ${header.company}.</constant>
+    </setBody>
+    <to uri="dataformat:simple-replace:unmarshal"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

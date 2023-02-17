@@ -1,0 +1,53 @@
+<camelContext id="ID_627a618638c74a000e0006d3" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="567954c0-d061-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/RabbitMQ?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+	<setBody>
+      <constant>
+        <![CDATA[<persons>
+			  <person>
+				<name>John Doe</name>
+			  </person>
+			  <person>
+				<name>Jane Doe</name>
+			  </person>
+			</persons>
+			]]>
+      </constant>
+    </setBody>
+    <to uri="activemq:ID_627a618638c74a000e0006d3_test_567954c0-d061-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="56797bd0-d061-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a618638c74a000e0006d3_test_567954c0-d061-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>Message Body:
+
+${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+    <to uri="activemq:ID_627a618638c74a000e0006d3_test_56797bd0-d061-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+  </route>
+  <route id="1b52e5c1-f945-11ec-adbc-574cf0a036c3">
+    <from uri="activemq:ID_627a618638c74a000e0006d3_test_56797bd0-d061-11ec-83f5-3747809ef661"/>
+    <setProperty propertyName="excludedHeader_breadcrumbId">
+        <simple>${header.breadcrumbId}</simple>
+      </setProperty>
+    <removeHeader headerName="breadcrumbId"/>
+    <setHeader headerName="CamelRabbitmqDeliveryMode">
+      <simple>2</simple>
+    </setHeader>
+    <toD uri="rabbitmq:amq.direct?hostname=localhost&amp;vhost=RAW(/)&amp;portNumber=5672&amp;username=RAW(guest)&amp;password=RAW(guest)&amp;exchangeType=direct&amp;queue=RAW(testQ3)&amp;durable=true&amp;autoDelete=false&amp;exchangePattern=InOnly"/>
+    <setHeader headerName="breadcrumbId">
+        <simple>${exchangeProperty.excludedHeader_breadcrumbId}</simple>
+      </setHeader>
+    <removeProperty propertyName="excludedHeader_breadcrumbId"/>
+  </route>
+</camelContext>

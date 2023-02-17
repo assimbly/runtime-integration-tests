@@ -1,0 +1,36 @@
+<camelContext id="ID_627a67fc38c74a0013000772" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="46fe2da0-d065-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/exceltoxml?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <setHeader headerName="path">
+      <groovy>System.getProperty("user.home")</groovy>
+    </setHeader>
+    <setHeader name="path">
+      <simple>${header.path.replace('\','/')}</simple>
+    </setHeader>
+    <to uri="log:com.mycompany.order1?showAll=true&amp;multiline=true"/>
+    <pollEnrich timeout="0">
+      <simple>file://${header.path}?fileName=simplesheet2.xlsx&amp;delete=false&amp;noop=true</simple>
+    </pollEnrich>
+    <to uri="log:com.mycompany.order2?showAll=true&amp;multiline=true"/>
+    <to uri="excel2xml://?rules=RAW(WyJ7XCJjZWxsUmFuZ2VcIjpcIkExOkE0XCIsXCJkaXNjYXJkRW1wdHlcIjpmYWxzZSxcImhlYWRlclJvd1wiOmZhbHNlLFwibmFtZVwiOlwibmFtZXNcIixcInRyYW5zcG9zZVwiOmZhbHNlLFwid29ya3NoZWV0XCI6XCJTaGVldDFcIn0iXQ==)"/>
+    <to uri="activemq:ID_627a67fc38c74a0013000772_test_2e8b6380-d0f3-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+  </route>
+  <route id="46fe54b0-d065-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a67fc38c74a0013000772_test_2e8b6380-d0f3-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>Message Body:
+
+${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

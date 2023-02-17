@@ -1,0 +1,47 @@
+<dil>
+    <integrations>
+        <integration>
+            <flows>
+                <flow>
+                    <id>xmltoxsltfile_test1</id>
+                    <name>xmltoxsltfile_test1</name>
+                    <type>esb</type>
+                    <steps>
+                        <step>
+                            <id>11</id>
+                            <type>source</type>
+                            <uri>http://0.0.0.0:9002/1/xsltfile</uri>
+                        </step>
+                        <step>
+                            <id>22</id>
+                            <type>sink</type>
+                            <uri>setbody:message:xslt</uri>
+                        </step>
+                    </steps>
+                </flow>
+            </flows>
+        </integration>
+    </integrations>
+    <core>
+        <messages>
+            <message>
+                <name>xslt</name>
+                <body><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:output method="xml" indent="yes"/>
+    <xsl:template match="/">
+        <root>
+            <xsl:apply-templates select="persons"/>
+        </root>
+    </xsl:template>
+    <xsl:template match="persons/person/name">
+        <div style="color:green">
+            <xsl:value-of select="."/>
+        </div>
+    </xsl:template>
+</xsl:stylesheet>]]></body>
+            </message>
+        </messages>
+    </core>
+
+</dil>

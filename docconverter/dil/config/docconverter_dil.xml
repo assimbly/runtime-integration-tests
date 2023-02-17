@@ -12,6 +12,15 @@
                             <type>source</type>
                             <uri>https://0.0.0.0:9001/1/docconverter</uri>
                         </step>
+                        <!--<step>
+                            <id>2</id>
+                            <type>action</type>
+                            <uri>setbody:<![CDATA[<step>
+                            <id>3</id>
+                            <type>action</type>
+                            <uri>xmltoedifactstandards:XML_TO_IFTFCC_D00B</uri>
+                        </step>]]></uri>
+                        </step>-->
                         <step>
                             <id>2</id>
                             <type>action</type>
@@ -24,6 +33,7 @@
 							  </person>
 							</persons>]]></uri>
                         </step>
+
                         <step>
                             <id>3</id>
                             <type>action</type>

@@ -1,0 +1,33 @@
+<camelContext id="ID_627a592538c74a000e000623" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+  <route id="bd087720-d05c-11ec-83f5-3747809ef661">
+    <from uri="jetty:https://0.0.0.0:9001/1/Wiretap?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <to uri="activemq:ID_627a592538c74a000e000623_test_bd087720-d05c-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+  </route>
+  <route id="ab71f070-d068-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a592538c74a000e000623_test_bd087720-d05c-11ec-83f5-3747809ef661"/>
+    <wireTap uri="activemq:ID_627a592538c74a000e000623_test_ab71f070-d068-11ec-83f5-3747809ef661_BottomCenter" executorServiceRef="wiretapProfile"/>
+    <to uri="activemq:ID_627a592538c74a000e000623_test_ab71f070-d068-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+  </route>
+  <route id="c03863e1-d068-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a592538c74a000e000623_test_ab71f070-d068-11ec-83f5-3747809ef661_BottomCenter"/>
+    <to uri="log:nl.kabisa.flux//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false"/>
+  </route>
+  <route id="bd089e30-d05c-11ec-83f5-3747809ef661">
+    <from uri="activemq:ID_627a592538c74a000e000623_test_ab71f070-d068-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>Message Body:
+
+${bodyAs(String)}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+  </route>
+</camelContext>

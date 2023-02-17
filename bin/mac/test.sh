@@ -1,8 +1,11 @@
 #!/bin/bash
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
+#Set defaults
 PRINT_USAGE=false
 WAIT="10"
+CHECK=false
+CREATE=false
 
 
 echo "Starting integration test"
@@ -16,16 +19,30 @@ else
 fi
 
 if [ -n "$2" ]; then
-  WAIT="$2"
-  echo "Wait: $2""s";
+
+  if [ "$2" == "create" ]; then
+     CREATE=true
+    mkdir -p "../../$1/actual"
+    mkdir -p "../../$1/expected"
+  elif [ "$2" == "check" ]; then
+    CHECK=true
+  else
+    WAIT="$2"
+    echo "Wait: $2""s";
+  fi
+
 else
   echo "Wait: 10s"
 fi
 
 if [ -n "$3" ]; then
-  CHECK=true
-else
-  CHECK=false
+    if [ "$3" == "create" ]; then
+      CREATE=true
+      mkdir -p "../../$1/actual"
+      mkdir -p "../../$1/expected"
+    elif [ "$3" == "check" ]; then
+      CHECK=true
+    fi
 fi
 
 
@@ -59,6 +76,13 @@ else
     set -o errexit
 fi
 
+# deploy dependable flows first.
+if [ -e "$SOURCE_DIR/preconfig" ]
+ then
+   cp "$SOURCE_DIR"/preconfig/* "$DEPLOY_DIR"
+   sleep 3
+fi
+
 cp "$SOURCE_DIR"/config/* "$DEPLOY_DIR"
 
 echo ""
@@ -71,8 +95,10 @@ echo "Result:"
 echo ""
 
 if "$CHECK" = true; then
-  rm "$SOURCE_DIR/actual/"*
+  rm -f "$SOURCE_DIR/actual/"*
   curl -k -X POST "https://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/actual/output"
+elif  "$CREATE" = true; then
+  curl -k -X POST "https://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/expected/output"
 else
   curl -k -X POST "https://localhost:9001/1/$COMPONENT" --output -
 fi
@@ -83,9 +109,15 @@ sleep "$WAIT"
 rm "$DEPLOY_DIR/$COMPONENT"*
 
 if "$CHECK" = true; then
-  diff -s -r "$SOURCE_DIR/actual" "$SOURCE_DIR/expected"
+  RESULT=$(diff -s -r "$SOURCE_DIR/actual" "$SOURCE_DIR/expected")
   echo
-  echo "Finished"
+  if [[ "$RESULT" == *"identical"* ]]; then
+    echo "Test successful"
+  else
+    echo "Result: $RESULT"
+    echo "Test failed"
+  fi
+  echo
 else
   echo
   echo "Finished"
