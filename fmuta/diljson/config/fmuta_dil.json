@@ -1,0 +1,98 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "fmuta_test1",
+            "name": "fmuta_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/fmuta"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:Regelnr;Datum;DagboekType;Dagboeknr;Periode;BoekJaar;BoekstukNr;HeaderOmschrijving;RegelOmschrijving;Tegenrekening;Debnr;Crednr;Factuurnr;Bedrag;Incl_Excl;Journaliseren;Valutacode;Koers;Krediet_bep;Bedrag_Krediet_bep;Vervaldatum_Factuur;Vervaldatum_Bedrag_Krediet_bep;BTWCode;BTWBedrag;Weeknr;Referentie;Betalingswijze;BedragRekening;Kostenplaats;Kostendrager;AantalKostendrager;Verschilcode;kolom30;Stornoboeking                                1;12042016;V;;4;2016;29320160410;Omzet week 14;Omzet week 14;80555;293;;29320160410;107056,40;Excl;;EUR;1;;0;19042016;19042016;21;22481,85;14;Omzet;B;;;;;;;                                2;12042016;V;;4;2016;29320160410;Omzet week 14;Omzet week 14;80555;293;;29320160410;33,63;Excl;;EUR;1;;0;19042016;19042016;6;2,02;14;Omzet;B;;;;;;;                                1;12042016;V;;4;2016;19320160410;Omzet week 14;Omzet week 14;80555;193;;19320160410;43262,48;Excl;;EUR;1;;0;19042016;19042016;21;9085,12;14;Omzet;B;;;;;;;                                \\n                            ",
+                  "options": {
+                    "language": "simple"
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "univocity-csv:unmarshal",
+                  "options": {
+                    "headerExtractionEnabled": "true",
+                    "asMap": "true",
+                    "delimiter": ";"
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "action",
+                  "uri": "fmuta:enrich",
+                  "options": {
+                    "decimalSeparator": ","
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "action",
+                  "uri": "univocity-csv:marshal",
+                  "options": {
+                    "delimiter": ";",
+                    "quoteAllFields": "false",
+                    "headers": [
+                      "Regelnr",
+                      "DagboekType",
+                      "Dagboeknr",
+                      "Periode",
+                      "BoekJaar",
+                      "BoekstukNr",
+                      "Omschrijving",
+                      "Datum",
+                      "Tegenrekening",
+                      "Debnr",
+                      "Crednr",
+                      "Factuurnr",
+                      "Bedrag",
+                      "Journaliseren",
+                      "Valutacode",
+                      "Koers",
+                      "Krediet_bep",
+                      "Bedrag_Krediet_bep",
+                      "Vervaldatum_Factuur",
+                      "Vervaldatum_Bedrag_Krediet_bep",
+                      "BTWCode",
+                      "BTWBedrag",
+                      "Weeknr",
+                      "Referentie",
+                      "Betalingswijze",
+                      "BedragRekening",
+                      "Kostenplaats",
+                      "Kostendrager",
+                      "AantalKostendrager",
+                      "Verschilcode",
+                      "kolom30",
+                      "Stornoboeking"
+                    ]
+                  }
+                },
+                {
+                  "id": "6",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

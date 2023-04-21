@@ -1,0 +1,64 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "xmltoexel_test1",
+            "name": "xmltoexcel_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/XmlToExcel"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:message:menu"
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "xmltoexcel",
+                  "options": {
+                    "includeHeader": "true",
+                    "includeIndexColumn": "false",
+                    "indexColumnName": "line",
+                    "orderHeaders": "UNORDERED",
+                    "excelFormat": "XLSX"
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "menu",
+          "body": {
+            "breakfast_menu": {
+              "food": {
+                "id": "1",
+                "name": "Belgian Waffles",
+                "price": "$5.95",
+                "description": "       Two of our famous Belgian Waffles with plenty of real maple syrup       ",
+                "calories": "650"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "xmltocsv_test1",
+            "name": "xmltocsv_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/XmlToCsv"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:message:menu"
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "xmltocsv",
+                  "options": {
+                    "includeHeader": "true",
+                    "includeIndexColumn": "false",
+                    "indexColumnName": "line",
+                    "orderHeaders": "UNORDERED",
+                    "quoteFields": "ALL_FIELDS",
+                    "delimiter": "LA==",
+                    "lineSeparator": "XG4="
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "menu",
+          "body": {
+            "breakfast_menu": {
+              "food": [
+                {
+                  "id": "1",
+                  "name": "Belgian Waffles",
+                  "price": "$5.95",
+                  "description": "       Two of our famous Belgian Waffles with plenty of real maple syrup       ",
+                  "calories": "650"
+                },
+                {
+                  "id": "2",
+                  "name": "Strawberry Belgian Waffles",
+                  "price": "$7.95",
+                  "description": "        Light Belgian waffles covered with strawberries and whipped cream        ",
+                  "calories": "900"
+                },
+                {
+                  "id": "3",
+                  "name": "Berry-Berry Belgian Waffles",
+                  "price": "$8.95",
+                  "description": "        Belgian waffles covered with assorted fresh berries and whipped cream        ",
+                  "calories": "900"
+                },
+                {
+                  "id": "4",
+                  "name": "French Toast",
+                  "price": "$4.50",
+                  "description": "        Thick slices made from our homemade sourdough bread        ",
+                  "calories": "600"
+                },
+                {
+                  "id": "5",
+                  "name": "Homestyle Breakfast",
+                  "price": "$6.95",
+                  "description": "        Two eggs, bacon or sausage, toast, and our ever-popular hash browns        ",
+                  "calories": "950"
+                },
+                {
+                  "id": "6",
+                  "name": "Homestyle Breakfast",
+                  "price": "$6.95",
+                  "description": "        Two eggs, bacon or sausage, toast, and our ever-popular hash browns        ",
+                  "calories": "950"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

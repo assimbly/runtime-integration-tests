@@ -1,0 +1,107 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "ftpcomponent_test1"
+          id: "ftpcomponent_test1"
+          type: "esb"
+          steps:
+            step:
+            - links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/ftpcomponent"
+            - links:
+                link:
+                - bound: "in"
+                  id: 2
+                  transport: "sync"
+                - bound: "out"
+                  id: 3
+                  transport: "sync"
+              id: 2
+              type: "action"
+              uri: "setbody:testing FTP!"
+            - options:
+                charset: "utf-8"
+                disconnect: true
+                fileName: "test.txt"
+                password: "RAW(rNrKYTX9g7z3RgJRmxWuGHbeu)"
+                bridgeErrorHandler: true
+                fileExist: "Override"
+                throwExceptionOnConnectFailed: true
+                autoCreate: true
+                passiveMode: true
+              links:
+                link:
+                - bound: "in"
+                  id: 3
+                  transport: "sync"
+                - bound: "out"
+                  id: 4
+                  transport: "sync"
+              id: 3
+              type: "action"
+              uri: "ftp:dlpuser@ftp.dlptest.com:21//tmp"
+            - links:
+                link:
+                - bound: "in"
+                  id: 4
+                  transport: "sync"
+                - bound: "out"
+                  id: 5
+                  transport: "sync"
+              id: 4
+              type: "action"
+              uri: "setbody:reset body..."
+            - options:
+                enrichType: "application/override"
+              links:
+                link:
+                - bound: "in"
+                  id: 5
+                  transport: "sync"
+                - bound: "out"
+                  id: 6
+                  transport: "sync"
+                - expression: 7
+                  bound: "out"
+                  rule: "sync"
+                  id: 7
+                  transport: "sync"
+              id: 5
+              type: "router"
+              uri: "enrich"
+            - links:
+                link:
+                  bound: "in"
+                  id: 6
+                  transport: "sync"
+              id: 6
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"
+            - options:
+                charset: "utf-8"
+                disconnect: true
+                fileName: "test.txt"
+                password: "RAW(rNrKYTX9g7z3RgJRmxWuGHbeu)"
+                bridgeErrorHandler: true
+                throwExceptionOnConnectFailed: true
+                autoCreate: true
+                delete: true
+                recursive: false
+                passiveMode: true
+              links:
+                link:
+                  bound: "in"
+                  id: 7
+                  transport: "sync"
+              id: 7
+              type: "sink"
+              uri: "pollenrich:ftp:dlpuser@ftp.dlptest.com:21//tmp/"

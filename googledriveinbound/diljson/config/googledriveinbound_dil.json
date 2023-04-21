@@ -1,0 +1,43 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "googledriveinbound_test1",
+            "name": "googledriveinbound_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "googledrive",
+                  "options": {
+                    "accessToken": "AAABBBCCCDDDEEEFFFGGHHH",
+                    "refreshToken": "AAABBBCCCDDDEEEFFFGGHHH",
+                    "directoryId": "AAABBBCCCDDDEEEFFFGGHHH",
+                    "delay": "1000",
+                    "initialDelay": "1000",
+                    "moveTo": ".dovetail",
+                    "gSuiteFiles": "Ignore"
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "velocity:${bodyAs(String)}"
+                },
+                {
+                  "id": "3",
+                  "type": "sink",
+                  "uri": "log"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

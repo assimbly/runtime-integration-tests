@@ -4,15 +4,15 @@
       "integration": {
         "flows": {
           "flow": {
-            "id": "xmltojson_test1",
-            "name": "xmltojson_test1",
+            "id": "csvtoxml_test1",
+            "name": "csvtoxml_test1",
             "type": "esb",
             "steps": {
               "step": [
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/XmlToJson",
+                  "uri": "https://0.0.0.0:9001/1/csvtoxml",
                   "links": {
                     "link": {
                       "id": "2",
@@ -24,7 +24,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            ",
+                  "uri": "setbody:firstname,lastname,age                                Joe,Foo,21                                John,Doe,30                            ",
                   "links": {
                     "link": [
                       {
@@ -43,7 +43,7 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "xmltojson://?keepStrings=false&removeNamespaces=false&removeRoot=false&hasTypes=false&typeValueMismatch=ORIGINAL",
+                  "uri": "csvtoxml",
                   "links": {
                     "link": [
                       {
@@ -62,7 +62,7 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}",
+                  "uri": "velocity:Message Body: ${bodyAs(String)}",
                   "links": {
                     "link": {
                       "id": "4",

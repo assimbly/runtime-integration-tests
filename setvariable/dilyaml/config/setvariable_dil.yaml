@@ -1,0 +1,35 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "globalvariables_test1"
+          id: "globalvariables_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/setvariable"
+            - options:
+                environment: "test"
+                encrypt: false
+                modifier: "ComponentsTests/GetVariable"
+                operation: "SET"
+                value: "RAW(dGVzdA==)"
+                tenant: "default"
+              id: 2
+              type: "action"
+              uri: "globalvariables://MyVariable"
+            - options:
+                environment: "test"
+                header: "MyVariable"
+                operation: "GET"
+                tenant: "default"
+              id: 3
+              type: "action"
+              uri: "globalvariables://MyVariable"
+            - id: 4
+              type: "sink"
+              uri: "velocity:${header.MyVariable}"

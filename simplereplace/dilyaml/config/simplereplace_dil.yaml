@@ -1,0 +1,74 @@
+---
+dil:
+  core:
+    messages:
+      message:
+        headers:
+          name:
+            language: "simple"
+            type: "header"
+            content: "Pedro"
+          company:
+            language: "constant"
+            type: "header"
+            content: "Dovetail"
+        name: "names"
+        id: 1
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "simplereplace_test1"
+          id: "simplereplace_test1"
+          type: "esb"
+          steps:
+            step:
+            - links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/simplereplace"
+            - links:
+                link:
+                - bound: "in"
+                  id: 2
+                  transport: "sync"
+                - bound: "out"
+                  id: 3
+                  transport: "sync"
+              id: 2
+              type: "action"
+              uri: "setheaders:message:names"
+            - links:
+                link:
+                - bound: "in"
+                  id: 3
+                  transport: "sync"
+                - bound: "out"
+                  id: 4
+                  transport: "sync"
+              id: 3
+              type: "action"
+              uri: "setbody:hello ${header.name}, welcome to ${header.company}."
+            - links:
+                link:
+                - bound: "in"
+                  id: 4
+                  transport: "sync"
+                - bound: "out"
+                  id: 5
+                  transport: "sync"
+              id: 4
+              type: "action"
+              uri: "simplereplace"
+            - links:
+                link:
+                  bound: "in"
+                  id: 5
+                  transport: "sync"
+              id: 5
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

@@ -1,0 +1,53 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "formtoxml_test1"
+          id: "formtoxml_test1"
+          type: "esb"
+          steps:
+            step:
+            - links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/formtoxml"
+            - links:
+                link:
+                - bound: "in"
+                  id: 2
+                  transport: "sync"
+                - bound: "out"
+                  id: 3
+                  transport: "sync"
+              id: 2
+              type: "action"
+              uri:
+              - - "setbody:"
+                - "name=Pedro&surname=Catalão&myage=36"
+            - options:
+                encoding: "utf-8"
+              links:
+                link:
+                - bound: "in"
+                  id: 3
+                  transport: "sync"
+                - bound: "out"
+                  id: 4
+                  transport: "sync"
+              id: 3
+              type: "action"
+              uri: "formtoxml"
+            - links:
+                link:
+                  bound: "in"
+                  id: 4
+                  transport: "sync"
+              id: 4
+              type: "sink"
+              uri: "velocity:Message Body: ${bodyAs(String)}"

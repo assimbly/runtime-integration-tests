@@ -4,15 +4,15 @@
       "integration": {
         "flows": {
           "flow": {
-            "id": "xmltojson_test1",
-            "name": "xmltojson_test1",
+            "id": "setcookie_test1",
+            "name": "setcookie_test1",
             "type": "esb",
             "steps": {
               "step": [
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/XmlToJson",
+                  "uri": "https://0.0.0.0:9001/1/setcookie",
                   "links": {
                     "link": {
                       "id": "2",
@@ -24,7 +24,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            ",
+                  "uri": "setmessage:message:setcookie",
                   "links": {
                     "link": [
                       {
@@ -43,7 +43,12 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "xmltojson://?keepStrings=false&removeNamespaces=false&removeRoot=false&hasTypes=false&typeValueMismatch=ORIGINAL",
+                  "uri": "setcookie:org.assimbly",
+                  "options": {
+                    "name": "MyCookie",
+                    "value": "MyCookie",
+                    "isSecure": "false"
+                  },
                   "links": {
                     "link": [
                       {
@@ -74,6 +79,15 @@
               ]
             }
           }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "1",
+          "name": "setcookie",
+          "body": "Cookie has been set"
         }
       }
     }

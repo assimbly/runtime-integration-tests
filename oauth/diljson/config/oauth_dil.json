@@ -1,0 +1,144 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "oauth_test1",
+            "name": "oauth_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/oauth"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_refresh_token",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABC==)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_access_token",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHI==)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "action",
+                  "uri": "globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_expire_date",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(MTY2ODY4NDI3OTE2Mw==)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "action",
+                  "uri": "globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_refresh_flag",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(MA==)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "6",
+                  "type": "action",
+                  "uri": "globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_redirect_uri",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGH=)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "7",
+                  "type": "action",
+                  "uri": "globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_client_id",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJK)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "8",
+                  "type": "action",
+                  "uri": "globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_client_secret",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ+0123456789ABCDEFGHIJKLMNOPQ==)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "9",
+                  "type": "action",
+                  "uri": "globalvariables://oauth2_20f44cb0-3d76-11ed-b962-0978946afb23_scope",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(aHR0cHM6Ly9kZXZlbG9wbWVudC5kb3ZldGFpbC53b3JsZC9vYXV0aDJ0b2tlbi90ZXN0LzIwZjQ0Y2IwLTNk)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "10",
+                  "type": "action",
+                  "uri": "oauth2token",
+                  "options": {
+                    "id": "20f44cb0-3d76-11ed-b962-0978946afb23",
+                    "tokenName": "OAuth2Token",
+                    "tenant": "default",
+                    "expiryDelay": "30"
+                  }
+                },
+                {
+                  "id": "11",
+                  "type": "sink",
+                  "uri": "velocity:${header.OAuth2Token}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

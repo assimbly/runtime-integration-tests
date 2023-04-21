@@ -1,0 +1,41 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "hl7xml_test1",
+            "name": "hl7xml_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/httpinbound",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "hl7xml:0.0.0.0:10000"
+                },
+                {
+                  "id": "3",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

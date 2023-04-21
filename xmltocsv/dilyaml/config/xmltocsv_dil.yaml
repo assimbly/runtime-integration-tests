@@ -1,0 +1,73 @@
+---
+dil:
+  core:
+    messages:
+      message:
+        id: "menu"
+        body:
+          breakfast_menu:
+            food:
+            - price: "$5.95"
+              name: "Belgian Waffles"
+              description: "Two of our famous Belgian Waffles with plenty of real\
+                \ maple syrup"
+              id: 1
+              calories: 650
+            - price: "$7.95"
+              name: "Strawberry Belgian Waffles"
+              description: "Light Belgian waffles covered with strawberries and whipped\
+                \ cream"
+              id: 2
+              calories: 900
+            - price: "$8.95"
+              name: "Berry-Berry Belgian Waffles"
+              description: "Belgian waffles covered with assorted fresh berries and\
+                \ whipped cream"
+              id: 3
+              calories: 900
+            - price: "$4.50"
+              name: "French Toast"
+              description: "Thick slices made from our homemade sourdough bread"
+              id: 4
+              calories: 600
+            - price: "$6.95"
+              name: "Homestyle Breakfast"
+              description: "Two eggs, bacon or sausage, toast, and our ever-popular\
+                \ hash browns"
+              id: 5
+              calories: 950
+            - price: "$6.95"
+              name: "Homestyle Breakfast"
+              description: "Two eggs, bacon or sausage, toast, and our ever-popular\
+                \ hash browns"
+              id: 6
+              calories: 950
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "xmltocsv_test1"
+          id: "xmltocsv_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/XmlToCsv"
+            - id: 2
+              type: "action"
+              uri: "setbody:message:menu"
+            - options:
+                indexColumnName: "line"
+                quoteFields: "ALL_FIELDS"
+                includeIndexColumn: false
+                delimiter: "LA=="
+                orderHeaders: "UNORDERED"
+                lineSeparator: "XG4="
+                includeHeader: true
+              id: 3
+              type: "action"
+              uri: "xmltocsv"
+            - id: 4
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

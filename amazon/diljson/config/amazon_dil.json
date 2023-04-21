@@ -1,0 +1,41 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "amazon_test1",
+            "name": "amazon_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/Amazon"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "amazon://SUBMIT_FEED",
+                  "options": {
+                    "accessKey": "RAW(ABCDEFGHIJKLMNOPQRST)",
+                    "secretKey": "RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/AB)",
+                    "authToken": "RAW()",
+                    "sellerId": "RAW(ABCDEFGHIJKLMN)",
+                    "marketplace": "RAW(A2Q3Y263D00KWC)"
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,15 +4,15 @@
       "integration": {
         "flows": {
           "flow": {
-            "id": "xmltojson_test1",
-            "name": "xmltojson_test1",
+            "id": "exchangepattern_test1",
+            "name": "exchangepattern_test1",
             "type": "esb",
             "steps": {
               "step": [
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/XmlToJson",
+                  "uri": "https://0.0.0.0:9001/1/exchangepattern",
                   "links": {
                     "link": {
                       "id": "2",
@@ -43,7 +43,6 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "xmltojson://?keepStrings=false&removeNamespaces=false&removeRoot=false&hasTypes=false&typeValueMismatch=ORIGINAL",
                   "links": {
                     "link": [
                       {
@@ -54,18 +53,38 @@
                       {
                         "id": "4",
                         "transport": "sync",
-                        "bound": "out"
+                        "bound": "out",
+                        "pattern": "event"
                       }
                     ]
                   }
                 },
                 {
                   "id": "4",
+                  "type": "action",
+                  "uri": "log",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "5",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}",
+                  "uri": "velocity:Message Bodys: ${bodyAs(String)}",
                   "links": {
                     "link": {
-                      "id": "4",
+                      "id": "5",
                       "transport": "sync",
                       "bound": "in"
                     }

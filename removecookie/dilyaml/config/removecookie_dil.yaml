@@ -1,0 +1,57 @@
+---
+dil:
+  core:
+    messages:
+      message:
+        name: "removecookie"
+        id: 1
+        body: "Cookie has been removed"
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "removecookie_test1"
+          id: "removecookie_test1"
+          type: "esb"
+          steps:
+            step:
+            - links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/removecookie"
+            - links:
+                link:
+                - bound: "in"
+                  id: 2
+                  transport: "sync"
+                - bound: "out"
+                  id: 3
+                  transport: "sync"
+              id: 2
+              type: "action"
+              uri: "setmessage:message:removecookie"
+            - options:
+                name: "MyCookie"
+              links:
+                link:
+                - bound: "in"
+                  id: 3
+                  transport: "sync"
+                - bound: "out"
+                  id: 4
+                  transport: "sync"
+              id: 3
+              type: "action"
+              uri: "removecookie:assimbly.org"
+            - links:
+                link:
+                  bound: "in"
+                  id: 4
+                  transport: "sync"
+              id: 4
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

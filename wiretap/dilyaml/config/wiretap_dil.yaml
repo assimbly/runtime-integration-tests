@@ -1,0 +1,44 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "wiretap_test1"
+          id: "wiretap_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/Wiretap"
+            - id: 2
+              type: "action"
+              uri:
+              - - "setbody:"
+                - "<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\
+                  \t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t\
+                  <name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>"
+            - id: 3
+              type: "action"
+              uri: "wiretap:activemq:ID_1234"
+            - id: 4
+              type: "sink"
+              uri: "velocity:Message Body: ${bodyAs(String)}"
+            - options:
+                skipBodyLineSeparator: false
+                showStackTrace: false
+                showFiles: true
+                showHeaders: false
+                showException: false
+                multiline: true
+                showBody: true
+                showBodyType: true
+              links:
+                link:
+                  bound: "in"
+                  id: "ID_1234"
+                  transport: "activemq"
+              id: 5
+              type: "sink"
+              uri: "log:Wiretap message"

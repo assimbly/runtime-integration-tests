@@ -1,0 +1,43 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "email_test1",
+            "name": "email_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "imaps://imap.cartoon.com:993",
+                  "options": {
+                    "authenticationType": "RAW(basic)",
+                    "username": "RAW(noreply@cartoon.com)",
+                    "password": "RAW(Hoo-ha-hooah!)",
+                    "tenant": "RAW(dovetail)",
+                    "delay": "10000",
+                    "bridgeErrorHandler": "true",
+                    "sslContextParameters": "#sslContext"
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "log"
+                },
+                {
+                  "id": "3",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

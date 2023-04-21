@@ -4,15 +4,15 @@
       "integration": {
         "flows": {
           "flow": {
-            "id": "xmltojson_test1",
-            "name": "xmltojson_test1",
+            "id": "jsontoxml_test1",
+            "name": "jsontoxml_test1",
             "type": "esb",
             "steps": {
               "step": [
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/XmlToJson",
+                  "uri": "https://0.0.0.0:9001/1/jsontoxml",
                   "links": {
                     "link": {
                       "id": "2",
@@ -24,7 +24,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            ",
+                  "uri": "setbody:{  \"Formula1\": {    \"Drivers\": {      \"Driver\": [        {          \"Age\": 19,          \"Name\": \"Max Verstappen\"        },        {          \"Age\": 30,          \"Name\": \"Nico Hulkenberg\"        }      ]    },    \"Teams\": {      \"Team\": [        {          \"Principal\": \"Christian Horner\",          \"Name\": \"Redbull Racing\"        },        {          \"Principal\": \"Carlos Ghosn, Jérôme Stoll, Cyril Abiteboul\",          \"Name\": \"Renault\"        }      ]    }  }}",
                   "links": {
                     "link": [
                       {
@@ -43,7 +43,12 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "xmltojson://?keepStrings=false&removeNamespaces=false&removeRoot=false&hasTypes=false&typeValueMismatch=ORIGINAL",
+                  "uri": "jsontoxml",
+                  "options": {
+                    "false": "false",
+                    "checkJsonKeys": "false",
+                    "changeArrayElements": "false"
+                  },
                   "links": {
                     "link": [
                       {

@@ -1,0 +1,74 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "splitbyxpath_test1"
+          id: "splitbyxpath_test1"
+          type: "esb"
+          steps:
+            step:
+            - links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/split"
+            - links:
+                link:
+                - bound: "in"
+                  id: 2
+                  transport: "sync"
+                - bound: "out"
+                  id: 3
+                  transport: "sync"
+              id: 2
+              type: "action"
+              uri:
+              - - "setbody:"
+                - "<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\
+                  \t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t\
+                  <name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>"
+            - links:
+                link:
+                - bound: "in"
+                  id: 3
+                  transport: "sync"
+                - bound: "out"
+                  id: 4
+                  transport: "sync"
+                - expression: "/persons/person"
+                  bound: "out"
+                  rule: "xpath"
+                  id: 5
+                  transport: "sync"
+              id: 3
+              type: "router"
+              uri: "split"
+            - links:
+                link:
+                  bound: "in"
+                  id: 4
+                  transport: "sync"
+              id: 4
+              type: "sink"
+              uri: "velocity:Message Body: ${bodyAs(String)}"
+            - options:
+                skipBodyLineSeparator: false
+                showStackTrace: false
+                showFiles: true
+                showHeaders: false
+                showException: false
+                multiline: true
+                showBody: true
+              links:
+                link:
+                  bound: "in"
+                  id: 5
+                  transport: "sync"
+              id: 5
+              type: "sink"
+              uri: "log:org.assimbly.gateway"

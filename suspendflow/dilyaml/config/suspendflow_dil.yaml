@@ -1,0 +1,75 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "suspendflow_test1"
+          id: "suspendflow_test1"
+          type: "esb"
+          steps:
+            step:
+            - links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/suspend"
+            - links:
+                link:
+                - bound: "in"
+                  id: 2
+                  transport: "sync"
+                - bound: "out"
+                  id: 3
+                  transport: "sync"
+              id: 2
+              type: "action"
+              uri:
+              - - "setbody:"
+                - "<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\
+                  \t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t\
+                  <name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>"
+            - links:
+                link:
+                - bound: "in"
+                  id: 3
+                  transport: "sync"
+                - bound: "out"
+                  id: 4
+                  transport: "sync"
+              id: 3
+              type: "action"
+              uri: "log"
+            - links:
+                link:
+                - bound: "in"
+                  id: 4
+                  transport: "sync"
+                - bound: "out"
+                  pattern: "event"
+                  id: 5
+                  transport: "sync"
+              id: 4
+              type: "router"
+            - links:
+                link:
+                - bound: "in"
+                  id: 5
+                  transport: "sync"
+                - bound: "out"
+                  id: 6
+                  transport: "sync"
+              id: 5
+              type: "action"
+              uri: "suspendflow:suspendflow_test1"
+            - links:
+                link:
+                  bound: "in"
+                  id: 6
+                  transport: "sync"
+              id: 6
+              type: "sink"
+              uri: "log"

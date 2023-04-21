@@ -4,15 +4,15 @@
       "integration": {
         "flows": {
           "flow": {
-            "id": "xmltojson_test1",
-            "name": "xmltojson_test1",
+            "id": "texttobase64_test1",
+            "name": "texttobase64_test1",
             "type": "esb",
             "steps": {
               "step": [
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/XmlToJson",
+                  "uri": "https://0.0.0.0:9001/1/base64",
                   "links": {
                     "link": {
                       "id": "2",
@@ -43,7 +43,7 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "xmltojson://?keepStrings=false&removeNamespaces=false&removeRoot=false&hasTypes=false&typeValueMismatch=ORIGINAL",
+                  "uri": "texttobase64",
                   "links": {
                     "link": [
                       {
@@ -62,7 +62,7 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}",
+                  "uri": "velocity:Message Body: ${bodyAs(String)}",
                   "links": {
                     "link": {
                       "id": "4",

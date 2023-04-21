@@ -1,0 +1,17 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "hl7xml_test1"
+          id: "hl7xml_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "hl7xml:0.0.0.0:10000"
+            - id: 2
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

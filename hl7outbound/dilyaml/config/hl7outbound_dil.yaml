@@ -1,0 +1,25 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "hl7xml_test1"
+          id: "hl7xml_test1"
+          type: "esb"
+          steps:
+            step:
+            - links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/httpinbound"
+            - id: 2
+              type: "action"
+              uri: "hl7xml:0.0.0.0:10000"
+            - id: 3
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

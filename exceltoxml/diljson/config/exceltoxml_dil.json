@@ -1,0 +1,137 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "exceltoxml_test1",
+            "name": "exceltoxml_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/exceltoxml",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setheaders:message:names",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "pollenrich:file://${header.path}?fileName=simplesheet2.xlsx&delete=false&noop=true",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "action",
+                  "uri": "log",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "action",
+                  "uri": "exceltoxml",
+                  "options": {
+                    "rules": "RAW(WyJ7XCJjZWxsUmFuZ2VcIjpcIkExOkE0XCIsXCJkaXNjYXJkRW1wdHlcIjpmYWxzZSxcImhlYWRlclJvd1wiOmZhbHNlLFwibmFtZVwiOlwibmFtZXNcIixcInRyYW5zcG9zZVwiOmZhbHNlLFwid29ya3NoZWV0XCI6XCJTaGVldDFcIn0iXQ==)"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "6",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "6",
+                  "type": "sink",
+                  "uri": "velocity:Message Body: ${bodyAs(String)}",
+                  "links": {
+                    "link": {
+                      "id": "6",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "1",
+          "name": "names",
+          "headers": {
+            "path": {
+              "type": "header",
+              "language": "groovy",
+              "": "System.getProperty(\"user.home\")"
+            }
+          }
+        }
+      }
+    }
+  }
+}

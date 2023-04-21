@@ -1,0 +1,42 @@
+---
+dil:
+  core:
+    messages:
+      message:
+        id: "menu"
+        body:
+          breakfast_menu:
+            food:
+              price: "$5.95"
+              name: "Belgian Waffles"
+              description: "Two of our famous Belgian Waffles with plenty of real\
+                \ maple syrup"
+              id: 1
+              calories: 650
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "xmltoexcel_test1"
+          id: "xmltoexel_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/XmlToExcel"
+            - id: 2
+              type: "action"
+              uri: "setbody:message:menu"
+            - options:
+                indexColumnName: "line"
+                includeIndexColumn: false
+                excelFormat: "XLSX"
+                orderHeaders: "UNORDERED"
+                includeHeader: true
+              id: 3
+              type: "action"
+              uri: "xmltoexcel"
+            - id: 4
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

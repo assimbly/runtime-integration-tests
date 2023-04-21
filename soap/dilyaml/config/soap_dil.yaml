@@ -1,0 +1,80 @@
+---
+dil:
+  core:
+    messages:
+      message:
+        headers:
+          Content-Type:
+            language: "constant"
+            type: "header"
+            content: "text/xml"
+        name: "soap"
+        id: 1
+        body: "<FullCountryInfo> <sCountryISOCode>NL</sCountryISOCode></FullCountryInfo>"
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "soap_test1"
+          id: "soap_test1"
+          type: "esb"
+          steps:
+            step:
+            - links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/soap"
+            - links:
+                link:
+                - bound: "in"
+                  id: 2
+                  transport: "sync"
+                - bound: "out"
+                  id: 22
+                  transport: "sync"
+              id: 2
+              type: "action"
+              uri: "setmessage:message:soap"
+            - options:
+                showAll: true
+                multiline: true
+              links:
+                link:
+                - bound: "in"
+                  id: 22
+                  transport: "sync"
+                - bound: "out"
+                  id: 3
+                  transport: "sync"
+              id: 22
+              type: "action"
+              uri: "log:com.mycompany.order"
+            - options:
+                extract: true
+                action: "FullCountryInfo"
+                httpHeaders: "W3siX2lkIjoiNjJjZTk1MTY1NWYwMmUwMDExMDAwNGE3IiwibmFtZSI6IkFwaVRva2VuIiwidmFsdWUiOiIxMjMifV0="
+                params: "WSDL"
+                smart: true
+              links:
+                link:
+                - bound: "in"
+                  id: 3
+                  transport: "sync"
+                - bound: "out"
+                  id: 4
+                  transport: "sync"
+              id: 3
+              type: "action"
+              uri: "soap:http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso"
+            - links:
+                link:
+                  bound: "in"
+                  id: 4
+                  transport: "sync"
+              id: 4
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

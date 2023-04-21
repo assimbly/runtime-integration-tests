@@ -1,0 +1,26 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "amazon_test1"
+          id: "amazon_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/Amazon"
+            - options:
+                sellerId: "RAW(ABCDEFGHIJKLMN)"
+                secretKey: "RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/AB)"
+                marketplace: "RAW(A2Q3Y263D00KWC)"
+                accessKey: "RAW(ABCDEFGHIJKLMNOPQRST)"
+                authToken: "RAW()"
+              id: 2
+              type: "action"
+              uri: "amazon://SUBMIT_FEED"
+            - id: 3
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

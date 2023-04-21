@@ -4,15 +4,15 @@
       "integration": {
         "flows": {
           "flow": {
-            "id": "xmltojson_test1",
-            "name": "xmltojson_test1",
+            "id": "simplereplace_test1",
+            "name": "simplereplace_test1",
             "type": "esb",
             "steps": {
               "step": [
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/XmlToJson",
+                  "uri": "https://0.0.0.0:9001/1/simplereplace",
                   "links": {
                     "link": {
                       "id": "2",
@@ -24,7 +24,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            ",
+                  "uri": "setheaders:message:names",
                   "links": {
                     "link": [
                       {
@@ -43,7 +43,7 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "xmltojson://?keepStrings=false&removeNamespaces=false&removeRoot=false&hasTypes=false&typeValueMismatch=ORIGINAL",
+                  "uri": "setbody:hello ${header.name}, welcome to ${header.company}.                            ",
                   "links": {
                     "link": [
                       {
@@ -61,17 +61,56 @@
                 },
                 {
                   "id": "4",
+                  "type": "action",
+                  "uri": "simplereplace",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "5",
                   "type": "sink",
                   "uri": "velocity:${bodyAs(String)}",
                   "links": {
                     "link": {
-                      "id": "4",
+                      "id": "5",
                       "transport": "sync",
                       "bound": "in"
                     }
                   }
                 }
               ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "1",
+          "name": "names",
+          "headers": {
+            "name": {
+              "type": "header",
+              "language": "simple",
+              "": "Pedro"
+            },
+            "company": {
+              "type": "header",
+              "language": "constant",
+              "": "Dovetail"
             }
           }
         }

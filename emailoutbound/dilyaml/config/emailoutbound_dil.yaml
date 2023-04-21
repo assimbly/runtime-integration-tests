@@ -1,0 +1,34 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "email_test1"
+          id: "email_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/emailoutbound"
+            - id: 2
+              type: "action"
+              uri: "setbody:Hello World"
+            - id: 3
+              type: "action"
+              uri: "log"
+            - options:
+                password: "RAW(Hoo-ha-hooah!)"
+                headerFilterStrategy: "#ExtendedHeaderFilterStrategy"
+                subject: "RAW(testing email component)"
+                from: "RAW(noreply@cartoon.com)"
+                to: "RAW(johnny.bravo@cartoon.com)"
+                mail.smtp.starttls.enable: true
+                username: "RAW(noreply@cartoon.com)"
+              id: 4
+              type: "action"
+              uri: "smtp://smtp-relay.cartoon.com:587"
+            - id: 5
+              type: "sink"
+              uri: "velocity: email sent"

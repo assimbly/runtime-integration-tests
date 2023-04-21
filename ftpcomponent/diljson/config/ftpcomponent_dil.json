@@ -1,0 +1,164 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "ftpcomponent_test1",
+            "name": "ftpcomponent_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/ftpcomponent",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:testing FTP!",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "ftp:dlpuser@ftp.dlptest.com:21//tmp",
+                  "options": {
+                    "autoCreate": "true",
+                    "charset": "utf-8",
+                    "fileExist": "Override",
+                    "fileName": "test.txt",
+                    "passiveMode": "true",
+                    "disconnect": "true",
+                    "throwExceptionOnConnectFailed": "true",
+                    "bridgeErrorHandler": "true",
+                    "password": "RAW(rNrKYTX9g7z3RgJRmxWuGHbeu)"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "action",
+                  "uri": "setbody:reset body...",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "router",
+                  "uri": "enrich",
+                  "options": {
+                    "enrichType": "application/override"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "6",
+                        "transport": "sync",
+                        "bound": "out"
+                      },
+                      {
+                        "id": "7",
+                        "transport": "sync",
+                        "bound": "out",
+                        "rule": "sync",
+                        "expression": "7"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "6",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}",
+                  "links": {
+                    "link": {
+                      "id": "6",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                },
+                {
+                  "id": "7",
+                  "type": "sink",
+                  "uri": "pollenrich:ftp:dlpuser@ftp.dlptest.com:21//tmp/",
+                  "options": {
+                    "autoCreate": "true",
+                    "charset": "utf-8",
+                    "delete": "true",
+                    "recursive": "false",
+                    "fileName": "test.txt",
+                    "passiveMode": "true",
+                    "disconnect": "true",
+                    "throwExceptionOnConnectFailed": "true",
+                    "bridgeErrorHandler": "true",
+                    "password": "RAW(rNrKYTX9g7z3RgJRmxWuGHbeu)"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "7",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

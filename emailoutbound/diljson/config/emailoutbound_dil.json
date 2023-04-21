@@ -1,0 +1,53 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "email_test1",
+            "name": "email_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/emailoutbound"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:Hello World"
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "log"
+                },
+                {
+                  "id": "4",
+                  "type": "action",
+                  "uri": "smtp://smtp-relay.cartoon.com:587",
+                  "options": {
+                    "from": "RAW(noreply@cartoon.com)",
+                    "headerFilterStrategy": "#ExtendedHeaderFilterStrategy",
+                    "mail.smtp.starttls.enable": "true",
+                    "password": "RAW(Hoo-ha-hooah!)",
+                    "subject": "RAW(testing email component)",
+                    "to": "RAW(johnny.bravo@cartoon.com)",
+                    "username": "RAW(noreply@cartoon.com)"
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "sink",
+                  "uri": "velocity: email sent"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "globalvariables_test1",
+            "name": "globalvariables_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/setvariable"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "globalvariables://MyVariable",
+                  "options": {
+                    "operation": "SET",
+                    "value": "RAW(dGVzdA==)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "globalvariables://MyVariable",
+                  "options": {
+                    "operation": "GET",
+                    "header": "MyVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "velocity:${header.MyVariable}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

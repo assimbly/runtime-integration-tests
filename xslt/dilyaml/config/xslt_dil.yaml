@@ -1,0 +1,27 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "xmltoxslt_test1"
+          id: "xmltoxslt_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/Xslt"
+            - id: 2
+              type: "action"
+              uri:
+              - - "setbody:"
+                - "<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\
+                  \t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t\
+                  <name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>"
+            - id: 3
+              type: "action"
+              uri: "xslt:http://localhost:9002/1/xsltfile"
+            - id: 4
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

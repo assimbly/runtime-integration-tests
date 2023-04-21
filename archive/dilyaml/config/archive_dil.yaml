@@ -1,0 +1,42 @@
+---
+dil:
+  core:
+    messages:
+      message:
+        id: "archive"
+        body: "Hello"
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "archive_test1"
+          id: "archive_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/Archive"
+            - id: 2
+              type: "action"
+              uri: "setbody:message:archive"
+            - options:
+                usingIterator: true
+                preservePathElements: true
+              id: 3
+              type: "action"
+              uri: "zip"
+            - id: 4
+              type: "action"
+              uri: "log"
+            - options:
+                usingIterator: true
+              id: 5
+              type: "action"
+              uri: "unzip"
+            - id: 6
+              type: "action"
+              uri: "log"
+            - id: 7
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

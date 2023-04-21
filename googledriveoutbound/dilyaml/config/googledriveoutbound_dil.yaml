@@ -1,0 +1,40 @@
+---
+dil:
+  core:
+    messages:
+      message:
+        headers:
+          CamelFileName:
+            language: "constant"
+            type: "header"
+            content: "juca.txt"
+        name: "camelfilename"
+        id: 1
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "googledriveoutbound_test1"
+          id: "googledriveoutbound_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "https://0.0.0.0:9001/1/googledriveoutbound"
+            - id: 2
+              type: "action"
+              uri: "velocity:test from dovetail"
+            - id: 3
+              type: "action"
+              uri: "setheaders:message:camelfilename"
+            - options:
+                directoryId: "AAABBBCCCDDDEEEFFFGGHHH"
+                accessToken: "AAABBBCCCDDDEEEFFFGGHHH"
+                refreshToken: "AAABBBCCCDDDEEEFFFGGHHH"
+              id: 4
+              type: "action"
+              uri: "googledrive"
+            - id: 5
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

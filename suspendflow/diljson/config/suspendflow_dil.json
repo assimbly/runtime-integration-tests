@@ -4,15 +4,15 @@
       "integration": {
         "flows": {
           "flow": {
-            "id": "xmltojson_test1",
-            "name": "xmltojson_test1",
+            "id": "suspendflow_test1",
+            "name": "suspendflow_test1",
             "type": "esb",
             "steps": {
               "step": [
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/XmlToJson",
+                  "uri": "https://0.0.0.0:9001/1/suspend",
                   "links": {
                     "link": {
                       "id": "2",
@@ -43,7 +43,7 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "xmltojson://?keepStrings=false&removeNamespaces=false&removeRoot=false&hasTypes=false&typeValueMismatch=ORIGINAL",
+                  "uri": "log",
                   "links": {
                     "link": [
                       {
@@ -61,11 +61,49 @@
                 },
                 {
                   "id": "4",
+                  "type": "router",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "out",
+                        "pattern": "event"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "action",
+                  "uri": "suspendflow:suspendflow_test1",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "6",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "6",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}",
+                  "uri": "log",
                   "links": {
                     "link": {
-                      "id": "4",
+                      "id": "6",
                       "transport": "sync",
                       "bound": "in"
                     }

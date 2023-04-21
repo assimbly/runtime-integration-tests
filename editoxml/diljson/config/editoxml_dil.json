@@ -1,0 +1,45 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "editoxml_test1",
+            "name": "editoxml_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/editoxml"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:CUS~John^Doe~1901-01-07~john.doe@example.com"
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "editoxml",
+                  "options": {
+                    "segment": "LB",
+                    "field": "~",
+                    "component": "^",
+                    "subComponent": "!"
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

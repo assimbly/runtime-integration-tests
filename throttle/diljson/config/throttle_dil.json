@@ -1,0 +1,105 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "throttle_test1",
+            "name": "throttle_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/throttle"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            "
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "log",
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "router",
+                  "uri": "split",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "out",
+                        "rule": "xpath",
+                        "expression": "/persons/person"
+                      },
+                      {
+                        "id": "8",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "action",
+                  "uri": "throttle",
+                  "options": {
+                    "timeperiod": "5000",
+                    "messages": "1"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "5",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                },
+                {
+                  "id": "6",
+                  "type": "action",
+                  "uri": "log"
+                },
+                {
+                  "id": "7",
+                  "type": "sink",
+                  "uri": "print:Message Body: ${bodyAs(String)}"
+                },
+                {
+                  "id": "8",
+                  "type": "sink",
+                  "uri": "print:Default output",
+                  "links": {
+                    "link": {
+                      "id": "8",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
