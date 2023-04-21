@@ -43,7 +43,6 @@
                             <options>							
 								<httpMethod>GET</httpMethod>
 								<userAgent>Dovetail/4.12.0</userAgent>
-								<transferException>true</transferException>
 								<cookieStore>#flowCookieStore</cookieStore>
 								<throwExceptionOnFailure>true</throwExceptionOnFailure>
 								<maxTotalConnections>20</maxTotalConnections>

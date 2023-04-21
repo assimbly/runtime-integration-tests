@@ -4,9 +4,9 @@
   <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
   <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="0" maxPoolSize="10" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
   <onException>      <exception>java.lang.Exception</exception>
-      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
-      <setExchangePattern pattern="InOut"/>
-</onException>
+    <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+    <setExchangePattern pattern="InOut"/>
+  </onException>
   <route id="3ffded10-d05b-11ec-83f5-3747809ef661">
     <from uri="jetty:https://0.0.0.0:9001/1/DocConverter?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
@@ -23,19 +23,19 @@
 			]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a57f538c74a000e00060a_test_3ffded10-d05b-111ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a57f538c74a000e00060a_test_3ffded10-d05b-111ec-83f5-3747809ef661"/>
   </route>
   <route id="47a06ca1-d05b-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a57f538c74a000e00060a_test_3ffded10-d05b-111ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a57f538c74a000e00060a_test_3ffded10-d05b-111ec-83f5-3747809ef661"/>
     <to uri="docconverter:xml2json"/>
-    <to uri="activemq:ID_627a57f538c74a000e00060a_test_47a06ca1-d05b-111ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a57f538c74a000e00060a_test_47a06ca1-d05b-111ec-83f5-3747809ef661"/>
   </route>
   <route id="3ffded11-d05b-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a57f538c74a000e00060a_test_47a06ca1-d05b-111ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a57f538c74a000e00060a_test_47a06ca1-d05b-111ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 
-${bodyAs(String)}</simple>
+        ${bodyAs(String)}</simple>
     </setHeader>
     <to uri="velocity:generate"/>
   </route>

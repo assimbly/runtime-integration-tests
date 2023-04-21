@@ -45,7 +45,7 @@
                             </links>
                         </step>
                         <step>
-                            <id>2</id>
+                            <id>3</id>
                             <type>sink</type>
                             <links>
                                 <link>

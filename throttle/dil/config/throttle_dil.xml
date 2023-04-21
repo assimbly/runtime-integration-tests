@@ -67,6 +67,7 @@
 							<uri>throttle</uri>
 							<options>
 								<timeperiod>5000</timeperiod>
+                                <messages>1</messages>
 							</options>
                             <links>
                                 <link>
