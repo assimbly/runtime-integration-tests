@@ -12,46 +12,50 @@
   <route id="84b4efe0-64fc-11ed-bb2d-0fb330e4b7c3">
     <from uri="jetty:https://0.0.0.0:9001/1/ftpcomponent?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
-    <to uri="activemq:ID_627a64c238c74a00130006fc_test_7bec1ed0-f88a-11ec-bb33-77f12be2f398?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a64c238c74a00130006fc_test_7bec1ed0-f88a-11ec-bb33-77f12be2f398"/>
   </route>
 
   <route id="c80fae60-f891-11ec-bb33-77f12be2f398">
-    <from uri="activemq:ID_627a64c238c74a00130006fc_test_7bec1ed0-f88a-11ec-bb33-77f12be2f398"/>
+    <from uri="direct:ID_627a64c238c74a00130006fc_test_7bec1ed0-f88a-11ec-bb33-77f12be2f398"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>testing FTP!</simple>
     </setHeader>
     <to uri="velocity:generate"/>
-    <to uri="activemq:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f398?timeToLive=86400000"/>
+    <to uri="direct:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f398"/>
   </route>
 
   <route id="28fb0411-d090-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f398"/>
+    <from uri="direct:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f398"/>
+    <to uri="log:mylog_before?showAll=true"/>
     <toD uri="ftp:dlpuser@ftp.dlptest.com:21//tmp/?autoCreate=true&amp;charset=utf-8&amp;fileExist=Override&amp;fileName=test.txt&amp;passiveMode=true&amp;disconnect=true&amp;throwExceptionOnConnectFailed=true&amp;consumer.bridgeErrorHandler=true&amp;password=RAW(rNrKYTX9g7z3RgJRmxWuGHbeu)"/>
-    <to uri="activemq:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f399?timeToLive=86400000"/>
+    <to uri="log:mylog_after?showAll=true"/>
+    <to uri="direct:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f399"/>
   </route>
 
   <route id="28fb0411-d090-11ec-83f5-3747809ef662">
-    <from uri="activemq:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f399"/>
+    <from uri="direct:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f399"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>reset body...</simple>
     </setHeader>
     <to uri="velocity:generate"/>
-    <to uri="activemq:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f400?timeToLive=86400000"/>
+    <to uri="direct:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f400"/>
   </route>
 
   <route id="28fb0411-d090-11ec-83f5-3747809ef663">
-    <from uri="activemq:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f400"/>
+    <from uri="direct:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f400"/>
     <setProperty propertyName="Enrich-Type">
       <simple>application/override</simple>
     </setProperty>
+    <to uri="log:mylog_before?showAll=true"/>
     <pollEnrich strategyRef="CurrentEnrichStrategy" timeout="5000">
       <simple>ftp:dlpuser@ftp.dlptest.com:21//tmp/?autoCreate=true&amp;charset=utf-8&amp;delete=false&amp;recursive=false&amp;fileName=test.txt&amp;passiveMode=true&amp;disconnect=true&amp;throwExceptionOnConnectFailed=true&amp;consumer.bridgeErrorHandler=true&amp;password=RAW(rNrKYTX9g7z3RgJRmxWuGHbeu)&amp;move=RAW(.dovetail)&amp;moveFailed=RAW(.error)</simple>
     </pollEnrich>
-    <to uri="activemq:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f401?timeToLive=86400000"/>
+    <to uri="log:mylog_after?showAll=true"/>
+    <to uri="direct:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f401"/>
   </route>
 
   <route id="28fb0411-d090-11ec-83f5-3747809ef664">
-    <from uri="activemq:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f401"/>
+    <from uri="direct:ID_627a64c238c74a00130006fc_test_c80fae60-f891-11ec-bb33-77f12be2f401"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>

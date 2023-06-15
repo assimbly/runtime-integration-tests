@@ -109,7 +109,7 @@ sleep "$WAIT"
 rm "$DEPLOY_DIR/$COMPONENT"*
 
 if "$CHECK" = true; then
-  RESULT=$(diff -s -r "$SOURCE_DIR/actual" "$SOURCE_DIR/expected")
+  RESULT=$(diff -s -r -B "$SOURCE_DIR/actual" "$SOURCE_DIR/expected")
   echo
   if [[ "$RESULT" == *"identical"* ]]; then
     echo "Test successful"

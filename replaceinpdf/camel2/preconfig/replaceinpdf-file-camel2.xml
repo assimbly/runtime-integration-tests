@@ -10,20 +10,20 @@
   <route id="PDF_FILE_26b3c210-d062-11ec-83f5-3747809ef661">
     <from uri="jetty:http://0.0.0.0:9002/1/pdfs/flowid?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
-    <to uri="activemq:ID_PDF_FILE_627a626e38c74a06a000012f_test_26b3c210-d062-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_PDF_FILE_627a626e38c74a06a000012f_test_26b3c210-d062-11ec-83f5-3747809ef661"/>
   </route>
   <route id="PDF_FILE_091a0c11-4faa-11ed-b969-f33930ac7520">
-    <from uri="activemq:ID_PDF_FILE_627a626e38c74a06a000012f_test_26b3c210-d062-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_PDF_FILE_627a626e38c74a06a000012f_test_26b3c210-d062-11ec-83f5-3747809ef661"/>
 	<setHeader headerName="userhome">
       <groovy>System.getProperty("user.home").toLowerCase()</groovy>
     </setHeader>
     <setHeader name="path">
       <simple>${header.path.replace('\','/')}</simple>
     </setHeader>
-    <to uri="activemq:ID_PDF_FILE_627a626e38c74a06a000012f_test_091a0c11-4faa-11ed-b969-f33930ac7520?timeToLive=86400000"/>
+    <to uri="direct:ID_PDF_FILE_627a626e38c74a06a000012f_test_091a0c11-4faa-11ed-b969-f33930ac7520"/>
   </route>
   <route id="PDF_FILE_e0444a61-d06c-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_PDF_FILE_627a626e38c74a06a000012f_test_091a0c11-4faa-11ed-b969-f33930ac7520"/>
+    <from uri="direct:ID_PDF_FILE_627a626e38c74a06a000012f_test_091a0c11-4faa-11ed-b969-f33930ac7520"/>
     <to uri="log:1?showAll=true"/>
     <pollEnrich timeout="15000">
 	  <simple>file://${header.userhome}?fileName=template.pdf&amp;delete=false&amp;noop=true&amp;synchronous=true&amp;idempotent=false</simple>
