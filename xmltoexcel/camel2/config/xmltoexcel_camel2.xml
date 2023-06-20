@@ -11,42 +11,19 @@
     <from uri="jetty:https://0.0.0.0:9001/1/XmlToExcel?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
     <setBody>
-      <constant>
-        <![CDATA[<breakfast_menu>
-    <foods>
-        <food>
-            <name>food1</name>
-            <price>1</price>
-            <description>desc1</description>
-        </food>
-        <food>
-            <name>food2</name>
-            <price>2</price>
-            <description>desc2</description>
-        </food>
-        <food>
-            <name>food3</name>
-            <price>3</price>
-            <description>desc3</description>
-        </food>
-    </foods>
-</breakfast_menu>
-			]]>
-      </constant>
+      <constant><![CDATA[<breakfast_menu><foods><food><name>food1</name><price>1</price><description>desc1</description></food><food><name>food2</name><price>2</price><description>desc2</description></food></foods></breakfast_menu>]]></constant>
     </setBody>
-    <to uri="activemq:ID_62b0593c55f02e00110000e2_test_9151fd40-f08c-11ec-8543-47f64d01a1d5?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_62b0593c55f02e00110000e2_test_9151fd40-f08c-11ec-8543-47f64d01a1d5"/>
   </route>
   <route id="a41aa4e1-f08c-11ec-8543-47f64d01a1d5">
-    <from uri="activemq:ID_62b0593c55f02e00110000e2_test_9151fd40-f08c-11ec-8543-47f64d01a1d5"/>
-    <to uri="xml2excel://?includeHeader=true&amp;includeIndexColumn=false&amp;indexColumnName=line&amp;orderHeaders=UNORDERED&amp;excelFormat=XLSX"/>
-    <to uri="activemq:ID_62b0593c55f02e00110000e2_test_a41aa4e1-f08c-11ec-8543-47f64d01a1d5?timeToLive=86400000"/>
+    <from uri="direct:ID_62b0593c55f02e00110000e2_test_9151fd40-f08c-11ec-8543-47f64d01a1d5"/>
+    <to uri="xml2excel://?includeHeader=false&amp;includeIndexColumn=false&amp;indexColumnName=line&amp;orderHeaders=UNORDERED&amp;excelFormat=XLSX"/>
+    <to uri="direct:ID_62b0593c55f02e00110000e2_test_a41aa4e1-f08c-11ec-8543-47f64d01a1d5"/>
   </route>
   <route id="91522451-f08c-11ec-8543-47f64d01a1d5">
-    <from uri="activemq:ID_62b0593c55f02e00110000e2_test_a41aa4e1-f08c-11ec-8543-47f64d01a1d5"/>
+    <from uri="direct:ID_62b0593c55f02e00110000e2_test_a41aa4e1-f08c-11ec-8543-47f64d01a1d5"/>
     <setHeader headerName="CamelVelocityTemplate">
-      <simple>Message Body:
-
-${bodyAs(String)}</simple>
+      <simple>${bodyAs(String)}</simple>
     </setHeader>
     <to uri="velocity:generate"/>
   </route>

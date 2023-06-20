@@ -8,17 +8,20 @@
       <setExchangePattern pattern="InOut"/>
 <to uri="direct-vm:ID_627a595738c74a0374000310_test_627a595738c74a0374000311"/></onException>
   <route id="9be15fd0-d05c-11ec-83f5-3747809ef661">
-    <from uri="jetty:https://0.0.0.0:9001/1/Suspend?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <from uri="jetty:https://0.0.0.0:9001/1/suspendflow?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
-    <to uri="activemq:ID_627a595738c74a0374000310_test_9be15fd0-d05c-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a595738c74a0374000310_test_9be15fd0-d05c-11ec-83f5-3747809ef662"/>
   </route>
+<route id="9be15fd0-d05c-11ec-83f5-3747809ef662">
+    <from uri="direct:ID_627a595738c74a0374000310_test_9be15fd0-d05c-11ec-83f5-3747809ef662"/>
+    <to uri="log:pollingFile?showAll=true&amp;multiline=true"/>
+    <to uri="direct:ID_627a595738c74a0374000310_test_9be15fd0-d05c-11ec-83f5-3747809ef661"/>
+</route>
   <route id="9be186e0-d05c-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a595738c74a0374000310_test_9be15fd0-d05c-11ec-83f5-3747809ef661"/>
-	   <to uri="controlbus:route?routeId=9be15fd0-d05c-11ec-83f5-3747809ef661&amp;action=stop"/>
+    <from uri="direct:ID_627a595738c74a0374000310_test_9be15fd0-d05c-11ec-83f5-3747809ef661"/>
+	   <to uri="controlbus:route?routeId=9be15fd0-d05c-11ec-83f5-3747809ef662&amp;action=suspend"/>
     <setHeader headerName="CamelVelocityTemplate">
-      <simple>Message Body:
-
-${bodyAs(String)}</simple>
+      <simple>Finished</simple>
     </setHeader>
     <to uri="velocity:generate"/>
   </route>
@@ -26,6 +29,6 @@ ${bodyAs(String)}</simple>
         <exception>java.lang.Exception</exception>
          <to uri="log:flux.flows.ID_627a595738c74a0374000310?level=ERROR"/>
        </onException>
-	   <to uri="controlbus:route?routeId=9be15fd0-d05c-11ec-83f5-3747809ef661&amp;action=suspend&amp;async=true"/>
+	   <to uri="controlbus:route?routeId=9be15fd0-d05c-11ec-83f5-3747809ef662&amp;action=start&amp;async=true"/>
 	</route>
 </camelContext>

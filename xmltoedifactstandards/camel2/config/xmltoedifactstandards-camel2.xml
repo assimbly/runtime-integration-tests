@@ -392,15 +392,15 @@
 </Envelope>]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a588a38c74a06a0000056_test_d910ac80-d05c-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a588a38c74a06a0000056_test_d910ac80-d05c-11ec-83f5-3747809ef661"/>
   </route>
   <route id="6284a881-d068-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a588a38c74a06a0000056_test_d910ac80-d05c-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a588a38c74a06a0000056_test_d910ac80-d05c-11ec-83f5-3747809ef661"/>
     <to uri="edifact-standards:XML_TO_IFTFCC_D00B"/>
-    <to uri="activemq:ID_627a588a38c74a06a0000056_test_6284a881-d068-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a588a38c74a06a0000056_test_6284a881-d068-11ec-83f5-3747809ef661"/>
   </route>
   <route id="d910ac81-d05c-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a588a38c74a06a0000056_test_6284a881-d068-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a588a38c74a06a0000056_test_6284a881-d068-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>

@@ -13,23 +13,18 @@
     <setHeader headerName="path">
       <groovy>System.getProperty("user.home")</groovy>
     </setHeader>
-    <setHeader name="path">
-      <simple>${header.path.replace('\','/')}</simple>
-    </setHeader>
     <to uri="log:com.mycompany.order1?showAll=true&amp;multiline=true"/>
-    <pollEnrich timeout="0">
-      <simple>file://${header.path}?fileName=simplesheet2.xlsx&amp;delete=false&amp;noop=true</simple>
+    <pollEnrich timeout="20000">
+      <simple>file://${header.path}?fileName=simplesheet2.xlsx&amp;delete=false</simple>
     </pollEnrich>
     <to uri="log:com.mycompany.order2?showAll=true&amp;multiline=true"/>
     <to uri="excel2xml://?rules=RAW(WyJ7XCJjZWxsUmFuZ2VcIjpcIkExOkE0XCIsXCJkaXNjYXJkRW1wdHlcIjpmYWxzZSxcImhlYWRlclJvd1wiOmZhbHNlLFwibmFtZVwiOlwibmFtZXNcIixcInRyYW5zcG9zZVwiOmZhbHNlLFwid29ya3NoZWV0XCI6XCJTaGVldDFcIn0iXQ==)"/>
-    <to uri="activemq:ID_627a67fc38c74a0013000772_test_2e8b6380-d0f3-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a67fc38c74a0013000772_test_2e8b6380-d0f3-11ec-83f5-3747809ef661"/>
   </route>
   <route id="46fe54b0-d065-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a67fc38c74a0013000772_test_2e8b6380-d0f3-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a67fc38c74a0013000772_test_2e8b6380-d0f3-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
-      <simple>Message Body:
-
-${bodyAs(String)}</simple>
+      <simple>${bodyAs(String)}</simple>
     </setHeader>
     <to uri="velocity:generate"/>
   </route>

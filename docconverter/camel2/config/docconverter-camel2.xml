@@ -33,9 +33,7 @@
   <route id="3ffded11-d05b-11ec-83f5-3747809ef661">
     <from uri="direct:ID_627a57f538c74a000e00060a_test_47a06ca1-d05b-111ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
-      <simple>Message Body:
-
-        ${bodyAs(String)}</simple>
+      <simple>${bodyAs(String)}</simple>
     </setHeader>
     <to uri="velocity:generate"/>
   </route>

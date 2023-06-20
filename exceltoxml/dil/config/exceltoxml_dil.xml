@@ -39,7 +39,7 @@
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>pollenrich:file://${header.path}?fileName=simplesheet2.xlsx&amp;delete=false&amp;noop=true</uri>
+                            <uri>pollenrich:file://${header.path}?fileName=simplesheet2.xlsx&amp;delete=false</uri>
                             <links>
                                 <link>
                                     <id>3</id>

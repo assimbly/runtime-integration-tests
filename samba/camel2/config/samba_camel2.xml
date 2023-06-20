@@ -12,31 +12,20 @@
     <removeHeaders pattern="CamelHttp*"/>
       <setBody>
           <constant>
-              <![CDATA[<persons>
-			  <person>
-				<name>John Doe</name>
-			  </person>
-			  <person>
-				<name>Jane Doe</name>
-			  </person>
-			</persons>
-			]]>
-          </constant>
+              <![CDATA[<persons><person><name>John Doe</name></person><person><name>Jane Doe</name></person></persons>]]></constant>
       </setBody>
-    <to uri="activemq:ID_627a613838c74a03740003d0_test_156c31a0-d061-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a613838c74a03740003d0_test_156c31a0-d061-11ec-83f5-3747809ef661"/>
   </route>
   <route id="156c58b0-d061-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a613838c74a03740003d0_test_156c31a0-d061-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a613838c74a03740003d0_test_156c31a0-d061-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
-      <simple>Message Body:
-
-${bodyAs(String)}</simple>
+      <simple>${bodyAs(String)}</simple>
     </setHeader>
     <to uri="velocity:generate"/>
-    <to uri="activemq:ID_627a613838c74a03740003d0_test_156c58b0-d061-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a613838c74a03740003d0_test_156c58b0-d061-11ec-83f5-3747809ef661"/>
   </route>
   <route id="f7108f41-f945-11ec-adbc-574cf0a036c3">
-    <from uri="activemq:ID_627a613838c74a03740003d0_test_156c58b0-d061-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a613838c74a03740003d0_test_156c58b0-d061-11ec-83f5-3747809ef661"/>
     <toD uri="smb://admin@DESKTOP-FMIR5F0/samba?autoCreate=true&amp;charset=utf-8&amp;fileExist=Override&amp;consumer.bridgeErrorHandler=true&amp;password=secret"/>
   </route>
 </camelContext>

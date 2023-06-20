@@ -13,10 +13,10 @@
             <hl7 validate="true"/>
         </unmarshal>
         <bean ref="Hl7ToXmlConverter"/>
-        <to uri="activemq:ID_627a62f138c74a000e000753_test_615f0281-d08f-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+        <to uri="direct:ID_627a62f138c74a000e000753_test_615f0281-d08f-11ec-83f5-3747809ef661"/>
     </route>
     <route id="9f645d50-d062-11ec-83f5-3747809ef661">
-        <from uri="activemq:ID_627a62f138c74a000e000753_test_615f0281-d08f-11ec-83f5-3747809ef661"/>
+        <from uri="direct:ID_627a62f138c74a000e000753_test_615f0281-d08f-11ec-83f5-3747809ef661"/>
         <setHeader headerName="CamelVelocityTemplate">
             <simple>${bodyAs(String)}</simple>
         </setHeader>

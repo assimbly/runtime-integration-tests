@@ -16,18 +16,18 @@
         John,Doe,30
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a687538c74a0013000794_test_9b03baf0-d065-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a687538c74a0013000794_test_9b03baf0-d065-11ec-83f5-3747809ef661"/>
   </route>
   <route id="565695d0-d0f6-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a687538c74a0013000794_test_9b03baf0-d065-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a687538c74a0013000794_test_9b03baf0-d065-11ec-83f5-3747809ef661"/>
     <unmarshal>
       <csv delimiter="," useMaps="true"/>
     </unmarshal>
     <to uri="csv2xml://?encoding=UTF-8"/>
-    <to uri="activemq:ID_627a687538c74a0013000794_test_565695d0-d0f6-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a687538c74a0013000794_test_565695d0-d0f6-11ec-83f5-3747809ef661"/>
   </route>
   <route id="9b03baf1-d065-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a687538c74a0013000794_test_565695d0-d0f6-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a687538c74a0013000794_test_565695d0-d0f6-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 

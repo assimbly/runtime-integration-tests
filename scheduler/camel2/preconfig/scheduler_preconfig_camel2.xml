@@ -1,0 +1,30 @@
+<camelContext id="ID_627a612138c74a0013000639" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>      <exception>java.lang.Exception</exception>
+      <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+      <setExchangePattern pattern="InOut"/>
+</onException>
+    <route id="9a2692a0-d06b-11ec-83f5-3747809ef661">
+    <from uri="quartz2://ID_627a612138c74a0013000639_timer?cron=0+*+*+*+*+?&amp;trigger.timeZone=Europe/Amsterdam"/>
+    <to uri="direct:ID_627a612138c74a0013000639_test_9a2692a0-d06b-11ec-83f5-3747809ef661"/>
+  </route>
+  <route id="09427c41-d061-11ec-83f5-3747809ef661">
+    <from uri="direct:ID_627a612138c74a0013000639_test_9a2692a0-d06b-11ec-83f5-3747809ef661"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>Testing scheduler!</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+    <to uri="direct:ID_627a612138c74a0013000639_test_09427c41-d061-11ec-83f5-3747809ef661"/>
+  </route>
+  <route id="9e64b180-d06b-11ec-83f5-3747809ef661">
+    <from uri="direct:ID_627a612138c74a0013000639_test_09427c41-d061-11ec-83f5-3747809ef661"/>
+    <to uri="log:nl.kabisa.flux//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false"/>
+      <setHeader headerName="home">
+          <groovy>System.getProperty("user.home")</groovy>
+      </setHeader>
+      <toD uri="file:${header.home}?fileName=scheduler.txt"/>
+  </route>
+</camelContext>

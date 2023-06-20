@@ -9,18 +9,18 @@
   </onException>
   <route id="76a0e781-d08f-11ec-83f5-3747809ef661">
     <from uri="googledrive://?accessToken=AAABBBCCCDDDEEEFFFGGHHH&amp;refreshToken=AAABBBCCCDDDEEEFFFGGHHH&amp;directoryId=AAABBBCCCDDDEEEFFFGGHHH&amp;delay=1000&amp;initialDelay=1000&amp;moveTo=.dovetail&amp;gSuiteFiles=Ignore"/>
-    <to uri="activemq:ID_627a62f838c74a06a0000184_test_76a0e781-d08f-11ec-83f5-3747809ef661"/>
+    <to uri="direct:ID_627a62f838c74a06a0000184_test_76a0e781-d08f-11ec-83f5-3747809ef661"/>
   </route>
   <route id="a8cea491-d062-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a62f838c74a06a0000184_test_76a0e781-d08f-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a62f838c74a06a0000184_test_76a0e781-d08f-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>
     <to uri="velocity:generate"/>
-    <to uri="activemq:ID_627a62f838c74a06a0000184_test_a8cea491-d062-11ec-83f5-3747809ef661"/>
+    <to uri="direct:ID_627a62f838c74a06a0000184_test_a8cea491-d062-11ec-83f5-3747809ef661"/>
   </route>
   <route id="94764820-6f06-11ed-9f2b-8d06814fa0af">
-    <from uri="activemq:ID_627a62f838c74a06a0000184_test_a8cea491-d062-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a62f838c74a06a0000184_test_a8cea491-d062-11ec-83f5-3747809ef661"/>
     <to uri="log:nl.kabisa.flux//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false"/>
   </route>
 </camelContext>

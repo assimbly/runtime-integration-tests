@@ -10,20 +10,20 @@
   <route id="46b33100-d05c-11ec-83f5-3747809ef661">
     <from uri="jetty:https://0.0.0.0:9001/1/SetHeaders?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
-    <to uri="activemq:ID_627a59ad38c74a0374000332_test_46b33100-d05c-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a59ad38c74a0374000332_test_46b33100-d05c-11ec-83f5-3747809ef661"/>
   </route>
   <route id="773cd930-d06a-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a59ad38c74a0374000332_test_46b33100-d05c-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a59ad38c74a0374000332_test_46b33100-d05c-11ec-83f5-3747809ef661"/>
     <setHeader headerName="lastName">
       <simple>Doe</simple>
     </setHeader>
     <setHeader headerName="firstName">
       <simple>John</simple>
     </setHeader>
-    <to uri="activemq:ID_627a59ad38c74a0374000332_test_773cd930-d06a-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a59ad38c74a0374000332_test_773cd930-d06a-11ec-83f5-3747809ef661"/>
   </route>
   <route id="46b35810-d05c-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a59ad38c74a0374000332_test_773cd930-d06a-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a59ad38c74a0374000332_test_773cd930-d06a-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Headers:
 

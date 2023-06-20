@@ -23,20 +23,18 @@
 			]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a618638c74a000e0006d3_test_567954c0-d061-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a618638c74a000e0006d3_test_567954c0-d061-11ec-83f5-3747809ef661"/>
   </route>
   <route id="56797bd0-d061-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a618638c74a000e0006d3_test_567954c0-d061-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a618638c74a000e0006d3_test_567954c0-d061-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
-      <simple>Message Body:
-
-${bodyAs(String)}</simple>
+      <simple>${bodyAs(String)}</simple>
     </setHeader>
     <to uri="velocity:generate"/>
-    <to uri="activemq:ID_627a618638c74a000e0006d3_test_56797bd0-d061-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a618638c74a000e0006d3_test_56797bd0-d061-11ec-83f5-3747809ef661"/>
   </route>
   <route id="1b52e5c1-f945-11ec-adbc-574cf0a036c3">
-    <from uri="activemq:ID_627a618638c74a000e0006d3_test_56797bd0-d061-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a618638c74a000e0006d3_test_56797bd0-d061-11ec-83f5-3747809ef661"/>
     <setProperty propertyName="excludedHeader_breadcrumbId">
         <simple>${header.breadcrumbId}</simple>
       </setProperty>

@@ -28,7 +28,7 @@
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>wiretap:activemq:ID_1234</uri>
+                            <uri>wiretap:sync:ID_1234</uri>
                         </step>
                         <step>
                             <id>4</id>
@@ -52,7 +52,7 @@
 							<links>
 								<link>
 									<id>ID_1234</id>
-									<transport>activemq</transport>
+									<transport>sync</transport>
 									<bound>in</bound>
 								</link>							
 							</links>

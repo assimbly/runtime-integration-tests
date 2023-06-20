@@ -23,10 +23,10 @@
 			]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a6b7338c74a00130007f9_test_04a6c550-d067-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a6b7338c74a00130007f9_test_04a6c550-d067-11ec-83f5-3747809ef661"/>
   </route>
   <route id="797f5ea0-d0f8-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a6b7338c74a00130007f9_test_04a6c550-d067-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a6b7338c74a00130007f9_test_04a6c550-d067-11ec-83f5-3747809ef661"/>
     <split streaming="false" parallelProcessing="false">
       <xpath saxon="true" threadSafety="true">/names/name</xpath>
       <setHeader headerName="CamelSplitIndex">
@@ -38,11 +38,11 @@
       <setHeader headerName="CamelSplitComplete">
         <simple>${exchangeProperty.CamelSplitComplete.toString().trim()}</simple>
       </setHeader>
-      <to uri="activemq:ID_627a6b7338c74a00130007f9_test_797f5ea0-d0f8-11ec-83f5-3747809ef661_BottomCenter_split?timeToLive=86400000&amp;exchangePattern=InOut"/>
+      <to uri="direct:ID_627a6b7338c74a00130007f9_test_797f5ea0-d0f8-11ec-83f5-3747809ef661_BottomCenter_split"/>
     </split>
   </route>
   <route id="75be5f00-d0f8-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a6b7338c74a00130007f9_test_797f5ea0-d0f8-11ec-83f5-3747809ef661_BottomCenter_split"/>
+    <from uri="direct:ID_627a6b7338c74a00130007f9_test_797f5ea0-d0f8-11ec-83f5-3747809ef661_BottomCenter_split"/>
     <setProperty propertyName="Aggregate-Type">
       <simple>text/xml</simple>
     </setProperty>
@@ -50,11 +50,11 @@
       <correlationExpression>
         <constant>true</constant>
       </correlationExpression>
-      <to uri="activemq:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661_aggregator?timeToLive=86400000"/>
+      <to uri="direct:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661_aggregator"/>
     </aggregate>
   </route>
   <route id="04a6ec60-d067-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661_aggregator"/>
+    <from uri="direct:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661_aggregator"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 

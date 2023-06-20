@@ -1,0 +1,5 @@
+{
+  "code": 500,
+  "error": "org.assimbly.util.exception.EnvironmentException: Error to interpolate variable.",
+  "info": "Something went wrong calling the HTTP service. Please refer to the logs for more information."
+}

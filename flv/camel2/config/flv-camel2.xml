@@ -13,15 +13,15 @@
     <setBody>
       <constant>YAYthing</constant>
     </setBody>
-    <to uri="activemq:ID_627a64e638c74a06a00001f5_test_912129e1-5450-11ed-bc33-3b0a13123346?timeToLive=86400000"/>
+    <to uri="direct:ID_627a64e638c74a06a00001f5_test_912129e1-5450-11ed-bc33-3b0a13123346"/>
   </route>
   <route id="2b611b10-d0f2-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a64e638c74a06a00001f5_test_912129e1-5450-11ed-bc33-3b0a13123346"/>
+    <from uri="direct:ID_627a64e638c74a06a00001f5_test_912129e1-5450-11ed-bc33-3b0a13123346"/>
     <to uri="flv:2b611b10-d0f2-11ec-83f5-3747809ef661?YAY=header[3]body[5]"/>
-    <to uri="activemq:ID_627a64e638c74a06a00001f5_test_2b611b10-d0f2-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a64e638c74a06a00001f5_test_2b611b10-d0f2-11ec-83f5-3747809ef661"/>
   </route>
   <route id="5845c570-d063-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a64e638c74a06a00001f5_test_2b611b10-d0f2-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a64e638c74a06a00001f5_test_2b611b10-d0f2-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>

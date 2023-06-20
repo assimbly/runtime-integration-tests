@@ -20,17 +20,17 @@
 							  </person>
 							</persons>]]></simple>
     </setBody>
-    <to uri="activemq:ID_627a650838c74a03740004ef_test_60ef54c0-d063-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a650838c74a03740004ef_test_60ef54c0-d063-11ec-83f5-3747809ef661"/>
   </route>
   <route id="4f9f3660-d0f2-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a650838c74a03740004ef_test_60ef54c0-d063-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a650838c74a03740004ef_test_60ef54c0-d063-11ec-83f5-3747809ef661"/>
     <filter>
       <xpath saxon="true">/names/name/firstName = 'John'</xpath>
-      <to uri="activemq:ID_627a650838c74a03740004ef_test_4f9f3660-d0f2-11ec-83f5-3747809ef661_filter?timeToLive=86400000"/>
+      <to uri="direct:ID_627a650838c74a03740004ef_test_4f9f3660-d0f2-11ec-83f5-3747809ef661_filter"/>
     </filter>
   </route>
   <route id="60ef7bd0-d063-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a650838c74a03740004ef_test_4f9f3660-d0f2-11ec-83f5-3747809ef661_filter"/>
+    <from uri="direct:ID_627a650838c74a03740004ef_test_4f9f3660-d0f2-11ec-83f5-3747809ef661_filter"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 

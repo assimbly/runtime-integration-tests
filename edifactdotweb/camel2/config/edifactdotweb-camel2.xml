@@ -153,15 +153,15 @@
         UNZ+2+012618075550'
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a684e38c74a0013000783_test_57a6c390-514a-11ed-8c19-595d2b7eda88?timeToLive=86400000"/>
+    <to uri="direct:ID_627a684e38c74a0013000783_test_57a6c390-514a-11ed-8c19-595d2b7eda88"/>
   </route>
   <route id="1eca4f30-d0f6-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a684e38c74a0013000783_test_57a6c390-514a-11ed-8c19-595d2b7eda88"/>
+    <from uri="direct:ID_627a684e38c74a0013000783_test_57a6c390-514a-11ed-8c19-595d2b7eda88"/>
     <to uri="edifact-dotweb://VRZUIM_1941"/>
-    <to uri="activemq:ID_627a684e38c74a0013000783_test_1eca4f30-d0f6-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a684e38c74a0013000783_test_1eca4f30-d0f6-11ec-83f5-3747809ef661"/>
   </route>
   <route id="8b6689b1-d065-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a684e38c74a0013000783_test_1eca4f30-d0f6-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a684e38c74a0013000783_test_1eca4f30-d0f6-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>

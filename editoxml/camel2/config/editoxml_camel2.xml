@@ -13,15 +13,15 @@
     <setBody>
       <constant><![CDATA[CUS~John^Doe~1901-01-07~john.doe@example.com]]></constant>
     </setBody>
-    <to uri="activemq:ID_627a684138c74a0374000529_test_699d8d10-d065-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a684138c74a0374000529_test_699d8d10-d065-11ec-83f5-3747809ef661"/>
   </route>
   <route id="cf097070-d0f5-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a684138c74a0374000529_test_699d8d10-d065-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a684138c74a0374000529_test_699d8d10-d065-11ec-83f5-3747809ef661"/>
     <to uri="dataformat:edi:marshal?segment=LB&amp;field=~&amp;component=^&amp;subComponent=!"/>
-    <to uri="activemq:ID_627a684138c74a0374000529_test_cf097070-d0f5-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a684138c74a0374000529_test_cf097070-d0f5-11ec-83f5-3747809ef661"/>
   </route>
   <route id="699db420-d065-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a684138c74a0374000529_test_cf097070-d0f5-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a684138c74a0374000529_test_cf097070-d0f5-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>

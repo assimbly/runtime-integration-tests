@@ -70,15 +70,15 @@
 </breakfast_menu>]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_62b0593555f02e000c0000d5_test_d6cbbec0-f08b-11ec-8543-47f64d01a1d5?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_62b0593555f02e000c0000d5_test_d6cbbec0-f08b-11ec-8543-47f64d01a1d5"/>
   </route>
   <route id="e7537711-f08b-11ec-8543-47f64d01a1d5">
-    <from uri="activemq:ID_62b0593555f02e000c0000d5_test_d6cbbec0-f08b-11ec-8543-47f64d01a1d5"/>
+    <from uri="direct:ID_62b0593555f02e000c0000d5_test_d6cbbec0-f08b-11ec-8543-47f64d01a1d5"/>
     <to uri="xmltocsv://?includeHeader=true&amp;includeIndexColumn=false&amp;indexColumnName=line&amp;delimiter=RAW(LA==)&amp;lineSeparator=RAW(XG4=)&amp;orderHeaders=UNORDERED&amp;quoteFields=ALL_FIELDS&amp;xPathExpression="/>
-    <to uri="activemq:ID_62b0593555f02e000c0000d5_test_e7537711-f08b-11ec-8543-47f64d01a1d5?timeToLive=86400000"/>
+    <to uri="direct:ID_62b0593555f02e000c0000d5_test_e7537711-f08b-11ec-8543-47f64d01a1d5"/>
   </route>
   <route id="d6cbe5d0-f08b-11ec-8543-47f64d01a1d5">
-    <from uri="activemq:ID_62b0593555f02e000c0000d5_test_e7537711-f08b-11ec-8543-47f64d01a1d5"/>
+    <from uri="direct:ID_62b0593555f02e000c0000d5_test_e7537711-f08b-11ec-8543-47f64d01a1d5"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>

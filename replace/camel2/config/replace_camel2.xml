@@ -11,26 +11,24 @@
     <from uri="jetty:https://0.0.0.0:9001/1/replace?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
     <setBody>
-      <constant>
-        <![CDATA[<persons>
+      <constant><![CDATA[<persons>
 			  <person>
 				<name>John Doe</name>
 			  </person>
 			  <person>
 				<name>Jane Doe</name>
 			  </person>
-			</persons>]]>
-      </constant>
+			</persons>]]></constant>
     </setBody>
-    <to uri="activemq:ID_627a613c38c74a000e0006b1_test_1cac6cf0-d061-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a613c38c74a000e0006b1_test_1cac6cf0-d061-11ec-83f5-3747809ef661"/>
   </route>
   <route id="d3a05161-d06b-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a613c38c74a000e0006b1_test_1cac6cf0-d061-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a613c38c74a000e0006b1_test_1cac6cf0-d061-11ec-83f5-3747809ef661"/>
     <to uri="replace://?regex=RAW(Sm9obg==)&amp;replaceWith=RAW(Tm9ybWFu)&amp;group=0&amp;flags=m,i"/>
-    <to uri="activemq:ID_627a613c38c74a000e0006b1_test_d3a05161-d06b-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a613c38c74a000e0006b1_test_d3a05161-d06b-11ec-83f5-3747809ef661"/>
   </route>
   <route id="1cac9400-d061-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a613c38c74a000e0006b1_test_d3a05161-d06b-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a613c38c74a000e0006b1_test_d3a05161-d06b-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 

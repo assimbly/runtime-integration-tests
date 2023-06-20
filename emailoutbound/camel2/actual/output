@@ -1,0 +1,5 @@
+{
+  "code": 500,
+  "error": "com.sun.mail.util.MailConnectException: Couldn't connect to host, port: smtp-relay.cartoon.com, 587; timeout 30000;\n  nested exception is:\n\tjava.net.ConnectException: Connection timed out: connect",
+  "info": "Something went wrong calling the HTTP service. Please refer to the logs for more information."
+}

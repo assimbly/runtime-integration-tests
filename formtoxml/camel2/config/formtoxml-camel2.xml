@@ -15,15 +15,15 @@
         <![CDATA[name=Pedro&surname=Catalão&myage=36]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a64c838c74a03740004cd_test_4724b350-d063-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a64c838c74a03740004cd_test_4724b350-d063-11ec-83f5-3747809ef661"/>
   </route>
   <route id="65ea1371-d090-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a64c838c74a03740004cd_test_4724b350-d063-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a64c838c74a03740004cd_test_4724b350-d063-11ec-83f5-3747809ef661"/>
     <to uri="form2xml://?encoding=utf-8"/>
-    <to uri="activemq:ID_627a64c838c74a03740004cd_test_65ea1371-d090-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a64c838c74a03740004cd_test_65ea1371-d090-11ec-83f5-3747809ef661"/>
   </route>
   <route id="4724b351-d063-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a64c838c74a03740004cd_test_65ea1371-d090-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a64c838c74a03740004cd_test_65ea1371-d090-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 

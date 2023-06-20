@@ -11,38 +11,38 @@
   <route id="ec76c110-d066-11ec-83f5-3747809ef661">
     <from uri="jetty:https://0.0.0.0:9001/1/Archive?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
-    <to uri="activemq:ID_627a6b7638c74a0374000585_test_ec76c110-d066-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a6b7638c74a0374000585_test_ec76c110-d066-11ec-83f5-3747809ef661"/>
   </route>
 
   <route id="63753110-5551-11ed-97ed-99c7ae0d1eca">
-    <from uri="activemq:ID_627a6b7638c74a0374000585_test_ec76c110-d066-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a6b7638c74a0374000585_test_ec76c110-d066-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <constant>Hello</constant>
     </setHeader>
     <to uri="velocity:generate"/>
-    <to uri="activemq:ID_627a6b7638c74a0374000585_test_63753110-5551-11ed-97ed-99c7ae0d1eca?timeToLive=86400000"/>
+    <to uri="direct:ID_627a6b7638c74a0374000585_test_63753110-5551-11ed-97ed-99c7ae0d1eca"/>
   </route>
 
   <route id="95b43ec0-d0f7-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a6b7638c74a0374000585_test_63753110-5551-11ed-97ed-99c7ae0d1eca"/>
+    <from uri="direct:ID_627a6b7638c74a0374000585_test_63753110-5551-11ed-97ed-99c7ae0d1eca"/>
     <to uri="dataformat:zipFileDataFormat:marshal?usingIterator=true"/>
     <setHeader headerName="CamelFileName">
       <simple>${file:onlyname.noext}.zip</simple>
     </setHeader>
-    <to uri="activemq:ID_627a6b7638c74a0374000585_test_95b43ec0-d0f7-11ec-83f5-3747809ef661_split?timeToLive=86400000"/>
+    <to uri="direct:ID_627a6b7638c74a0374000585_test_95b43ec0-d0f7-11ec-83f5-3747809ef661_split"/>
   </route>
 
   <route id="5597c420-5544-11ed-97ed-99c7ae0d1eca">
-    <from uri="activemq:ID_627a6b7638c74a0374000585_test_95b43ec0-d0f7-11ec-83f5-3747809ef661_split"/>
+    <from uri="direct:ID_627a6b7638c74a0374000585_test_95b43ec0-d0f7-11ec-83f5-3747809ef661_split"/>
     <to uri="dataformat:checkedZipFileDataFormat:unmarshal?usingIterator=true"/>
     <split streaming="true">
       <simple>${body}</simple>
-      <to uri="activemq:ID_627a6b7638c74a0374000585_test_5597c420-5544-11ed-97ed-99c7ae0d1eca_split?timeToLive=86400000"/>
+      <to uri="direct:ID_627a6b7638c74a0374000585_test_5597c420-5544-11ed-97ed-99c7ae0d1eca_split"/>
     </split>
   </route>
 
   <route id="ec76e820-d066-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a6b7638c74a0374000585_test_5597c420-5544-11ed-97ed-99c7ae0d1eca_split"/>
+    <from uri="direct:ID_627a6b7638c74a0374000585_test_5597c420-5544-11ed-97ed-99c7ae0d1eca_split"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>

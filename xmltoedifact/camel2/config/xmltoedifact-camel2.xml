@@ -251,15 +251,15 @@
 </env:unEdifact>]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a58a638c74a06a0000067_test_d01a5cc0-d05c-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a58a638c74a06a0000067_test_d01a5cc0-d05c-11ec-83f5-3747809ef661"/>
   </route>
   <route id="76ffe221-d068-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a58a638c74a06a0000067_test_d01a5cc0-d05c-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a58a638c74a06a0000067_test_d01a5cc0-d05c-11ec-83f5-3747809ef661"/>
     <to uri="dataformat:edifact:unmarshal?edifactType=d96a"/>
-    <to uri="activemq:ID_627a58a638c74a06a0000067_test_76ffe221-d068-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a58a638c74a06a0000067_test_76ffe221-d068-11ec-83f5-3747809ef661"/>
   </route>
   <route id="d01a83d0-d05c-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a58a638c74a06a0000067_test_76ffe221-d068-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a58a638c74a06a0000067_test_76ffe221-d068-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>${bodyAs(String)}</simple>
     </setHeader>

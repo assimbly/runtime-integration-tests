@@ -14,10 +14,10 @@
   <route id="20aef780-d063-11ec-83f5-3747809ef661">
     <from uri="jetty:https://0.0.0.0:9001/1/HttpOutbound?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
     <removeHeaders pattern="CamelHttp*"/>
-    <to uri="activemq:ID_627a64ad38c74a00130006eb_test_20aef780-d063-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a64ad38c74a00130006eb_test_20aef780-d063-11ec-83f5-3747809ef661"/>
   </route>
   <route id="ce173190-d08f-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a64ad38c74a00130006eb_test_20aef780-d063-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a64ad38c74a00130006eb_test_20aef780-d063-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelHttpMethod">
   <constant>GET</constant>
 </setHeader>
@@ -27,10 +27,10 @@
     <to uri="http4://www.testingmcafeesites.com/testcat_al.html?cookieStore=#flowCookieStore&amp;throwExceptionOnFailure=true&amp;maxTotalConnections=20&amp;connectionsPerRoute=2"/>
     <removeHeaders pattern="CamelHttpMethod" excludePattern="breadcrumbId"/>
     <removeHeaders pattern="user-agent" excludePattern="breadcrumbId"/>
-    <to uri="activemq:ID_627a64ad38c74a00130006eb_test_ce173190-d08f-11ec-83f5-3747809ef661"/>
+    <to uri="direct:ID_627a64ad38c74a00130006eb_test_ce173190-d08f-11ec-83f5-3747809ef661"/>
   </route>
   <route id="20aef781-d063-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a64ad38c74a00130006eb_test_ce173190-d08f-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a64ad38c74a00130006eb_test_ce173190-d08f-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 
