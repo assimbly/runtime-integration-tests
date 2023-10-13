@@ -1,0 +1,45 @@
+<dil>
+    <integrations>
+        <integration>
+            <flows>
+                <flow>
+                    <id>oriflame_test2</id>
+                    <name>oriflame_test2</name>
+                    <type>esb</type>
+                    <steps>
+                        <step>
+                            <id>1</id>
+                            <type>source</type>
+                            <uri>https://0.0.0.0:9001/1/oriflame</uri>
+                        </step>
+                        <step>
+                            <id>2</id>
+                            <type>action</type>
+                            <uri>setbody:message:oriflame</uri>
+                        </step>
+                        <step>
+                            <id>3</id>
+                            <type>action</type>
+                            <uri>oriflame:myid?ediType=PIT</uri>
+                        </step>
+                        <step>
+                            <id>4</id>
+                            <type>sink</type>
+                            <uri>velocity:${bodyAs(String)}</uri>
+                        </step>
+                    </steps>
+                </flow>
+            </flows>
+        </integration>
+    </integrations>
+    <core>
+        <messages>
+            <message>
+                <id>oriflame</id>
+                <body>HDRINVENTORY_MOVE            WMSDCBUD
+                    ART                                                  20241031        OK         40794.1              616.0KIT                                               PL OK        20231011MB1W1
+                </body>
+            </message>
+        </messages>
+    </core>
+</dil>
