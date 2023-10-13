@@ -1,0 +1,47 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "oriflame_test2",
+            "name": "oriflame_test2",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "https://0.0.0.0:9001/1/oriflame"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:message:oriflame"
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "oriflame:myid?ediType=PIT"
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "velocity:${bodyAs(String)}"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "oriflame",
+          "body": "HDRINVENTORY_MOVE            WMSDCBUD\n                    ART                                                  20241031        OK         40794.1              616.0KIT                                               PL OK        20231011MB1W1"
+        }
+      }
+    }
+  }
+}
