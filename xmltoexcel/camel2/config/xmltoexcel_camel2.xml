@@ -8,7 +8,7 @@
       <setExchangePattern pattern="InOut"/>
 </onException>
   <route id="9151fd40-f08c-11ec-8543-47f64d01a1d5">
-    <from uri="jetty:https://0.0.0.0:9001/1/XmlToExcel?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/XmlToExcel?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
     <setBody>
       <constant><![CDATA[<breakfast_menu><foods><food><name>food1</name><price>1</price><description>desc1</description></food><food><name>food2</name><price>2</price><description>desc2</description></food></foods></breakfast_menu>]]></constant>

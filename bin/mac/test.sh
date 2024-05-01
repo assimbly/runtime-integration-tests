@@ -96,11 +96,11 @@ echo ""
 
 if "$CHECK" = true; then
   rm -f "$SOURCE_DIR/actual/"*
-  curl -k -X POST "https://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/actual/output"
+  curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/actual/output"
 elif  "$CREATE" = true; then
-  curl -k -X POST "https://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/expected/output"
+  curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/expected/output"
 else
-  curl -k -X POST "https://localhost:9001/1/$COMPONENT" --output -
+  curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output -
 fi
 
 sleep "$WAIT"

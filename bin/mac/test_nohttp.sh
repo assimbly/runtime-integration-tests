@@ -88,7 +88,7 @@ fi
 
 SOURCE_FILE=`cat $SOURCE_DIR/config/*.xml`
 SOURCE_FILE=${SOURCE_FILE/https/http}
-SOURCE_FILE=${SOURCE_FILE/&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext/}
+SOURCE_FILE=${SOURCE_FILE/&amp;matchOnUriPrefix=false/}
 
 echo $SOURCE_FILE > "${DEPLOY_DIR}/${COMPONENT}.xml"
 

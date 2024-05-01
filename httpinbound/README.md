@@ -47,7 +47,7 @@ No
 
 ```xml
 <route id="1">
-    <from uri="jetty:https://0.0.0.0:9001/1/HttpInbound?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/HttpInbound?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
     <to uri="direct:b"/>
 </route>

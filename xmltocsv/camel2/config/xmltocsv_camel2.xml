@@ -8,7 +8,7 @@
       <setExchangePattern pattern="InOut"/>
 </onException>
   <route id="d6cbbec0-f08b-11ec-8543-47f64d01a1d5">
-    <from uri="jetty:https://0.0.0.0:9001/1/XmlToCsv?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/XmlToCsv?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
     <setBody>
       <constant>

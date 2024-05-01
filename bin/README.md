@@ -28,6 +28,10 @@ value is "check" then a comparison between expected and actual data is done.
 
 ```test docconverter/camel2```
 
+or
+
+```sh test.sh docconverter/camel2```
+
 **example with delay set**
 
 ```test docconverter/camel2 15s```

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<camelContext xmlns="http://camel.apache.org/schema/blueprint" id="ID_6581411ced40bc00110000ee" useMDCLogging="true" streamCache="true">
+  <jmxAgent id="agent" loadStatisticsEnabled="true"/>
+  <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
+  <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="0" maxPoolSize="10" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <onException>
+    <exception>java.lang.Exception</exception>
+    <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
+    <setExchangePattern pattern="InOnly"/>
+    <to uri="direct:ID_6581411ced40bc00110000ee_test_32e3691b-6f10-4878-8bf3-c925ec00a265"/>
+  </onException>
+  <interceptFrom>
+    <to uri="bean:dovetailTracer?method=traceEvent"/>
+  </interceptFrom>
+  <route id="153552d2-66f0-47e9-afb2-98069d79d8fd">
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/failedexchange?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
+    <removeHeaders pattern="CamelHttp*"/>
+    <to uri="direct:ID_6581411ced40bc00110000ee_test_153552d2-66f0-47e9-afb2-98069d79d8fd"/>
+  </route>
+  <route id="2ade1629-294c-4405-b759-c9922a0c6f2e">
+    <from uri="direct:ID_6581411ced40bc00110000ee_test_153552d2-66f0-47e9-afb2-98069d79d8fd"/>
+    <setHeader headerName="CamelVelocityTemplate">
+      <simple>{}</simple>
+    </setHeader>
+    <to uri="velocity:generate"/>
+    <to uri="direct:ID_6581411ced40bc00110000ee_test_2ade1629-294c-4405-b759-c9922a0c6f2e"/>
+  </route>
+  <route id="bb2e1390-a795-45cb-815d-dc4123c9a6d1">
+    <from uri="direct:ID_6581411ced40bc00110000ee_test_2ade1629-294c-4405-b759-c9922a0c6f2e"/>
+    <to uri="dataformat:custom-xmljson:marshal?keepStrings=false&amp;removeNamespaces=false&amp;removeRoot=false&amp;hasTypes=false&amp;typeValueMismatch=ORIGINAL"/>
+    <to uri="direct:ID_6581411ced40bc00110000ee_test_bb2e1390-a795-45cb-815d-dc4123c9a6d1"/>
+  </route>
+  <route id="cfbd6bc2-4ad9-4a2e-9aae-54aa1b33ee40">
+    <from uri="direct:ID_6581411ced40bc00110000ee_test_bb2e1390-a795-45cb-815d-dc4123c9a6d1"/>
+    <to uri="log:OK//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false&amp;showCaughtException=false"/>
+  </route>
+  <route id="6a1fa985-951a-48e0-959f-cf82b1b1a7c2">
+    <from uri="direct:ID_6581411ced40bc00110000ee_test_32e3691b-6f10-4878-8bf3-c925ec00a265"/>
+    <onException>
+      <exception>java.lang.Exception</exception>
+      <to uri="log:flux.flows.ID_6581411ced40bc00110000ee?level=ERROR"/>
+    </onException>
+    <to uri="log:FAILED//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false&amp;showCaughtException=false"/>
+  </route>
+  <property key="frontend.engine" value="dovetail"/>
+</camelContext>

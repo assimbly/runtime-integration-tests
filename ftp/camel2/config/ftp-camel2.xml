@@ -10,7 +10,7 @@
   </onException>
 
   <route id="84b4efe0-64fc-11ed-bb2d-0fb330e4b7c3">
-    <from uri="jetty:https://0.0.0.0:9001/1/ftp?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/ftp?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
     <to uri="direct:ID_627a64c238c74a00130006fc_test_7bec1ed0-f88a-11ec-bb33-77f12be2f398"/>
   </route>
