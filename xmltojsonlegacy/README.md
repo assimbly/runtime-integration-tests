@@ -25,7 +25,7 @@ No
 <step>
     <id>3</id>
     <type>action</type>
-    <uri>xmltojsonlegacy</uri>
+    <uri>xmltojsonlegacy://</uri>
     <options>
         <forceTopLevelObject>false</forceTopLevelObject>
         <skipWhitespace>false</skipWhitespace>
@@ -43,7 +43,7 @@ No
 {"step": {
   "id": 3,
   "type": "action",
-  "uri": "xmltojsonlegacy",
+  "uri": "xmltojsonlegacy://",
   "options": {
     "forceTopLevelObject": false,
     "skipWhitespace": false,
@@ -62,14 +62,14 @@ No
 step:
   id: 3
   type: "action"
-  uri: "xmltojsonlegacy"  
-  options:
-    forceTopLevelObject: false
-    skipWhitespace: false
-    trimSpaces: false"
-    skipNamespaces: false
-    removeNamespacePrefixes: false
-    typeHints: false
+  uri: "xmltojsonlegacy://"
+  - options:
+      forceTopLevelObject: false
+      skipWhitespace: false
+      trimSpaces: false
+      skipNamespaces: false
+      removeNamespacePrefixes: false
+      typeHints: false
 ```
 
 ## Camel

@@ -12,7 +12,7 @@
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/XmlToJsonLegacy",
+                  "uri": "http://0.0.0.0:9001/1/XmlToJsonLegacy",
                   "links": {
                     "link": {
                       "id": "2",
@@ -43,7 +43,15 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "xmltojsonlegacy://??forceTopLevelObject=false&skipWhitespace=false&trimSpaces=false&skipNamespaces=false&removeNamespacePrefixes=false&typeHints=false",
+                  "uri": "xmltojsonlegacy://",
+                  "options": {
+                    "forceTopLevelObject": false,
+                    "skipWhitespace": false,
+                    "trimSpaces": false,
+                    "skipNamespaces": false,
+                    "removeNamespacePrefixes": false,
+                    "typeHints": false
+                  },
                   "links": {
                     "link": [
                       {
