@@ -1,6 +1,6 @@
 # xmltojson
 
-Test to convert XML to a JSON file.
+Test to convert XML to a JSON file (Simple)
 
 ### Component Type
 
