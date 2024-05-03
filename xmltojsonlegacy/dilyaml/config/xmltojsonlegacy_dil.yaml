@@ -27,9 +27,7 @@ dil:
                   transport: "sync"
               id: 2
               type: "action"
-              uri:
-              - - "setbody:"
-                - "<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\
+              uri: "setbody: <persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\
                   \t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t\
                   <name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>"
             - links:
@@ -43,7 +41,7 @@ dil:
               id: 3
               type: "action"
               uri: "xmltojsonlegacy://"
-            - options:
+              options:
                 forceTopLevelObject: false
                 skipWhitespace: false
                 trimSpaces: false
