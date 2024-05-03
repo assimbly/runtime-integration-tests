@@ -12,7 +12,7 @@
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/jsontoxml",
+                  "uri": "http://0.0.0.0:9001/1/jsontoxml",
                   "links": {
                     "link": {
                       "id": "2",
@@ -24,7 +24,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:{  \"Formula1\": {    \"Drivers\": {      \"Driver\": [        {          \"Age\": 19,          \"Name\": \"Max Verstappen\"        },        {          \"Age\": 30,          \"Name\": \"Nico Hulkenberg\"        }      ]    },    \"Teams\": {      \"Team\": [        {          \"Principal\": \"Christian Horner\",          \"Name\": \"Redbull Racing\"        },        {          \"Principal\": \"Carlos Ghosn, Jérôme Stoll, Cyril Abiteboul\",          \"Name\": \"Renault\"        }      ]    }  }}",
+                  "uri": "setbody:{  \"Formula1\": {\n    \"Drivers\": {\n      \"Driver\": [\n        {\n          \"Age\": 19,\n          \"Name\": \"Max Verstappen\"\n        },\n        {\n          \"Age\": 30,\n          \"Name\": \"Nico Hulkenberg\"\n        }\n      ]\n    },\n    \"Teams\": {\n      \"Team\": [\n        {\n          \"Principal\": \"Christian Horner\",\n          \"Name\": \"Redbull Racing\"\n        },\n        {\n          \"Principal\": \"Carlos Ghosn, Jérôme Stoll, Cyril Abiteboul\",\n          \"Name\": \"Renault\"\n        }\n      ]\n    }\n  }\n}",
                   "links": {
                     "link": [
                       {
@@ -43,9 +43,9 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "jsontoxml",
+                  "uri": "jsontoxml://",
                   "options": {
-                    "false": "false",
+                    "addRoot": "false",
                     "checkJsonKeys": "false",
                     "changeArrayElements": "false"
                   },

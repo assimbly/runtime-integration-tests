@@ -16,7 +16,7 @@ dil:
                   transport: "sync"
               id: 1
               type: "source"
-              uri: "https://0.0.0.0:9001/1/jsontoxml"
+              uri: "http://0.0.0.0:9001/1/JsonToXml"
             - links:
                 link:
                 - bound: "in"
@@ -27,19 +27,8 @@ dil:
                   transport: "sync"
               id: 2
               type: "action"
-              uri: "setbody:{  \"Formula1\": {    \"Drivers\": {      \"Driver\":\
-                \ [        {          \"Age\": 19,          \"Name\": \"Max Verstappen\"\
-                \        },        {          \"Age\": 30,          \"Name\": \"Nico\
-                \ Hulkenberg\"        }      ]    },    \"Teams\": {      \"Team\"\
-                : [        {          \"Principal\": \"Christian Horner\",       \
-                \   \"Name\": \"Redbull Racing\"        },        {          \"Principal\"\
-                : \"Carlos Ghosn, Jérôme Stoll, Cyril Abiteboul\",          \"Name\"\
-                : \"Renault\"        }      ]    }  }}"
-            - options:
-                checkJsonKeys: false
-                "false": false
-                changeArrayElements: false
-              links:
+              uri: 'setbody:{  "Formula1": { "Drivers": { "Driver": [ { "Age": 19, "Name": "Max Verstappen"}, { "Age": 30, "Name": "Nico Hulkenberg" } ] }, "Teams": { "Team": [ { "Principal": "Christian Horner", "Name": "Redbull Racing" }, { "Principal": "Carlos Ghosn, Jérôme Stoll, Cyril Abiteboul", "Name": "Renault" } ] } } }'
+            - links:
                 link:
                 - bound: "in"
                   id: 3
@@ -49,7 +38,11 @@ dil:
                   transport: "sync"
               id: 3
               type: "action"
-              uri: "jsontoxml"
+              uri: "jsontoxml://"
+              options:
+                addRoot: false
+                checkJsonKeys: false
+                changeArrayElements: false
             - links:
                 link:
                   bound: "in"
