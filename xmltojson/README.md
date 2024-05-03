@@ -44,11 +44,11 @@ No
   "type": "action",
   "uri": "xmltojson",
   "options": {
-    "hasTypes": false,
+    "keepStrings": false,
     "removeNamespaces": false,
-    "typeValueMismatch": "ORIGINAL",
     "removeRoot": false,
-    "keepStrings": false
+    "hasTypes": false,
+    "typeValueMismatch": "ORIGINAL"
   }
 }}
 ```
@@ -60,13 +60,13 @@ No
 step:
   id: 3
   type: "action"
-  uri: "xmltojson"  
-  options:
-    hasTypes: false
-    removeNamespaces: false
-    typeValueMismatch: "ORIGINAL"
-    removeRoot: false
-    keepStrings: false
+  uri: "xmltojson://"
+  - options:
+      keepStrings: false
+      removeNamespaces: false
+      removeRoot: false
+      hasTypes: false
+      typeValueMismatch: "ORIGINAL"
 ```
 
 ## Camel

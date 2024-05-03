@@ -42,7 +42,13 @@ dil:
                   transport: "sync"
               id: 3
               type: "action"
-              uri: "xmltojson://?keepStrings=false&removeNamespaces=false&removeRoot=false&hasTypes=false&typeValueMismatch=ORIGINAL"
+              uri: "xmltojson://"
+            - options:
+                keepStrings: false
+                removeNamespaces: false
+                removeRoot: false
+                hasTypes: false
+                typeValueMismatch: "ORIGINAL"
             - links:
                 link:
                   bound: "in"
