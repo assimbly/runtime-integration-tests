@@ -1,0 +1,36 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "gettenantvariable_test1"
+          id: "gettenantvariable_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+              uri: "http://0.0.0.0:9001/1/gettenantvariable"
+            - options:
+                environment: "test"
+                expression: "simple"
+                encrypt: false
+                modifier: "ComponentsTests/GetVariable"
+                operation: "SET"
+                value: "RAW(dGVzdA==)"
+                tenant: "default"
+              id: 2
+              type: "action"
+              uri: "tenantvariables://MyVariable"
+            - options:
+                environment: "test"
+                header: "MyVariable"
+                operation: "GET"
+                tenant: "default"
+              id: 3
+              type: "action"
+              uri: "tenantvariables://MyVariable"
+            - id: 4
+              type: "sink"
+              uri: "velocity:${header.MyVariable}"
