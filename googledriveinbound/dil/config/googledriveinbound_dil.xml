@@ -10,30 +10,47 @@
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>googledrive</uri>
-                            <options>
-                                <accessToken>AAABBBCCCDDDEEEFFFGGHHH</accessToken>
-                                <refreshToken>AAABBBCCCDDDEEEFFFGGHHH</refreshToken>
-                                <directoryId>AAABBBCCCDDDEEEFFFGGHHH</directoryId>
-                                <delay>1000</delay>
-                                <initialDelay>1000</initialDelay>
-                                <moveTo>.dovetail</moveTo>
-                                <gSuiteFiles>Ignore</gSuiteFiles>
-                            </options>
+                            <uri>http://0.0.0.0:9001/1/googledriveinbound</uri>
                         </step>
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>oauth2token://?id=dd30e724-718c-4aeb-a1b1-dd364acd321a&amp;tokenName=OAuthGoogleDrive&amp;tenant=testbvg1&amp;expiryDelay=</uri>
                         </step>
                         <step>
                             <id>3</id>
+                            <type>action</type>
+                            <uri>setheaders:message:camelfilename</uri>
+                        </step>
+                        <step>
+                            <id>4</id>
+                            <type>action</type>
+                            <uri>velocity:${bodyAs(String)}</uri>
+                        </step>
+                        <step>
+                            <id>5</id>
+                            <type>action</type>
+                            <uri>google-drive://?accessToken=@{OAuthGoogleDrive}&amp;tenant=testbvg1&amp;directoryId=1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV</uri>
+                        </step>
+                        <step>
+                            <id>6</id>
                             <type>sink</type>
-                            <uri>log</uri>
+                            <uri>google-drive://?accessToken=@{OAuthGoogleDrive}&amp;tenant=testbvg1&amp;directoryId=1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV&amp;delay=1000&amp;initialDelay=1000&amp;moveTo=.dovetail&amp;gSuiteFiles=Ignore</uri>
                         </step>
                     </steps>
                 </flow>
             </flows>
         </integration>
     </integrations>
+    <core>
+        <messages>
+            <message>
+                <id>1</id>
+                <name>camelfilename</name>
+                <headers>
+                    <CamelFileName type="header" language="simple">simpleFile.txt</CamelFileName>
+                </headers>
+            </message>
+        </messages>
+    </core>
 </dil>
