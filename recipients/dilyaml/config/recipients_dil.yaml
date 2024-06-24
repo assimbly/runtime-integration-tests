@@ -16,7 +16,7 @@ dil:
                   transport: "sync"
               id: 1
               type: "source"
-              uri: "https://0.0.0.0:9001/1/recipients"
+              uri: "http://0.0.0.0:9001/1/recipients"
             - links:
                 link:
                 - bound: "in"

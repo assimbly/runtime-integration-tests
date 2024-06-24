@@ -4,8 +4,8 @@
       "integration": {
         "flows": {
           "flow": {
-            "id": "xmltojsonlegacy_test1",
-            "name": "xmltojsonlegacy_test1",
+            "id": "xmltojsonlegacy_dil",
+            "name": "xmltojsonlegacy_dil",
             "type": "esb",
             "steps": {
               "step": [
@@ -70,7 +70,10 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
                   "links": {
                     "link": {
                       "id": "4",

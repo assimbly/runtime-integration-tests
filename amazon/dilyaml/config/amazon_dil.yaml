@@ -11,7 +11,7 @@ dil:
             step:
             - id: 1
               type: "source"
-              uri: "https://0.0.0.0:9001/1/Amazon"
+              uri: "http://0.0.0.0:9001/1/Amazon"
             - options:
                 sellerId: "RAW(ABCDEFGHIJKLMN)"
                 secretKey: "RAW(ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/AB)"

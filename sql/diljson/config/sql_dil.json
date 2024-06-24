@@ -12,7 +12,7 @@
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/sql",
+                  "uri": "http://0.0.0.0:9001/1/sql",
                   "links": {
                     "link": {
                       "id": "2",
@@ -114,27 +114,27 @@
             "timestamp": {
               "type": "header",
               "language": "simple",
-              "": "${date-with-timezone:now:Europe/Amsterdam:yyyy-MM-dd'T'HH:mm:ss}"
+              "value": "${date-with-timezone:now:Europe/Amsterdam:yyyy-MM-dd'T'HH:mm:ss}"
             },
             "name": {
               "type": "header",
               "language": "constant",
-              "": "name"
+              "value": "name"
             },
             "value": {
               "type": "header",
               "language": "constant",
-              "": "value"
+              "value": "value"
             },
             "route": {
               "type": "header",
               "language": "constant",
-              "": "Mysql5.7"
+              "value": "Mysql5.7"
             },
             "escape": {
               "type": "header",
               "language": "constant",
-              "": "no"
+              "value": "no"
             }
           }
         }

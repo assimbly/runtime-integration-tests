@@ -3,8 +3,8 @@
         <integration>
             <flows>
                 <flow>
-                    <id>xmltojsonlegacy_test1</id>
-                    <name>xmltojsonlegacy_test1</name>
+                    <id>xmltojsonlegacy_dil</id>
+                    <name>xmltojsonlegacy_dil</name>
                     <type>esb</type>
                     <steps>
                         <step>
@@ -72,7 +72,10 @@
                         <step>
                             <id>4</id>
                             <type>sink</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                             <links>
                                 <link>
                                     <id>4</id>

@@ -32,8 +32,8 @@
   </route>
   <route id="66d6ab71-6f43-11ed-98ef-1921d2513c6b">
     <from uri="direct:ID_627a629b38c74a06a0000140_test_c2601910-6fcd-11ed-845b-fbaa1700ffee"/>
-    <to uri="googledrive://?accessToken=AAABBBCCCDDDEEEFFFGGHHH&amp;refreshToken=AAABBBCCCDDDEEEFFFGGHHH&amp;directoryId=AAABBBCCCDDDEEEFFFGGHHH"/>
-    <to uri="direct:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b?timeToLive=86400000"/>
+    <to uri="googledrive://?accessToken=ya29.a0AXooCgvelHfTKxqgIaH3a77SYedImC3aIOaBl_QtdT0sjtLsE6ngWEKfvHCGpNqc7ybqUKeM8FtfVUzwzbWvw_4eBSZ_GOHoPRIWomi0RKw03CoFGwu7ymEo2Vm8CmSq49ZBdfNZNEiKozgFkGGEXApMWyRphIYEiM-MY0IaCgYKAZMSARESFQHGX2Mi2jTPBLMXip83YroRDblRng0174&amp;tenant=regressiontests&amp;directoryId=1HYnwLTICJPLGbPL4AUcUJC-cRuGeTrG3"/>
+    <to uri="direct:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b"/>
   </route>
   <route id="639070f2-6fce-11ed-a6f1-5904354a115f">
     <from uri="direct:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b"/>

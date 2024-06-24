@@ -4,8 +4,8 @@ dil:
     integration:
       flows:
         flow:
-          name: "xmltojsonlegacy_test1"
-          id: "xmltojsonlegacy_test1"
+          name: "xmltojsonlegacy_dil"
+          id: "xmltojsonlegacy_dil"
           type: "esb"
           steps:
             step:
@@ -55,4 +55,6 @@ dil:
                   transport: "sync"
               id: 4
               type: "sink"
-              uri: "velocity:${bodyAs(String)}"
+              uri: "setbody:${bodyAs(String)}"
+              options:
+                language: "simple"

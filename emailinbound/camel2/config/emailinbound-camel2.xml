@@ -12,8 +12,9 @@
     <to uri="bean:dovetailTracer?method=traceEvent"/>
   </interceptFrom>
 
+  <!-- replace password for testing-->
   <route id="9850b6d1-d08f-11ec-83f5-3747809ef661">
-    <from uri="imaps://imap.cartoon.com:993?authenticationType=RAW(basic)&amp;username=RAW(noreply@cartoon.com)&amp;password=RAW(Hoo-ha-hooah!)&amp;tenant=RAW(dovetail)&amp;delay=10000&amp;bridgeErrorHandler=true&amp;sslContextParameters=#sslContext"/>
+    <from uri="imaps://imap.gmail.com:993?authenticationType=RAW(basic)&amp;username=RAW(noreply@dovetail.world)&amp;password=RAW(******)&amp;tenant=RAW(test)&amp;delay=10000&amp;bridgeErrorHandler=true&amp;sslContextParameters=#sslContext"/>
     <convertBodyTo type="java.lang.String"/>
     <to uri="direct:ID_627a631138c74a000e000764_test_9850b6d1-d08f-11ec-83f5-3747809ef661"/>
   </route>

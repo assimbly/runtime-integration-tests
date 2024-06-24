@@ -12,7 +12,7 @@
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "https://0.0.0.0:9001/1/throttle"
+                  "uri": "http://0.0.0.0:9001/1/throttle"
                 },
                 {
                   "id": "2",
@@ -34,7 +34,7 @@
                 {
                   "id": "4",
                   "type": "router",
-                  "uri": "split",
+                  "uri": "split-xpath",
                   "links": {
                     "link": [
                       {
@@ -60,7 +60,7 @@
                 {
                   "id": "5",
                   "type": "action",
-                  "uri": "throttle",
+                  "uri": "queuethrottle",
                   "options": {
                     "timeperiod": "5000",
                     "messages": "1"

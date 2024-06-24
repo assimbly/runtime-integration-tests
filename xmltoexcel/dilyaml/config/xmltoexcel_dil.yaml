@@ -24,7 +24,7 @@ dil:
             step:
             - id: 1
               type: "source"
-              uri: "https://0.0.0.0:9001/1/XmlToExcel"
+              uri: "http://0.0.0.0:9001/1/XmlToExcel"
             - id: 2
               type: "action"
               uri: "setbody:message:menu"

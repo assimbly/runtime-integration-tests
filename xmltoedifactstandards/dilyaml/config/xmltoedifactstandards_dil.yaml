@@ -193,7 +193,7 @@ dil:
             step:
             - id: 1
               type: "source"
-              uri: "https://0.0.0.0:9001/1/xmltoedifactstandards"
+              uri: "http://0.0.0.0:9001/1/xmltoedifactstandards"
             - id: 2
               type: "action"
               uri: "setbody:message:edifactstandards"

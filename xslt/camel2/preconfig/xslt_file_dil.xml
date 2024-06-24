@@ -3,8 +3,8 @@
         <integration>
             <flows>
                 <flow>
-                    <id>xmltoxsltfile_test1</id>
-                    <name>xmltoxsltfile_test1</name>
+                    <id>xmltoxsltfile_preconfig_test1</id>
+                    <name>xmltoxsltfile_preconfig_test1</name>
                     <type>esb</type>
                     <steps>
                         <step>

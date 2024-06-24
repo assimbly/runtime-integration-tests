@@ -3,8 +3,8 @@
         <integration>
             <flows>
                 <flow>
-                    <id>xmltoxsltfile_test1</id>
-                    <name>xmltoxsltfile_test1</name>
+                    <id>xslt_file_dil</id>
+                    <name>xslt_file_dil</name>
                     <type>esb</type>
                     <steps>
                         <step>

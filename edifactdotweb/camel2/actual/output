@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edifactmessages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:noNamespaceSchemaLocation="file:///C:/Users/Bart/Documents/dw/raet/Medewerker.xsd">
+                 xsi:noNamespaceSchemaLocation="file:///C:/Users/Bart/Documents/dw/raet/Medewerker.xsd">
    <raetSystemName>HRIS</raetSystemName>
    <messages>
       <message>

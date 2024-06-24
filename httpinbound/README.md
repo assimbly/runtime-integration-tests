@@ -25,7 +25,7 @@ No
 <step>
     <id>1</id>
     <type>source</type>
-    <uri>https://0.0.0.0:9001/1/httpinbound</uri>
+    <uri>http://0.0.0.0:9001/1/httpinbound</uri>
 </step>
 ```
 

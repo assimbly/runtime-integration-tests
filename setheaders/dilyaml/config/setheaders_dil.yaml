@@ -25,7 +25,7 @@ dil:
             step:
             - id: 1
               type: "source"
-              uri: "https://0.0.0.0:9001/1/setheaders"
+              uri: "http://0.0.0.0:9001/1/setheaders"
             - id: 2
               type: "action"
               uri: "setbody:john"
