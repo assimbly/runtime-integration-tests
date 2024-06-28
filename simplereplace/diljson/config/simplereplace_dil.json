@@ -43,7 +43,10 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "setbody:hello ${header.name}, welcome to ${header.company}.                            ",
+                  "uri": "setbody:Hello ${header.name}, welcome to ${header.company}.",
+                  "options": {
+                    "language": "simple"
+                  },
                   "links": {
                     "link": [
                       {
@@ -81,7 +84,10 @@
                 {
                   "id": "5",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
                   "links": {
                     "link": {
                       "id": "5",
@@ -102,17 +108,19 @@
           "id": "1",
           "name": "names",
           "headers": {
-            "name": {
+            "header": [{
               "type": "header",
               "language": "simple",
-              "": "Pedro"
+              "name": "name",
+              "value": "Pedro"
             },
-            "company": {
+            {
               "type": "header",
               "language": "constant",
-              "": "Dovetail"
+              "name": "company",
+              "value": "Dovetail"
             }
-          }
+          ]}
         }
       }
     }

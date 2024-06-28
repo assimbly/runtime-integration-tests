@@ -39,8 +39,10 @@
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>setbody:hello ${header.name}, welcome to ${header.company}.
-                            </uri>
+                            <uri>setbody:Hello ${header.name}, welcome to ${header.company}.</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                             <links>
                                 <link>
                                     <id>3</id>
@@ -74,7 +76,10 @@
                         <step>
                             <id>5</id>
                             <type>sink</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                             <links>
                                 <link>
                                     <id>5</id>
@@ -94,8 +99,18 @@
                 <id>1</id>
                 <name>names</name>
                 <headers>
-                    <name type="header" language="simple">Pedro</name>
-                    <company type="header" language="constant">Dovetail</company>
+                    <header>
+                        <name>name</name>
+                        <value>Pedro</value>
+                        <language>simple</language>
+                        <type>header</type>
+                    </header>
+                    <header>
+                        <name>company</name>
+                        <value>Dovetail</value>
+                        <language>constant</language>
+                        <type>header</type>
+                    </header>
                 </headers>
             </message>
         </messages>

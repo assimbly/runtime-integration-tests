@@ -84,7 +84,10 @@
                         <step>
                             <id>4</id>
                             <type>sink</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                             <links>
                                 <link>
                                     <id>4</id>
@@ -107,7 +110,12 @@
  <sCountryISOCode>NL</sCountryISOCode>
 </FullCountryInfo>]]></body>
             <headers>
-               <Content-Type type="header" language="constant">text/xml</Content-Type>              
+                <header>
+                    <name>Content-Type</name>
+                    <value>text/xml</value>
+                    <type>"header</type>
+                    <language>constant</language>
+                </header>
             </headers>
          </message>
       </messages>

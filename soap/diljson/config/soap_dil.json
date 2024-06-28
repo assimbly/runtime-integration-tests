@@ -92,7 +92,10 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
                   "links": {
                     "link": {
                       "id": "4",
@@ -114,10 +117,11 @@
           "name": "soap",
           "body": "<FullCountryInfo> <sCountryISOCode>NL</sCountryISOCode></FullCountryInfo>",
           "headers": {
-            "Content-Type": {
+            "header": {
               "type": "header",
               "language": "constant",
-              "": "text/xml"
+              "value": "text/xml",
+              "name": "Content-Type"
             }
           }
         }
