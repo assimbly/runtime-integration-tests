@@ -69,7 +69,7 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:Message Body: ${bodyAs(String)}",
+                  "uri": "setbody:${bodyAs(String)}",
                   "links": {
                     "link": {
                       "id": "4",

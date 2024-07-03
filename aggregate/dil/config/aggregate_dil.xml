@@ -87,7 +87,10 @@
                         <step>
                             <id>5</id>
                             <type>sink</type>
-                            <uri>velocity:Message Body: ${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                             <links>
                                 <link>
                                     <id>5</id>

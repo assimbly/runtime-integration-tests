@@ -47,7 +47,7 @@
                         <step>
                             <id>3</id>
                             <type>router</type>
-                            <uri>split</uri>
+                            <uri>split-xpath</uri>
                             <links>
                                 <link>
                                     <id>3</id>
@@ -71,7 +71,7 @@
                         <step>
                             <id>4</id>
                             <type>sink</type>
-                            <uri>velocity:Message Body: ${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
                             <links>
                                 <link>
                                     <id>4</id>

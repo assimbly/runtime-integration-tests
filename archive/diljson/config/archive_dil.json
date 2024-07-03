@@ -22,11 +22,7 @@
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "zip",
-                  "options": {
-                    "usingIterator": "true",
-                    "preservePathElements": "true"
-                  }
+                  "uri": "zip"
                 },
                 {
                   "id": "4",
@@ -36,10 +32,7 @@
                 {
                   "id": "5",
                   "type": "action",
-                  "uri": "unzip",
-                  "options": {
-                    "usingIterator": "true"
-                  }
+                  "uri": "unzip"
                 },
                 {
                   "id": "6",
@@ -49,7 +42,10 @@
                 {
                   "id": "7",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}"
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  }
                 }
               ]
             }

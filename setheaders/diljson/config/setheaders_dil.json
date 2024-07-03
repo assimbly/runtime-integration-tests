@@ -17,7 +17,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:john"
+                  "uri": "setbody:John"
                 },
                 {
                   "id": "3",
@@ -27,7 +27,10 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:The body is ${body}. The name is ${header.firstname} ${header.lastname}"
+                  "uri": "setbody:The body is ${body}. The name is ${header.firstname} ${header.lastname}",
+                  "options": {
+                    "language": "simple"
+                  }
                 }
               ]
             }
@@ -41,17 +44,19 @@
           "id": "1",
           "name": "names",
           "headers": {
-            "firstname": {
+            "header": [{
               "type": "header",
               "language": "simple",
-              "": "${body}"
+              "name": "firstname",
+              "value": "${body}"
             },
-            "lastname": {
-              "type": "header",
-              "language": "constant",
-              "": "Doe"
-            }
-          }
+              {
+                "type": "header",
+                "language": "constant",
+                "name": "lastname",
+                "value": "Doe"
+              }
+            ]}
         }
       }
     }

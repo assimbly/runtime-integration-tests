@@ -47,7 +47,10 @@
                         <step>
                             <id>7</id>
                             <type>sink</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                         </step>
                     </steps>
                 </flow>

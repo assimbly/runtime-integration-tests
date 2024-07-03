@@ -97,7 +97,10 @@
                         <step>
                             <id>5</id>
                             <type>sink</type>
-                            <uri>velocity:Message Body: ${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                             <links>
                                 <link>
                                     <id>5</id>
@@ -117,7 +120,12 @@
                 <id>1</id>
                 <name>userhome</name>
                 <headers>
-                    <path type="header" language="groovy">System.getProperty("user.home")</path>
+                    <header>
+                        <name>path</name>
+                        <value>System.getProperty("user.home")</value>
+                        <type>header</type>
+                        <language>groovy</language>
+                    </header>
                 </headers>
             </message>
         </messages>

@@ -25,7 +25,10 @@
                         <step>
                             <id>4</id>
                             <type>sink</type>
-                            <uri>velocity:${header.MyVariable}</uri>
+                            <uri>setbody:${header.MyVariable}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                         </step>
                     </steps>
                 </flow>

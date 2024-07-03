@@ -107,8 +107,10 @@
                 {
                   "id": "5",
                   "type": "sink",
-                  "uri": "velocity:Message Body: ${bodyAs(String)}",
-                  "links": {
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },                 "links": {
                     "link": {
                       "id": "5",
                       "transport": "sync",
@@ -128,12 +130,12 @@
           "id": "1",
           "name": "userhome",
           "headers": {
-            "path": {
+            "header": [{
               "type": "header",
               "language": "groovy",
-              "": "System.getProperty(\"user.home\")"
-            }
-          }
+              "name": "path",
+              "value": "System.getProperty(\"user.home\")"
+            }]}
         }
       }
     }

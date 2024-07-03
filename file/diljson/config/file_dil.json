@@ -24,7 +24,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            ",
+                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>",
                   "links": {
                     "link": [
                       {
@@ -81,7 +81,10 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:Message Body: ${bodyAs(String)}",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
                   "links": {
                     "link": {
                       "id": "4",
@@ -102,11 +105,12 @@
           "id": "1",
           "name": "home",
           "headers": {
-            "home": {
+            "header": [{
               "type": "header",
               "language": "groovy",
-              "": "System.getProperty(\"user.home\")"
-            }
+              "name": "home",
+              "value": "System.getProperty(\"user.home\")"
+            }]
           }
         }
       }

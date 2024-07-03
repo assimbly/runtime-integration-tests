@@ -24,7 +24,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:firstname,lastname,age                                Joe,Foo,21                                John,Doe,30                            ",
+                  "uri": "setbody:firstname,lastname,age\nJoe,Foo,21\nJohn,Doe,30",
                   "links": {
                     "link": [
                       {
@@ -62,7 +62,10 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:Message Body: ${bodyAs(String)}",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
                   "links": {
                     "link": {
                       "id": "4",

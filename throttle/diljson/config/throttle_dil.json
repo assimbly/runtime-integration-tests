@@ -81,7 +81,7 @@
                 {
                   "id": "7",
                   "type": "sink",
-                  "uri": "print:Message Body: ${bodyAs(String)}"
+                  "uri": "print:Message Body:${bodyAs(String)}"
                 },
                 {
                   "id": "8",

@@ -12,11 +12,7 @@
                 {
                   "id": "1",
                   "type": "source",
-<<<<<<< HEAD:setvariable/diljson/config/setvariable_dil.json
-                  "uri": "http://0.0.0.0:9001/1/setvariable"
-=======
                   "uri": "http://0.0.0.0:9001/1/gettenantvariable"
->>>>>>> 36f0e4e9db09581397ec3ff979d2c7aa026f3e8e:gettenantvariable/diljson/config/gettenantvariable_dil.json
                 },
                 {
                   "id": "2",
@@ -46,7 +42,10 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:${header.MyVariable}"
+                  "uri": "setbody:${header.MyVariable}",
+                  "options": {
+                    "language": "simple"
+                  }
                 }
               ]
             }

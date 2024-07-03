@@ -59,7 +59,7 @@
                         <step>
                             <id>4</id>
                             <type>sink</type>
-                            <uri>velocity:Headers:
+                            <uri>setbody:Headers:
 
 Lastname: ${headers.lastName}
 Firtname:  ${headers.firstName}
@@ -67,6 +67,9 @@ Firtname:  ${headers.firstName}
 Message Body:
 
 ${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                             <links>
                                 <link>
                                     <id>4</id>
@@ -87,8 +90,18 @@ ${bodyAs(String)}</uri>
             <name>removeheaders</name>
 			<body>headers has been removed</body>
 			 <headers>
-               <firstname type="header" language="constant">John</firstname>
-               <lastname type="header" language="constant">Doe</lastname>
+                 <header>
+                     <name>firstname</name>
+                     <value>John</value>
+                     <language>constant</language>
+                     <type>header</type>
+                 </header>
+                 <header>
+                     <name>lastname</name>
+                     <value>Doe</value>
+                     <language>constant</language>
+                     <type>header</type>
+                 </header>
             </headers>
          </message>
       </messages>

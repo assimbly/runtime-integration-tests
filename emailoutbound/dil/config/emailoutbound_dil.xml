@@ -39,7 +39,7 @@
                         <step>
                             <id>5</id>
                             <type>sink</type>
-                            <uri>velocity: email sent</uri>
+                            <uri>setbody:email sent</uri>
                         </step>
                     </steps>
                 </flow>

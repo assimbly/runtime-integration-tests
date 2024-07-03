@@ -28,7 +28,7 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Does</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            ",
+                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Does</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>",
                   "links": {
                     "link": [
                       {

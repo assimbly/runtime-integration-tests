@@ -67,7 +67,10 @@
                 {
                   "id": "4",
                   "type": "sink",
-                  "uri": "velocity:${bodyAs(String)}",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
                   "links": {
                     "link": {
                       "id": "4",

@@ -89,23 +89,22 @@
         "message": {
           "id": "1",
           "name": "address",
-          "headers": {
-            "name": {
-              "type": "header",
-              "language": "constant",
-              "": "Pedro Catalao"
-            },
-            "address": {
-              "type": "header",
-              "language": "constant",
-              "": "Main street 1"
-            },
-            "zip": {
-              "type": "header",
-              "language": "constant",
-              "": "10000, Alcochete"
-            }
-          }
+          "header": [{
+            "type": "header",
+            "language": "constant",
+            "name": "name",
+            "value": "Pedro Catalao"
+          },{
+            "type": "header",
+            "language": "constant",
+            "name": "address",
+            "value": "Pedro Catalao"
+          },{
+            "type": "header",
+            "language": "constant",
+            "name": "zip",
+            "value": "10000, Alcochete"
+          }]
         }
       }
     }
