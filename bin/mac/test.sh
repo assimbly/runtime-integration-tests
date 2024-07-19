@@ -6,6 +6,7 @@ PRINT_USAGE=false
 WAIT="10"
 CHECK=false
 CREATE=false
+FORCE_OUTPUT_READ=false
 
 
 echo "Starting integration test"
@@ -26,6 +27,8 @@ if [ -n "$2" ]; then
     mkdir -p "../../$1/expected"
   elif [ "$2" == "check" ]; then
     CHECK=true
+  elif [ "$2" == "force" ]; then
+      FORCE_OUTPUT_READ=true
   else
     WAIT="$2"
     echo "Wait: $2""s";
@@ -94,13 +97,25 @@ sleep "$WAIT"
 echo "Result:"
 echo ""
 
-if "$CHECK" = true; then
-  rm -f "$SOURCE_DIR/actual/"*
-  curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/actual/output"
-elif  "$CREATE" = true; then
-  curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/expected/output"
+if "$FORCE_OUTPUT_READ" = true; then
+  sleep 3
+  file_path="/data/.assimbly/output/output.txt"
+  if [[ -f "$file_path" ]]; then
+    file_content=$(cat "$file_path")
+    echo "$file_content"
+    rm -f "/data/.assimbly/output/"*
+  else
+    echo "NO OUTPUT"
+  fi
 else
-  curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output -
+  if "$CHECK" = true; then
+    rm -f "$SOURCE_DIR/actual/"*
+    curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/actual/output"
+  elif  "$CREATE" = true; then
+    curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output "$SOURCE_DIR/expected/output"
+  else
+    curl -k -X POST "http://localhost:9001/1/$COMPONENT" --output -
+  fi
 fi
 
 sleep "$WAIT"
