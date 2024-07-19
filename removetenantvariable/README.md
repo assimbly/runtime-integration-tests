@@ -23,12 +23,11 @@ MongoDB/Frontend must be running
 
 ```xml
 <step>
-    <id>5</id>
+    <id>4</id>
     <type>action</type>
-    <uri>globalvariables://MyVariable</uri>
+    <uri>tenantvariables://MyVariable</uri>
     <options>
         <operation>DELETE</operation>
-        <environment>test</environment>
         <tenant>default</tenant>
     </options>
 </step>
@@ -39,12 +38,11 @@ MongoDB/Frontend must be running
 ```json
 {
   "step": {
-    "id": 5,
+    "id": "5",
     "type": "action",
-    "uri": "globalvariables://MyVariable",
+    "uri": "tenantvariables://MyVariable",
     "options": {
       "operation": "DELETE",
-      "environment": "test",
       "tenant": "default"
     }
   }
@@ -72,7 +70,7 @@ step:
 ```xml
 <route id="2d084691-5474-11ed-8791-23ef0698f627">
     <from uri="activemq:ID_627a64b238c74a06a00001e4_test_de3f3db1-d08f-11ec-83f5-3747809ef661"/>
-    <to uri="globalvariables://MyVariable?operation=DELETE&amp;environment=test&amp;tenant=default"/>
+    <to uri="tenantvariables://MyVariable?operation=DELETE&amp;tenant=default"/>
     <to uri="activemq:ID_627a64b238c74a06a00001e4_test_2d084691-5474-11ed-8791-23ef0698f627?timeToLive=86400000"/>
 </route>
 ```

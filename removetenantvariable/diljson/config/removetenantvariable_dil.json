@@ -12,11 +12,7 @@
                 {
                   "id": "1",
                   "type": "source",
-<<<<<<< HEAD:removevariable/diljson/config/removevariable_dil.json
-                  "uri": "http://0.0.0.0:9001/1/removevariable"
-=======
                   "uri": "http://0.0.0.0:9001/1/RemoveTenantVariable"
->>>>>>> 36f0e4e9db09581397ec3ff979d2c7aa026f3e8e:removetenantvariable/diljson/config/removetenantvariable_dil.json
                 },
                 {
                   "id": "2",
@@ -24,11 +20,10 @@
                   "uri": "tenantvariables://MyVariable",
                   "options": {
                     "operation": "SET",
-                    "expression": "simple",
-                    "value": "RAW(dGVzdA==)",
+                    "expressionType": "simple",
+                    "value": "RAW(eWVzISEh)",
                     "encrypt": "false",
-                    "modifier": "ComponentsTests/GetVariable",
-                    "environment": "test",
+                    "modifier": "Groupless/SetTenantVar",
                     "tenant": "default"
                   }
                 },
@@ -39,7 +34,6 @@
                   "options": {
                     "operation": "GET",
                     "header": "MyVariable",
-                    "environment": "test",
                     "tenant": "default"
                   }
                 },
@@ -54,14 +48,16 @@
                   "uri": "tenantvariables://MyVariable",
                   "options": {
                     "operation": "DELETE",
-                    "environment": "test",
                     "tenant": "default"
                   }
                 },
                 {
                   "id": "6",
                   "type": "sink",
-                  "uri": "velocity:${header.MyVariable}"
+                  "uri": "setbody:${header.MyVariable}",
+                  "options": {
+                    "language": "simple"
+                  }
                 }
               ]
             }

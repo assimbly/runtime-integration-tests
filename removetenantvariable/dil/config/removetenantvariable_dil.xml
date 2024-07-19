@@ -15,22 +15,42 @@
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>global-variables://MyVariable?operation=SET&amp;expressionType=constant&amp;value=RAW(eWVzISEh)&amp;encrypt=false&amp;modifier=RAW(Groupless/SetTenantVar)&amp;tenant=testbvg1</uri>
+                            <uri>tenantvariables://MyVariable</uri>
+                            <options>
+                                <operation>SET</operation>
+                                <expressionType>constant</expressionType>
+                                <value>RAW(eWVzISEh)</value>
+                                <encrypt>false</encrypt>
+                                <modifier>RAW(Groupless/SetTenantVar)</modifier>
+                                <tenant>default</tenant>
+                            </options>
                         </step>
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>global-variables://MyVariable?operation=GET&amp;header=MyVariable&amp;tenant=testbvg1</uri>
+                            <uri>tenantvariables://MyVariable</uri>
+                            <options>
+                                <operation>GET</operation>
+                                <header>MyVariable</header>
+                                <tenant>default</tenant>
+                            </options>
                         </step>
                         <step>
                             <id>4</id>
                             <type>action</type>
-                            <uri>global-variables://MyVariable?operation=DELETE&amp;tenant=testbvg1</uri>
+                            <uri>tenantvariables://MyVariable</uri>
+                            <options>
+                                <operation>DELETE</operation>
+                                <tenant>default</tenant>
+                            </options>
                         </step>
                         <step>
                             <id>5</id>
                             <type>sink</type>
-                            <uri>velocity:${header.MyVariable}</uri>
+                            <uri>setbody:${header.MyVariable}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                         </step>
                     </steps>
                 </flow>
