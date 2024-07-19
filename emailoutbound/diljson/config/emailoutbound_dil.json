@@ -17,37 +17,108 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:Hello World"
+                  "uri": "setheaders:message:sender"
                 },
                 {
                   "id": "3",
                   "type": "action",
-                  "uri": "log"
+                  "uri": "setbody:body - ${header.sender}",
+                  "options": {
+                    "language": "simple"
+                  }
                 },
                 {
                   "id": "4",
                   "type": "action",
-                  "uri": "smtp://smtp-relay.cartoon.com:587",
+                  "uri": "smtp://mail.smtpbucket.com:8025",
                   "options": {
-                    "from": "RAW(noreply@cartoon.com)",
+                    "from": "${header.sender}",
                     "headerFilterStrategy": "#ExtendedHeaderFilterStrategy",
                     "mail.smtp.starttls.enable": "true",
-                    "password": "RAW(Hoo-ha-hooah!)",
                     "subject": "RAW(testing email component)",
-                    "to": "RAW(johnny.bravo@cartoon.com)",
-                    "username": "RAW(noreply@cartoon.com)"
+                    "to": "RAW(johnny.bravo@cartoon.com)"
                   }
                 },
                 {
                   "id": "5",
+                  "type": "action",
+                  "uri": "setheaders:message:CamelHttpUri"
+                },
+                {
+                  "id": "6",
+                  "type": "action",
+                  "uri": "setheaders:message:CamelHttpMethod"
+                },
+                {
+                  "id": "7",
+                  "type": "action",
+                  "uri": "https://api.smtpbucket.com/emails"
+                },
+                {
+                  "id": "8",
                   "type": "sink",
-                  "uri": "velocity: email sent"
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  }
                 }
               ]
             }
           }
         }
       }
+    },
+    "core": {
+      "messages": [
+        {
+          "message": {
+            "id": "1",
+            "name": "sender",
+            "headers": {
+              "header": [
+                {
+                  "type": "header",
+                  "language": "simple",
+                  "name": "sender",
+                  "value": "dovetail-${uuid}@example.com"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "message": {
+            "id": "2",
+            "name": "CamelHttpUri",
+            "headers": {
+              "header": [
+                {
+                  "type": "header",
+                  "language": "simple",
+                  "name": "CamelHttpUri",
+                  "value": "https://api.smtpbucket.com/emails?sender=${header.sender}&amp;recipient=johnny.bravo@example.com&amp;limit=1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "message": {
+            "id": "3",
+            "name": "CamelHttpMethod",
+            "headers": {
+              "header": [
+                {
+                  "type": "header",
+                  "language": "constant",
+                  "name": "CamelHttpMethod",
+                  "value": "GET"
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
   }
 }

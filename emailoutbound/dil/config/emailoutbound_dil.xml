@@ -15,35 +15,94 @@
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>setbody:Hello World</uri>
+                            <uri>setheaders:message:sender</uri>
                         </step>
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>log</uri>
+                            <uri>setbody:body - ${header.sender}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                         </step>
                         <step>
                             <id>4</id>
                             <type>action</type>
-                            <uri>smtp://smtp-relay.cartoon.com:587</uri>
+                            <uri>smtp://mail.smtpbucket.com:8025</uri>
                             <options>
-                                <from>RAW(noreply@cartoon.com)</from>
+                                <from>${header.sender}</from>
                                 <headerFilterStrategy>#ExtendedHeaderFilterStrategy</headerFilterStrategy>
                                 <mail.smtp.starttls.enable>true</mail.smtp.starttls.enable>
-                                <password>RAW(Hoo-ha-hooah!)</password>
                                 <subject>RAW(testing email component)</subject>
-                                <to>RAW(johnny.bravo@cartoon.com)</to>
-                                <username>RAW(noreply@cartoon.com)</username>
+                                <to>johnny.bravo@example.com</to>
                             </options>
                         </step>
                         <step>
                             <id>5</id>
+                            <type>action</type>
+                            <uri>setheaders:message:CamelHttpUri</uri>
+                        </step>
+                        <step>
+                            <id>6</id>
+                            <type>action</type>
+                            <uri>setheaders:message:CamelHttpMethod</uri>
+                        </step>
+                        <step>
+                            <id>7</id>
+                            <type>action</type>
+                            <uri>https://api.smtpbucket.com/emails</uri>
+                        </step>
+                        <step>
+                            <id>8</id>
                             <type>sink</type>
-                            <uri>setbody:email sent</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                         </step>
                     </steps>
                 </flow>
             </flows>
         </integration>
     </integrations>
+    <core>
+        <messages>
+            <message>
+                <id>1</id>
+                <name>sender</name>
+                <headers>
+                    <header>
+                        <name>sender</name>
+                        <value>dovetail-${uuid}@example.com</value>
+                        <language>simple</language>
+                        <type>header</type>
+                    </header>
+                </headers>
+            </message>
+            <message>
+                <id>2</id>
+                <name>CamelHttpUri</name>
+                <headers>
+                    <header>
+                        <name>CamelHttpUri</name>
+                        <value>https://api.smtpbucket.com/emails?sender=${header.sender}&amp;recipient=johnny.bravo@example.com&amp;limit=1</value>
+                        <language>simple</language>
+                        <type>header</type>
+                    </header>
+                </headers>
+            </message>
+            <message>
+                <id>3</id>
+                <name>CamelHttpMethod</name>
+                <headers>
+                    <header>
+                        <name>CamelHttpMethod</name>
+                        <value>GET</value>
+                        <language>constant</language>
+                        <type>header</type>
+                    </header>
+                </headers>
+            </message>
+        </messages>
+    </core>
 </dil>
