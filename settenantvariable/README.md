@@ -25,13 +25,13 @@ MongoDB/Frontend must be running
 <step>
     <id>2</id>
     <type>action</type>
-    <uri>globalvariables://MyVariable</uri>
+    <uri>tenantvariables://MyVariable</uri>
     <options>
         <operation>SET</operation>
-        <value>RAW(dGVzdA==)</value>
+        <expressionType>constant</expressionType>
+        <value>RAW(eWVzISEh)</value>
         <encrypt>false</encrypt>
-        <modifier>ComponentsTests/GetVariable</modifier>
-        <environment>test</environment>
+        <modifier>RAW(Groupless/SetTenantVar)</modifier>
         <tenant>default</tenant>
     </options>
 </step>
@@ -42,15 +42,15 @@ MongoDB/Frontend must be running
 ```json
 {
   "step": {
-    "id": 2,
+    "id": "2",
     "type": "action",
-    "uri": "globalvariables://MyVariable",
+    "uri": "tenantvariables://MyVariable",
     "options": {
       "operation": "SET",
-      "value": "RAW(dGVzdA==)",
+      "expressionType": "constant",
+      "value": "RAW(eWVzISEh)",
       "encrypt": "false",
-      "modifier": "ComponentsTests/GetVariable",
-      "environment": "test",
+      "modifier": "Groupless/SetTenantVar",
       "tenant": "default"
     }
   }
@@ -81,7 +81,7 @@ step:
 ```xml
 <route id="33fccc80-546c-11ed-9c54-bf06f28b5fc9">
     <from uri="activemq:ID_627a64b238c74a06a00001e4_test_2faf4c80-d063-11ec-83f5-3747809ef661"/>
-    <to uri="globalvariables://MyVariable?operation=SET&amp;value=RAW(dGVzdA==)&amp;encrypt=false&amp;modifier=ComponentsTests/GetVariable&amp;environment=test&amp;tenant=default"/>
+    <to uri="tenantvariables://MyVariable?operation=SET&amp;expressionType=constant&amp;value=RAW(eWVzISEh)&amp;encrypt=false&amp;modifier=RAW(Groupless/SetTenantVar)&amp;tenant=default"/>
     <to uri="activemq:ID_627a64b238c74a06a00001e4_test_33fccc80-546c-11ed-9c54-bf06f28b5fc9?timeToLive=86400000"/>
 </route>
 ```
