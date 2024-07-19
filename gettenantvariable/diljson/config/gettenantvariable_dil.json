@@ -20,8 +20,8 @@
                   "uri": "tenantvariables://MyVariable",
                   "options": {
                     "operation": "SET",
-                    "expression": "simple",
-                    "value": "RAW(dGVzdA==)",
+                    "expressionType": "simple",
+                    "value": "RAW(eWVzISEh)",
                     "encrypt": "false",
                     "modifier": "ComponentsTests/GetVariable",
                     "environment": "test",
