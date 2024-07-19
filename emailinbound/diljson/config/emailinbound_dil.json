@@ -12,12 +12,12 @@
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "imaps://imap.cartoon.com:993",
+                  "uri": "imaps://imap.gmail.com:993",
                   "options": {
                     "authenticationType": "RAW(basic)",
-                    "username": "RAW(noreply@cartoon.com)",
-                    "password": "RAW(Hoo-ha-hooah!)",
-                    "tenant": "RAW(dovetail)",
+                    "username": "RAW(brunovg@gmail.com)",
+                    "password": "RAW(ovza grif udkz crps)",
+                    "tenant": "RAW(test)",
                     "delay": "10000",
                     "bridgeErrorHandler": "true",
                     "sslContextParameters": "#sslContext"
@@ -26,14 +26,24 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "log"
+                  "uri": "file:/data/.assimbly/output",
+                  "options": {
+                    "fileName": "output.txt"
+                  }
                 },
                 {
                   "id": "3",
                   "type": "sink",
-                  "uri": "setbody:${bodyAs(String)}",
+                  "uri": "log:nl.kabisa.flux//",
                   "options": {
-                    "language": "simple"
+                    "skipBodyLineSeparator": "false",
+                    "multiline": "true",
+                    "showHeaders": "false",
+                    "showBody": "true",
+                    "showBodyType": "true",
+                    "showFiles": "true",
+                    "showException": "false",
+                    "showStackTrace": "false"
                   }
                 }
               ]

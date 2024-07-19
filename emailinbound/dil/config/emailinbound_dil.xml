@@ -10,12 +10,12 @@
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>imaps://imap.cartoon.com:993</uri>
+                            <uri>imaps://imap.gmail.com:993</uri>
                             <options>
                                 <authenticationType>RAW(basic)</authenticationType>
-                                <username>RAW(noreply@cartoon.com)</username>
-                                <password>RAW(Hoo-ha-hooah!)</password>
-                                <tenant>RAW(dovetail)</tenant>
+                                <username>RAW(brunovg@gmail.com)</username>
+                                <password>RAW(ovza grif udkz crps)</password>
+                                <tenant>RAW(test)</tenant>
                                 <delay>10000</delay>
                                 <bridgeErrorHandler>true</bridgeErrorHandler>
                                 <sslContextParameters>#sslContext</sslContextParameters>
@@ -24,14 +24,24 @@
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>log</uri>
+                            <uri>file:/data/.assimbly/output</uri>
+                            <options>
+                                <fileName>output.txt</fileName>
+                            </options>
                         </step>
                         <step>
                             <id>3</id>
                             <type>sink</type>
-                            <uri>setbody:${bodyAs(String)}</uri>
+                            <uri>log:nl.kabisa.flux//</uri>
                             <options>
-                                <language>simple</language>
+                                <skipBodyLineSeparator>false</skipBodyLineSeparator>
+                                <multiline>true</multiline>
+                                <showHeaders>false</showHeaders>
+                                <showBody>true</showBody>
+                                <showBodyType>true</showBodyType>
+                                <showFiles>true</showFiles>
+                                <showException>false</showException>
+                                <showStackTrace>false</showStackTrace>
                             </options>
                         </step>
                     </steps>
