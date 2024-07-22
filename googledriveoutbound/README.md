@@ -25,11 +25,11 @@ No
 <step>
     <id>4</id>
     <type>action</type>
-    <uri>googledrive</uri>
+    <uri>googledrive://</uri>
     <options>
-        <accessToken>AAABBBCCCDDDEEEFFFGGGHHH</accessToken>
-        <refreshToken>AAABBBCCCDDDEEEFFFGGGHHH</refreshToken>
-        <directoryId>AAABBBCCCDDDEEEFFFGGGHHH</directoryId>
+        <accessToken>RAW(@{OAuthGoogleDrive})</accessToken>
+        <tenant>dovetail</tenant>
+        <directoryId>1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV</directoryId>
     </options>
 </step>
 ```
@@ -39,13 +39,13 @@ No
 ```json
 {
   "step": {
-    "id": 4,
+    "id": "4",
     "type": "action",
-    "uri": "googledrive",
+    "uri": "googledrive://",
     "options": {
-      "accessToken": "AAABBBCCCDDDEEEFFFGGGHHH",
-      "refreshToken": "AAABBBCCCDDDEEEFFFGGGHHH",
-      "directoryId": "AAABBBCCCDDDEEEFFFGGGHHH"
+      "accessToken": "RAW(@{OAuthGoogleDrive})",
+      "tenant": "dovetail",
+      "directoryId": "1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV"
     }
   }
 }
@@ -58,11 +58,11 @@ No
 step:
   id: 4
   type: "action"
-  uri: "googledrive"
+  uri: "googledrive://"
   options:
-    accessToken: "AAABBBCCCDDDEEEFFFGGGHHH"
-    refreshToken: "AAABBBCCCDDDEEEFFFGGGHHH"
-    directoryId: "AAABBBCCCDDDEEEFFFGGGHHH"
+    accessToken: "RAW(@{OAuthGoogleDrive})"
+    tenant: "dovetail"
+    directoryId: "1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV"
 ```
 
 ## Camel 2
@@ -70,10 +70,10 @@ step:
 #### XML
 
 ```xml
-  <route id="66d6ab71-6f43-11ed-98ef-1921d2513c6b">
-    <from uri="activemq:ID_627a629b38c74a06a0000140_test_c2601910-6fcd-11ed-845b-fbaa1700ffee"/>
-    <to uri="googledrive://?accessToken=AAABBBCCCDDDEEEFFFGGGHHH&amp;refreshToken=AAABBBCCCDDDEEEFFFGGGHHH&amp;directoryId=AAABBBCCCDDDEEEFFFGGGHHH"/>
-    <to uri="activemq:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b?timeToLive=86400000"/>
+<route id="eb69c4c5-99d5-4e8e-8730-ca11c97cbcf8">
+    <from uri="direct:ID_6646047e582722013f000091_test_cfdefd10-3d0e-4bdb-bd4f-774feb7917ec"/>
+    <to uri="google-drive://?accessToken=@{OAuthGoogleDrive}&amp;tenant=dovetail&amp;directoryId=1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV"/>
+    <to uri="log:nl.kabisa.flux//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false&amp;showCaughtException=false"/>
 </route>
 ```
 

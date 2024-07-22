@@ -15,24 +15,36 @@
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>setheaders:message:camelfilename</uri>
+                            <uri>setheaders:message:CamelFileName</uri>
                         </step>
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>velocity:something...</uri>
+                            <uri>setbody:<![CDATA[file content text]]></uri>
                         </step>
                         <step>
                             <id>4</id>
                             <type>action</type>
-                            <uri>google-drive://?accessToken=@{OAuthGoogleDrive}&amp;tenant=testbvg1&amp;directoryId=1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV</uri>
+                            <uri>googledrive://</uri>
+                            <options>
+                                <accessToken>RAW(@{OAuthGoogleDrive})</accessToken>
+                                <tenant>dovetail</tenant>
+                                <directoryId>1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV</directoryId>
+                            </options>
                         </step>
                         <step>
                             <id>5</id>
                             <type>sink</type>
-                            <uri>setbody:${bodyAs(String)}</uri>
+                            <uri>log:nl.kabisa.flux//</uri>
                             <options>
-                                <language>simple</language>
+                                <skipBodyLineSeparator>false</skipBodyLineSeparator>
+                                <multiline>true</multiline>
+                                <showHeaders>false</showHeaders>
+                                <showBody>true</showBody>
+                                <showBodyType>true</showBodyType>
+                                <showFiles>true</showFiles>
+                                <showException>false</showException>
+                                <showStackTrace>false</showStackTrace>
                             </options>
                         </step>
                     </steps>
@@ -44,9 +56,14 @@
         <messages>
             <message>
                 <id>1</id>
-                <name>camelfilename</name>
+                <name>CamelFileName</name>
                 <headers>
-                    <CamelFileName type="header" language="simple">simpleFile.txt</CamelFileName>
+                    <header>
+                        <name>CamelFileName</name>
+                        <value>simpleFile.txt</value>
+                        <language>constant</language>
+                        <type>header</type>
+                    </header>
                 </headers>
             </message>
         </messages>
