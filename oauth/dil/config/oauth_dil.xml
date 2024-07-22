@@ -12,15 +12,26 @@
                             <type>source</type>
                             <uri>http://0.0.0.0:9001/1/oauth</uri>
                         </step>
+                        <!-- first: the consent needs to be done on the frontend.
+                        second: use the same componentId of the setOAuth2Token as the id -->
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>oauth2token://?id=dd30e724-718c-4aeb-a1b1-dd364acd321a&amp;tokenName=OAuthGoogleDrive&amp;tenant=testbvg1&amp;expiryDelay=</uri>
+                            <uri>oauth2token://</uri>
+                            <options>
+                                <id>cf400d62-25b5-486f-a948-573300365314</id>
+                                <tokenName>OAuthGoogleDrive</tokenName>
+                                <tenant>dovetail</tenant>
+                                <expiryDelay></expiryDelay>
+                            </options>
                         </step>
                         <step>
                             <id>3</id>
                             <type>sink</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>setbody:AccessToken - ${header.OAuthGoogleDrive}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                         </step>
                     </steps>
                 </flow>
