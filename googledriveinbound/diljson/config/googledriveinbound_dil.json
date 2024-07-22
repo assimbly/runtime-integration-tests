@@ -12,11 +12,11 @@
                 {
                   "id": "1",
                   "type": "source",
-                  "uri": "googledrive",
+                  "uri": "googledrive://",
                   "options": {
-                    "accessToken": "AAABBBCCCDDDEEEFFFGGHHH",
-                    "refreshToken": "AAABBBCCCDDDEEEFFFGGHHH",
-                    "directoryId": "AAABBBCCCDDDEEEFFFGGHHH",
+                    "accessToken": "RAW(@{OAuthGoogleDrive})",
+                    "tenant": "dovetail",
+                    "directoryId": "1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV",
                     "delay": "1000",
                     "initialDelay": "1000",
                     "moveTo": ".dovetail",
@@ -26,15 +26,25 @@
                 {
                   "id": "2",
                   "type": "action",
-                  "uri": "setbody:${bodyAs(String)}",
+                  "uri": "file:/data/.assimbly/output",
                   "options": {
-                    "language": "simple"
+                    "fileName": "output.txt"
                   }
                 },
                 {
                   "id": "3",
                   "type": "sink",
-                  "uri": "log"
+                  "uri": "log:nl.kabisa.flux//",
+                  "options": {
+                    "skipBodyLineSeparator": "false",
+                    "multiline": "true",
+                    "showHeaders": "false",
+                    "showBody": "true",
+                    "showBodyType": "true",
+                    "showFiles": "true",
+                    "showException": "false",
+                    "showStackTrace": "false"
+                  }
                 }
               ]
             }
