@@ -10,11 +10,11 @@
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>googledrive</uri>
+                            <uri>googledrive://</uri>
                             <options>
-                                <accessToken>AAABBBCCCDDDEEEFFFGGHHH</accessToken>
-                                <refreshToken>AAABBBCCCDDDEEEFFFGGHHH</refreshToken>
-                                <directoryId>AAABBBCCCDDDEEEFFFGGHHH</directoryId>
+                                <accessToken>RAW(@{OAuthGoogleDrive})</accessToken>
+                                <tenant>dovetail</tenant>
+                                <directoryId>1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV</directoryId>
                                 <delay>1000</delay>
                                 <initialDelay>1000</initialDelay>
                                 <moveTo>.dovetail</moveTo>
@@ -24,12 +24,25 @@
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>file:/data/.assimbly/output</uri>
+                            <options>
+                                <fileName>output.txt</fileName>
+                            </options>
                         </step>
                         <step>
                             <id>3</id>
                             <type>sink</type>
-                            <uri>log</uri>
+                            <uri>log:nl.kabisa.flux//</uri>
+                            <options>
+                                <skipBodyLineSeparator>false</skipBodyLineSeparator>
+                                <multiline>true</multiline>
+                                <showHeaders>false</showHeaders>
+                                <showBody>true</showBody>
+                                <showBodyType>true</showBodyType>
+                                <showFiles>true</showFiles>
+                                <showException>false</showException>
+                                <showStackTrace>false</showStackTrace>
+                            </options>
                         </step>
                     </steps>
                 </flow>

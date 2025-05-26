@@ -1,0 +1,119 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "file_test1",
+            "name": "file_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/file",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "22",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "22",
+                  "type": "action",
+                  "uri": "setheaders:message:home",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "22",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "file:${header.home}",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "1",
+          "name": "home",
+          "headers": {
+            "header": [{
+              "type": "header",
+              "language": "groovy",
+              "name": "home",
+              "value": "System.getProperty(\"user.home\")"
+            }]
+          }
+        }
+      }
+    }
+  }
+}

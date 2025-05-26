@@ -1,6 +1,6 @@
 # jsontoxml
 
-Transforms JSON to XML
+Transforms JSON to XML (Simple)
 
 ### Component Type
 
@@ -25,7 +25,7 @@ No
 <step>
     <id>3</id>
     <type>action</type>
-    <uri>jsontoxml</uri>
+    <uri>jsontoxml://</uri>
     <options>
         <false>false</false>
         <checkJsonKeys>false</checkJsonKeys>
@@ -37,13 +37,29 @@ No
 #### JSON
 
 ```json
-
+{"step": {
+  "id": "3",
+  "type": "action",
+  "uri": "jsontoxml://",
+  "options": {
+    "addRoot": "false",
+    "checkJsonKeys": "false",
+    "changeArrayElements": "false"
+  }
+}}
 ```
 
 #### YAML
 
 ```yaml
-
+step:
+  id: 3
+  type: "action"
+  uri: "jsontoxml://"
+  options:
+    addRoot: false
+    checkJsonKeys: false
+    changeArrayElements: false
 ```
 
 ## Camel 2

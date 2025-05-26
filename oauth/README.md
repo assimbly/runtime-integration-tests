@@ -23,14 +23,14 @@ MongoDB/Frontend must be running.
 
 ```xml
 <step>
-    <id>10</id>
+    <id>2</id>
     <type>action</type>
-    <uri>oauth2token</uri>
+    <uri>oauth2token://</uri>
     <options>
-        <id>20f44cb0-3d76-11ed-b962-0978946afb23</id>
-        <tokenName>OAuth2Token</tokenName>
-        <tenant>default</tenant>
-        <expiryDelay>30</expiryDelay>
+        <id>cf400d62-25b5-486f-a948-573300365314</id>
+        <tokenName>OAuthGoogleDrive</tokenName>
+        <tenant>dovetail</tenant>
+        <expiryDelay></expiryDelay>
     </options>
 </step>
 ```
@@ -40,14 +40,14 @@ MongoDB/Frontend must be running.
 ```json
 {
   "step": {
-    "id": 10,
+    "id": "2",
     "type": "action",
-    "uri": "oauth2token",
+    "uri": "oauth2token://",
     "options": {
-      "id": "20f44cb0-3d76-11ed-b962-0978946afb23",
-      "tokenName": "OAuth2Token",
-      "tenant": "default",
-      "expiryDelay": "30"
+      "id": "cf400d62-25b5-486f-a948-573300365314",
+      "tokenName": "OAuthGoogleDrive",
+      "tenant": "dovetail",
+      "expiryDelay": ""
     }
   }
 }
@@ -58,14 +58,14 @@ MongoDB/Frontend must be running.
 ```yaml
 ---
 step:
-  id: 10
+  id: 2
   type: "action"
-  uri: "oauth2token"
+  uri: "oauth2token://"
   options:
-    id: "20f44cb0-3d76-11ed-b962-0978946afb23"
-    tokenName: "OAuth2Token"
-    tenant: "default"
-    expiryDelay: "30"
+    id: "cf400d62-25b5-486f-a948-573300365314"
+    tokenName: "OAuthGoogleDrive"
+    tenant: "dovetail"
+    expiryDelay: ""
 ```
 
 ## Camel 2
@@ -73,10 +73,10 @@ step:
 #### XML
 
 ```xml
-<route id="20f44cb0-3d76-11ed-b962-0978946afb23">
-    <from uri="direct:ID_6331642fd7e3b7000f0000cf_test_abec7f50-6660-11ed-a11f-298af0b10fe9"/>
-    <to uri="oauth2token://?id=20f44cb0-3d76-11ed-b962-0978946afb23&amp;tokenName=OAuth2Token&amp;tenant=default&amp;expiryDelay=30"/>
-    <to uri="direct:ID_627a6b7338c74a00130007f9_test_75be5f00-d0f8-11ec-83f5-3747809ef661"/>
+  <route id="dd30e724-718c-4aeb-a1b1-dd364acd321a">
+    <from uri="direct:ID_6645ff25582722013d000043_test_37a3c0de-81af-4f0d-a775-932cb5bb0077"/>
+    <to uri="oauth2token://?id=cf400d62-25b5-486f-a948-573300365314&amp;tokenName=OAuthGoogleDrive&amp;tenant=dovetail&amp;expiryDelay="/>
+    <to uri="direct:ID_6645ff25582722013d000043_test_dd30e724-718c-4aeb-a1b1-dd364acd321a"/>
 </route>
 ```
 

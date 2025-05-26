@@ -8,20 +8,20 @@
       <setExchangePattern pattern="InOut"/>
 </onException>
   <route id="6ebd87d0-d062-11ec-83f5-3747809ef661">
-    <from uri="jetty:https://0.0.0.0:9001/1/Log?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/Log?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
 	<setBody>
       <constant>some message</constant>
     </setBody>
-    <to uri="activemq:ID_627a62be38c74a06a0000162_test_6ebd87d0-d062-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a62be38c74a06a0000162_test_6ebd87d0-d062-11ec-83f5-3747809ef661"/>
   </route>
   <route id="20265b00-d06d-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a62be38c74a06a0000162_test_6ebd87d0-d062-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a62be38c74a06a0000162_test_6ebd87d0-d062-11ec-83f5-3747809ef661"/>
     <to uri="log:nl.kabisa.flux//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=true&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=true&amp;showStackTrace=true"/>
-    <to uri="activemq:ID_627a62be38c74a06a0000162_test_20265b00-d06d-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a62be38c74a06a0000162_test_20265b00-d06d-11ec-83f5-3747809ef661"/>
   </route>
   <route id="6ebd87d1-d062-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a62be38c74a06a0000162_test_20265b00-d06d-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a62be38c74a06a0000162_test_20265b00-d06d-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 

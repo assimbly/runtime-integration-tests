@@ -1,0 +1,50 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "removetenantvariable_test1"
+          id: "removetenantvariable_test1"
+          type: "esb"
+          steps:
+            step:
+            - id: 1
+              type: "source"
+<<<<<<< HEAD:removevariable/dilyaml/config/removevariable_dil.yaml
+              uri: "http://0.0.0.0:9001/1/removevariable"
+=======
+              uri: "http://0.0.0.0:9001/1/RemoveTenantVariable"
+>>>>>>> 36f0e4e9db09581397ec3ff979d2c7aa026f3e8e:removetenantvariable/dilyaml/config/removetenantvariable_dil.yaml
+            - options:
+                environment: "test"
+                expression: "simple"
+                encrypt: false
+                modifier: "ComponentsTests/GetVariable"
+                operation: "SET"
+                value: "RAW(dGVzdA==)"
+                tenant: "default"
+              id: 2
+              type: "action"
+              uri: "tenantvariables://MyVariable"
+            - options:
+                environment: "test"
+                header: "MyVariable"
+                operation: "GET"
+                tenant: "default"
+              id: 3
+              type: "action"
+              uri: "tenantvariables://MyVariable"
+            - id: 4
+              type: "action"
+              uri: "log"
+            - options:
+                environment: "test"
+                operation: "DELETE"
+                tenant: "default"
+              id: 5
+              type: "action"
+              uri: "tenantvariables://MyVariable"
+            - id: 6
+              type: "sink"
+              uri: "velocity:${header.MyVariable}"

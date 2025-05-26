@@ -1,0 +1,1 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><INVENTORY_TRANSACTIONS xmlns="urn:ifsworld-com:schemas:post_inventory_transactions"><GLN>WMSDCBUD</GLN><SITE>DCBUD</SITE><SOURCE>WMS</SOURCE><TRANSACTION_TYPE>INVENTORY_MOVE</TRANSACTION_TYPE></INVENTORY_TRANSACTIONS></soap:Body></soap:Envelope>

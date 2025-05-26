@@ -1,0 +1,43 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "oauth_test1",
+            "name": "oauth_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/oauth"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "oauth2token://",
+                  "options": {
+                    "id": "cf400d62-25b5-486f-a948-573300365314",
+                    "tokenName": "OAuthGoogleDrive",
+                    "tenant": "dovetail",
+                    "expiryDelay": ""
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "sink",
+                  "uri": "setbody:AccessToken - ${header.OAuthGoogleDrive}",
+                  "options": {
+                    "language": "simple"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

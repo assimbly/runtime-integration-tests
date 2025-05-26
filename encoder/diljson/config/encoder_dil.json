@@ -1,0 +1,50 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "encoder_test1",
+            "name": "encoder_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/Encoder"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:message:encoder"
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "encoder://UTF-8?targetCharset=ISO-8859-1"
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "encoder",
+          "body": "olá"
+        }
+      }
+    }
+  }
+}

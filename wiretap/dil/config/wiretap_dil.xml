@@ -10,7 +10,7 @@
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>https://0.0.0.0:9001/1/Wiretap</uri>
+                            <uri>http://0.0.0.0:9001/1/Wiretap</uri>
                         </step>
                         <step>
                             <id>2</id>
@@ -28,7 +28,7 @@
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>wiretap:activemq:ID_1234</uri>
+                            <uri>wiretap:sync:ID_1234</uri>
                         </step>
                         <step>
                             <id>4</id>
@@ -52,9 +52,9 @@
 							<links>
 								<link>
 									<id>ID_1234</id>
-									<transport>activemq</transport>
+									<transport>sync</transport>
 									<bound>in</bound>
-								</link>							
+								</link>
 							</links>
                         </step>
                     </steps>

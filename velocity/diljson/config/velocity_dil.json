@@ -1,0 +1,62 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "velocity_test1",
+            "name": "velocity_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/velocity",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            ",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "sink",
+                  "uri": "velocity:${body}",
+                  "links": {
+                    "link": {
+                      "id": "3",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

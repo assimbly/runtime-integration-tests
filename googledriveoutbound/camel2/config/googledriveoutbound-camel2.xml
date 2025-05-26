@@ -1,45 +1,33 @@
-<camelContext id="ID_627a629b38c74a06a0000140" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" streamCache="true">
+<camelContext xmlns="http://camel.apache.org/schema/blueprint" id="ID_6646047e582722013f000091" useMDCLogging="true" streamCache="true">
   <jmxAgent id="agent" loadStatisticsEnabled="true"/>
   <streamCaching id="streamCacheConfig" spoolThreshold="0" spoolDirectory="tmp/camelcontext-#camelId#" spoolUsedHeapMemoryThreshold="70"/>
   <threadPoolProfile id="wiretapProfile" defaultProfile="false" poolSize="0" maxPoolSize="5" maxQueueSize="2000" rejectedPolicy="DiscardOldest" keepAliveTime="10"/>
-  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="8" maxPoolSize="16" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
+  <threadPoolProfile id="defaultProfile" defaultProfile="true" poolSize="0" maxPoolSize="10" maxQueueSize="1000" rejectedPolicy="CallerRuns" keepAliveTime="30"/>
   <onException>      <exception>java.lang.Exception</exception>
     <redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="5000"/>
     <setExchangePattern pattern="InOnly"/>
   </onException>
-  <interceptFrom>
-    <to uri="bean:dovetailTracer?method=traceEvent"/>
-  </interceptFrom>
-  <route id="531dd840-d062-11ec-83f5-3747809ef661">
-    <from uri="jetty:https://0.0.0.0:9001/1/googledriveoutbound?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+  <route id="4079252f-3d85-4896-bc7a-d5343792039a">
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/GoogleDriveOutbound?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
-    <to uri="activemq:ID_627a629b38c74a06a0000140_test_531dd840-d062-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_6646047e582722013f000091_test_4079252f-3d85-4896-bc7a-d5343792039b?exchangePattern=InOut"/>
   </route>
-  <route id="531dd841-d062-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a629b38c74a06a0000140_test_531dd840-d062-11ec-83f5-3747809ef661"/>
-    <setHeader headerName="CamelVelocityTemplate">
-      <simple>test from dovetail</simple>
-    </setHeader>
-    <to uri="velocity:generate"/>
-    <to uri="activemq:ID_627a629b38c74a06a0000140_test_531dd841-d062-11ec-83f5-3747809ef661?timeToLive=86400000"/>
-  </route>
-  <route id="c2601910-6fcd-11ed-845b-fbaa1700ffee">
-    <from uri="activemq:ID_627a629b38c74a06a0000140_test_531dd841-d062-11ec-83f5-3747809ef661"/>
+  <route id="dd30e724-718c-4aeb-a1b1-dd364acd321a">
+    <from uri="direct:ID_6646047e582722013f000091_test_4079252f-3d85-4896-bc7a-d5343792039b"/>
     <setHeader headerName="CamelFileName">
-      <simple>juca.txt</simple>
+      <simple>simpleFile.txt</simple>
     </setHeader>
-    <to uri="activemq:ID_627a629b38c74a06a0000140_test_c2601910-6fcd-11ed-845b-fbaa1700ffee?timeToLive=86400000"/>
+    <setBody>
+      <constant>file content text</constant>
+    </setBody>
+    <to uri="direct:ID_6646047e582722013f000091_test_cfdefd10-3d0e-4bdb-bd4f-774feb7917ec"/>
   </route>
-  <route id="66d6ab71-6f43-11ed-98ef-1921d2513c6b">
-    <from uri="activemq:ID_627a629b38c74a06a0000140_test_c2601910-6fcd-11ed-845b-fbaa1700ffee"/>
-    <to uri="googledrive://?accessToken=AAABBBCCCDDDEEEFFFGGHHH&amp;refreshToken=AAABBBCCCDDDEEEFFFGGHHH&amp;directoryId=AAABBBCCCDDDEEEFFFGGHHH"/>
-    <to uri="activemq:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b?timeToLive=86400000"/>
+  <!-- first: accept the OAuth2 consent on the frontend (set accessToken param with the tenant variable name).
+      second: set directoryId (the user used on the oauth2 consent needs to have access to this directory) -->
+  <route id="eb69c4c5-99d5-4e8e-8730-ca11c97cbcf8">
+    <from uri="direct:ID_6646047e582722013f000091_test_cfdefd10-3d0e-4bdb-bd4f-774feb7917ec"/>
+    <to uri="google-drive://?accessToken=@{OAuthGoogleDrive}&amp;tenant=dovetail&amp;directoryId=1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV"/>
+    <to uri="log:nl.kabisa.flux//?skipBodyLineSeparator=false&amp;multiline=true&amp;showHeaders=false&amp;showBody=true&amp;showBodyType=true&amp;showFiles=true&amp;showException=false&amp;showStackTrace=false&amp;showCaughtException=false"/>
   </route>
-  <route id="639070f2-6fce-11ed-a6f1-5904354a115f">
-    <from uri="activemq:ID_627a629b38c74a06a0000140_test_66d6ab71-6f43-11ed-98ef-1921d2513c6b"/>
-    <setHeader headerName="CamelVelocityTemplate">
-      <simple>${body}</simple>
-    </setHeader>
-    <to uri="velocity:generate"/>
-  </route>
+  <property key="frontend.engine" value="dovetail"/>
 </camelContext>

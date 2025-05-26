@@ -1,0 +1,56 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "email_test1",
+            "name": "email_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "imaps://imap.gmail.com:993",
+                  "options": {
+                    "authenticationType": "RAW(basic)",
+                    "username": "RAW(brunovg@gmail.com)",
+                    "password": "RAW(ovza grif udkz crps)",
+                    "tenant": "RAW(test)",
+                    "delay": "10000",
+                    "bridgeErrorHandler": "true",
+                    "sslContextParameters": "#sslContext"
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "file:/data/.assimbly/output",
+                  "options": {
+                    "fileName": "output.txt"
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "sink",
+                  "uri": "log:nl.kabisa.flux//",
+                  "options": {
+                    "skipBodyLineSeparator": "false",
+                    "multiline": "true",
+                    "showHeaders": "false",
+                    "showBody": "true",
+                    "showBodyType": "true",
+                    "showFiles": "true",
+                    "showException": "false",
+                    "showStackTrace": "false"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

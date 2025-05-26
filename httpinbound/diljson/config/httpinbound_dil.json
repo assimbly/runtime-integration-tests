@@ -1,0 +1,92 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "http_test1",
+            "name": "http_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/httpinbound",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "log",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "http://www.testingmcafeesites.com/testcat_al.html",
+                  "options": {
+                    "httpMethod": "GET",
+                    "userAgent": "Dovetail/4.12.0",
+                    "cookieStore": "#flowCookieStore",
+                    "throwExceptionOnFailure": "true",
+                    "maxTotalConnections": "20",
+                    "connectionsPerRoute": "2"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

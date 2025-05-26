@@ -10,7 +10,7 @@
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>https://0.0.0.0:9001/1/Amazon</uri>
+                            <uri>http://0.0.0.0:9001/1/Amazon</uri>
                         </step>
                         <step>
                             <id>2</id>
@@ -27,7 +27,10 @@
                         <step>
                             <id>3</id>
                             <type>sink</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                         </step>
                     </steps>
                 </flow>

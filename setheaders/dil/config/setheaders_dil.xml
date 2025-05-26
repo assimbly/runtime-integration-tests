@@ -10,12 +10,12 @@
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>https://0.0.0.0:9001/1/setheaders</uri>
+                            <uri>http://0.0.0.0:9001/1/setheaders</uri>
                         </step>
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>setbody:john</uri>
+                            <uri>setbody:John</uri>
                         </step>
                         <step>
                             <id>3</id>
@@ -25,7 +25,10 @@
 						<step>
                             <id>4</id>
                             <type>sink</type>
-                            <uri>velocity:The body is ${body}. The name is ${header.firstname} ${header.lastname}</uri>
+                            <uri>setbody:The body is ${body}. The name is ${header.firstname} ${header.lastname}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                         </step>
                     </steps>
                 </flow>
@@ -38,9 +41,19 @@
             <id>1</id>
             <name>names</name>
             <headers>
-               <firstname type="header" language="simple">${body}</firstname>
-               <lastname type="header" language="constant">Doe</lastname>
-            </headers>
+                <header>
+                    <name>firstname</name>
+                    <value>${body}</value>
+                    <language>simple</language>
+                    <type>header</type>
+                </header>
+                <header>
+                    <name>lastname</name>
+                    <value>Doe</value>
+                    <language>constant</language>
+                    <type>header</type>
+                </header>
+           </headers>
          </message>
       </messages>
 	</core>

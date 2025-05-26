@@ -1,0 +1,5 @@
+{
+  "code": 500,
+  "error": "java.lang.NullPointerException: Cannot invoke \"java.io.InputStream.markSupported()\" because \"stream\" is null",
+  "info": "HTTP service couldn't read your request, did you supply a correct body?"
+}

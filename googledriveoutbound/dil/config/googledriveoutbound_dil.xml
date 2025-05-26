@@ -10,32 +10,42 @@
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>https://0.0.0.0:9001/1/googledriveoutbound</uri>
+                            <uri>http://0.0.0.0:9001/1/googledriveoutbound</uri>
                         </step>
                         <step>
                             <id>2</id>
                             <type>action</type>
-                            <uri>velocity:test from dovetail</uri>
+                            <uri>setheaders:message:CamelFileName</uri>
                         </step>
                         <step>
                             <id>3</id>
                             <type>action</type>
-                            <uri>setheaders:message:camelfilename</uri>
+                            <uri>setbody:<![CDATA[file content text]]></uri>
                         </step>
                         <step>
                             <id>4</id>
                             <type>action</type>
-                            <uri>googledrive</uri>
+                            <uri>googledrive://</uri>
                             <options>
-                                <accessToken>AAABBBCCCDDDEEEFFFGGHHH</accessToken>
-                                <refreshToken>AAABBBCCCDDDEEEFFFGGHHH</refreshToken>
-                                <directoryId>AAABBBCCCDDDEEEFFFGGHHH</directoryId>
+                                <accessToken>RAW(@{OAuthGoogleDrive})</accessToken>
+                                <tenant>dovetail</tenant>
+                                <directoryId>1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV</directoryId>
                             </options>
                         </step>
                         <step>
                             <id>5</id>
                             <type>sink</type>
-                            <uri>velocity:${bodyAs(String)}</uri>
+                            <uri>log:nl.kabisa.flux//</uri>
+                            <options>
+                                <skipBodyLineSeparator>false</skipBodyLineSeparator>
+                                <multiline>true</multiline>
+                                <showHeaders>false</showHeaders>
+                                <showBody>true</showBody>
+                                <showBodyType>true</showBodyType>
+                                <showFiles>true</showFiles>
+                                <showException>false</showException>
+                                <showStackTrace>false</showStackTrace>
+                            </options>
                         </step>
                     </steps>
                 </flow>
@@ -46,9 +56,14 @@
         <messages>
             <message>
                 <id>1</id>
-                <name>camelfilename</name>
+                <name>CamelFileName</name>
                 <headers>
-                    <CamelFileName type="header" language="constant">juca.txt</CamelFileName>
+                    <header>
+                        <name>CamelFileName</name>
+                        <value>simpleFile.txt</value>
+                        <language>constant</language>
+                        <type>header</type>
+                    </header>
                 </headers>
             </message>
         </messages>

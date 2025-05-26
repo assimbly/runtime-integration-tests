@@ -1,11 +1,9 @@
-Message Body:
- 
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ResultSet>
    <ResultSize>1</ResultSize>
    <Results>
       <Result>
-         <version>5.7.38-log</version>
+         <version>8.0.32</version>
       </Result>
    </Results>
 </ResultSet>

@@ -1,0 +1,79 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "googledriveoutbound_test1",
+            "name": "googledriveoutbound_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/googledriveoutbound"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setheaders:message:CamelFileName"
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "setbody:file content text"
+                },
+                {
+                  "id": "4",
+                  "type": "action",
+                  "uri": "googledrive://",
+                  "options": {
+                    "accessToken": "RAW(@{OAuthGoogleDrive})",
+                    "tenant": "dovetail",
+                    "directoryId": "1QjgwMQB395fa0iuI_zHEew5_RYxiwJFV"
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "sink",
+                  "uri": "log:nl.kabisa.flux//",
+                  "options": {
+                    "skipBodyLineSeparator": "false",
+                    "multiline": "true",
+                    "showHeaders": "false",
+                    "showBody": "true",
+                    "showBodyType": "true",
+                    "showFiles": "true",
+                    "showException": "false",
+                    "showStackTrace": "false"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": [
+        {
+          "message": {
+            "id": "1",
+            "name": "CamelFileName",
+            "headers": {
+              "header": [
+                {
+                  "type": "header",
+                  "language": "constant",
+                  "name": "CamelFileName",
+                  "value": "simpleFile.txt"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

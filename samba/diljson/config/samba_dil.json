@@ -1,0 +1,90 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "smb_test1",
+            "name": "smb_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/samba",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "smb://admin@DESKTOP-FMIR5F0/samba",
+                  "options": {
+                    "autoCreate": "true",
+                    "charset": "utf-8",
+                    "fileExist": "Override",
+                    "password": "secret"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "soap_test1",
+            "name": "soap_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/soap",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setmessage:message:soap",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "22",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "22",
+                  "type": "action",
+                  "uri": "log:com.mycompany.order",
+                  "options": {
+                    "showAll": "true",
+                    "multiline": "true"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "22",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "soap:http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+                  "options": {
+                    "params": "WSDL",
+                    "action": "FullCountryInfo",
+                    "extract": "true",
+                    "smart": "true",
+                    "httpHeaders": "W3siX2lkIjoiNjJjZTk1MTY1NWYwMmUwMDExMDAwNGE3IiwibmFtZSI6IkFwaVRva2VuIiwidmFsdWUiOiIxMjMifV0="
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "1",
+          "name": "soap",
+          "body": "<FullCountryInfo> <sCountryISOCode>NL</sCountryISOCode></FullCountryInfo>",
+          "headers": {
+            "header": {
+              "type": "header",
+              "language": "constant",
+              "value": "text/xml",
+              "name": "Content-Type"
+            }
+          }
+        }
+      }
+    }
+  }
+}

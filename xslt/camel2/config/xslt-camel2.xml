@@ -9,7 +9,7 @@
       <setExchangePattern pattern="InOut"/>
   </onException>
   <route id="46b298f0-d055-11ec-83f5-3747809ef661">
-    <from uri="jetty:https://0.0.0.0:9001/1/Xslt?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/Xslt?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
     <setBody>
       <constant>
@@ -24,18 +24,17 @@
 			]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a4dd438c74a06a0000039_test_46b298f0-d055-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a4dd438c74a06a0000039_test_46b298f0-d055-11ec-83f5-3747809ef661"/>
   </route>
   <route id="4f986df1-d055-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a4dd438c74a06a0000039_test_46b298f0-d055-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a4dd438c74a06a0000039_test_46b298f0-d055-11ec-83f5-3747809ef661"/>
     <to uri="xslt:http://localhost:9002/1/xsltfile?saxon=true&amp;saxonExtensionFunctions=#uuid-function"/>
-    <to uri="activemq:ID_627a4dd438c74a06a0000039_test_4f986df1-d055-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a4dd438c74a06a0000039_test_4f986df1-d055-11ec-83f5-3747809ef661"/>
   </route>
   <route id="46b2c000-d055-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a4dd438c74a06a0000039_test_4f986df1-d055-11ec-83f5-3747809ef661"/>
-    <setHeader headerName="CamelVelocityTemplate">
+    <from uri="direct:ID_627a4dd438c74a06a0000039_test_4f986df1-d055-11ec-83f5-3747809ef661"/>
+    <setBody>
       <simple>${bodyAs(String)}</simple>
-    </setHeader>
-    <to uri="velocity:generate"/>
+    </setBody>
   </route>
 </camelContext>

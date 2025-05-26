@@ -1,0 +1,66 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "scheduler_test1",
+            "name": "scheduler_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "quartz://ID_627a612138c74a0013000639_timer",
+                  "options": {
+                    "cron": "0+*+*+*+*+?",
+                    "trigger.timeZone": "Europe/Amsterdam"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Jane Does</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "sink",
+                  "uri": "log",
+                  "links": {
+                    "link": {
+                      "id": "3",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

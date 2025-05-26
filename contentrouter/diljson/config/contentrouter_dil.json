@@ -1,0 +1,128 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "contentrouter_test1",
+            "name": "contentrouter_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/contentrouter",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Not Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>Blabla Doe</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>                            ",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "router",
+                  "uri": "content",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out",
+                        "rule": "xpath",
+                        "expression": "/persons/person[1]/name='John Doe'"
+                      },
+                      {
+                        "id": "5",
+                        "transport": "sync",
+                        "bound": "out",
+                        "rule": "simple",
+                        "expression": "${body.contains('Jane')}"
+                      },
+                      {
+                        "id": "6",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:Rule 1: ${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                },
+                {
+                  "id": "5",
+                  "type": "sink",
+                  "uri": "setbody:Rule 2: ${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "5",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                },
+                {
+                  "id": "6",
+                  "type": "sink",
+                  "uri": "setbody:Rule 3: ${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "6",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

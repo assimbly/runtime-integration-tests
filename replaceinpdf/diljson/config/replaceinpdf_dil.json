@@ -1,0 +1,112 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "pdf_test1",
+            "name": "pdf_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/replaceinpdf",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setheaders:message:address",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "replaceinpdf:http://localhost:9002/1/pdfs/flowid",
+                  "options": {
+                    "tenant": "RAW(tenant)",
+                    "uuid": "RAW(12345)"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "file:C:/data/pdf",
+                  "options": {
+                    "fileName": "result.pdf"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "1",
+          "name": "address",
+          "header": [{
+            "type": "header",
+            "language": "constant",
+            "name": "name",
+            "value": "Pedro Catalao"
+          },{
+            "type": "header",
+            "language": "constant",
+            "name": "address",
+            "value": "Pedro Catalao"
+          },{
+            "type": "header",
+            "language": "constant",
+            "name": "zip",
+            "value": "10000, Alcochete"
+          }]
+        }
+      }
+    }
+  }
+}

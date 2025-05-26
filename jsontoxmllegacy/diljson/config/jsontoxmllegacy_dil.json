@@ -1,0 +1,91 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "jsontoxmllegacy_test1",
+            "name": "jsontoxmllegacy_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/JsonToXmlLegacy",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:{ \"Formula1\": { \"Drivers\": { \"Driver\": [ { \"Age\": 19, \"Name\": \"Max Verstappen\" }, {  \"Age\": 30, \"Name\": \"Nico Hulkenberg\" } ] }, \"Teams\": { \"Team\": [ { \"Principal\": \"Christian Horner\", \"Name\": \"Redbull Racing\"  }, {  \"Principal\": \"Carlos Ghosn, Jérôme Stoll, Cyril Abiteboul\", \"Name\": \"Renault\" } ] } } }",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "jsontoxmllegacy://",
+                  "options": {
+                    "elementName": "element",
+                    "arrayName": "array",
+                    "rootName": "",
+                    "namespaceLenient": "false",
+                    "typeHints": "false"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:${bodyAs(String)}",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

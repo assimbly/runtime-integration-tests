@@ -1,0 +1,110 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "removeheaders_test1",
+            "name": "removeheaders_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/removeheaders",
+                  "links": {
+                    "link": {
+                      "id": "2",
+                      "transport": "sync",
+                      "bound": "out"
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setmessage:message:removeheaders",
+                  "links": {
+                    "link": [
+                      {
+                        "id": "2",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "removeheaders:lastname",
+                  "options": {
+                    "excludePattern": "breadcrumbId"
+                  },
+                  "links": {
+                    "link": [
+                      {
+                        "id": "3",
+                        "transport": "sync",
+                        "bound": "in"
+                      },
+                      {
+                        "id": "4",
+                        "transport": "sync",
+                        "bound": "out"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:Message Body: ${bodyAs(String)}. Lastname: ${headers.lastName}. Firstname:  ${headers.firstName}. ",
+                  "options": {
+                    "language": "simple"
+                  },
+                  "links": {
+                    "link": {
+                      "id": "4",
+                      "transport": "sync",
+                      "bound": "in"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "1",
+          "name": "removeheaders",
+          "body": "Header lastname has been removed",
+          "headers": {
+            "header": [{
+              "type": "header",
+              "language": "constant",
+              "name": "firstname",
+              "value": "John"
+            },
+              {
+                "type": "header",
+                "language": "constant",
+                "name": "lastname",
+                "value": "Doe"
+              }
+            ]}
+        }
+      }
+    }
+  }
+}

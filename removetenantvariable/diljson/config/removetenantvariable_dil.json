@@ -1,0 +1,69 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "removetenantvariable_test1",
+            "name": "removetenantvariable_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/RemoveTenantVariable"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "tenantvariables://MyVariable",
+                  "options": {
+                    "operation": "SET",
+                    "expressionType": "simple",
+                    "value": "RAW(eWVzISEh)",
+                    "encrypt": "false",
+                    "modifier": "Groupless/SetTenantVar",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "tenantvariables://MyVariable",
+                  "options": {
+                    "operation": "GET",
+                    "header": "MyVariable",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "action",
+                  "uri": "log"
+                },
+                {
+                  "id": "5",
+                  "type": "action",
+                  "uri": "tenantvariables://MyVariable",
+                  "options": {
+                    "operation": "DELETE",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "6",
+                  "type": "sink",
+                  "uri": "setbody:${header.MyVariable}",
+                  "options": {
+                    "language": "simple"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

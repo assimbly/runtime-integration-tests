@@ -8,7 +8,7 @@
       <setExchangePattern pattern="InOut"/>
 </onException>
   <route id="e3aa1960-d066-11ec-83f5-3747809ef661">
-    <from uri="jetty:https://0.0.0.0:9001/1/Base64?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false&amp;sslContextParameters=sslContext"/>
+    <from uri="jetty-nossl:http://0.0.0.0:9001/1/Base64?httpBinding=#customHttpBinding&amp;matchOnUriPrefix=false"/>
     <removeHeaders pattern="CamelHttp*"/>
 	<setBody>
       <constant>
@@ -23,17 +23,17 @@
 			]]>
       </constant>
     </setBody>
-    <to uri="activemq:ID_627a6b6138c74a000e0008e0_test_e3aa1960-d066-11ec-83f5-3747809ef661?timeToLive=86400000&amp;exchangePattern=InOut"/>
+    <to uri="direct:ID_627a6b6138c74a000e0008e0_test_e3aa1960-d066-11ec-83f5-3747809ef661"/>
   </route>
   <route id="86eaff50-d0f7-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a6b6138c74a000e0008e0_test_e3aa1960-d066-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a6b6138c74a000e0008e0_test_e3aa1960-d066-11ec-83f5-3747809ef661"/>
     <marshal>
       <base64/>
     </marshal>
-    <to uri="activemq:ID_627a6b6138c74a000e0008e0_test_86eaff50-d0f7-11ec-83f5-3747809ef661?timeToLive=86400000"/>
+    <to uri="direct:ID_627a6b6138c74a000e0008e0_test_86eaff50-d0f7-11ec-83f5-3747809ef661"/>
   </route>
   <route id="e3aa4070-d066-11ec-83f5-3747809ef661">
-    <from uri="activemq:ID_627a6b6138c74a000e0008e0_test_86eaff50-d0f7-11ec-83f5-3747809ef661"/>
+    <from uri="direct:ID_627a6b6138c74a000e0008e0_test_86eaff50-d0f7-11ec-83f5-3747809ef661"/>
     <setHeader headerName="CamelVelocityTemplate">
       <simple>Message Body:
 

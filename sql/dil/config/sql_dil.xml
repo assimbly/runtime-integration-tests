@@ -10,7 +10,7 @@
                         <step>
                             <id>1</id>
                             <type>source</type>
-                            <uri>https://0.0.0.0:9001/1/sql</uri>
+                            <uri>http://0.0.0.0:9001/1/sql</uri>
                             <links>
                                 <link>
                                     <id>2</id>
@@ -90,7 +90,10 @@
                         <step>
                             <id>5</id>
                             <type>sink</type>
-                            <uri>velocity:Message Body: ${bodyAs(String)}</uri>
+                            <uri>setbody:${bodyAs(String)}</uri>
+                            <options>
+                                <language>simple</language>
+                            </options>
                             <links>
                                 <link>
                                     <id>5</id>
@@ -110,11 +113,36 @@
             <id>1</id>
             <name>database</name>
             <headers>
-               <timestamp type="header" language="simple">${date-with-timezone:now:Europe/Amsterdam:yyyy-MM-dd'T'HH:mm:ss}</timestamp>
-               <name type="header" language="constant">name</name>
-			   <value type="header" language="constant">value</value>
-			   <route type="header" language="constant">Mysql5.7</route>
-			   <escape type="header" language="constant">no</escape>
+                <header>
+                    <name>timestamp</name>
+                    <value>${date-with-timezone:now:Europe/Amsterdam:yyyy-MM-dd'T'HH:mm:ss}</value>
+                    <language>simple</language>
+                    <type>header</type>
+                </header>
+                <header>
+                    <name>name</name>
+                    <value>name</value>
+                    <language>constant</language>
+                    <type>header</type>
+                </header>
+                <header>
+                    <name>value</name>
+                    <value>value</value>
+                    <language>constant</language>
+                    <type>header</type>
+                </header>
+                <header>
+                    <name>route</name>
+                    <value>Mysql5.7</value>
+                    <language>constant</language>
+                    <type>header</type>
+                </header>
+                <header>
+                    <name>escape</name>
+                    <value>no</value>
+                    <language>constant</language>
+                    <type>header</type>
+                </header>
             </headers>
          </message>
       </messages>

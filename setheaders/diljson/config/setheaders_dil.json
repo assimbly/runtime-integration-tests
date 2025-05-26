@@ -1,0 +1,64 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "setheaders_test1",
+            "name": "setheaders_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/setheaders"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "setbody:John"
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "setheaders:message:names"
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:The body is ${body}. The name is ${header.firstname} ${header.lastname}",
+                  "options": {
+                    "language": "simple"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "core": {
+      "messages": {
+        "message": {
+          "id": "1",
+          "name": "names",
+          "headers": {
+            "header": [{
+              "type": "header",
+              "language": "simple",
+              "name": "firstname",
+              "value": "${body}"
+            },
+              {
+                "type": "header",
+                "language": "constant",
+                "name": "lastname",
+                "value": "Doe"
+              }
+            ]}
+        }
+      }
+    }
+  }
+}

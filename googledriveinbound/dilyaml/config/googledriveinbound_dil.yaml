@@ -1,0 +1,28 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "googledriveinbound_test1"
+          id: "googledriveinbound_test1"
+          type: "esb"
+          steps:
+            step:
+            - options:
+                delay: 1000
+                directoryId: "AAABBBCCCDDDEEEFFFGGHHH"
+                initialDelay: 1000
+                gSuiteFiles: "Ignore"
+                accessToken: "AAABBBCCCDDDEEEFFFGGHHH"
+                refreshToken: "AAABBBCCCDDDEEEFFFGGHHH"
+                moveTo: ".dovetail"
+              id: 1
+              type: "source"
+              uri: "googledrive"
+            - id: 2
+              type: "action"
+              uri: "velocity:${bodyAs(String)}"
+            - id: 3
+              type: "sink"
+              uri: "log"

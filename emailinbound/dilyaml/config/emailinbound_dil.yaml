@@ -1,0 +1,28 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "email_test1"
+          id: "email_test1"
+          type: "esb"
+          steps:
+            step:
+            - options:
+                password: "RAW(Hoo-ha-hooah!)"
+                delay: 10000
+                bridgeErrorHandler: true
+                sslContextParameters: "#sslContext"
+                authenticationType: "RAW(basic)"
+                tenant: "RAW(dovetail)"
+                username: "RAW(noreply@cartoon.com)"
+              id: 1
+              type: "source"
+              uri: "imaps://imap.cartoon.com:993"
+            - id: 2
+              type: "action"
+              uri: "log"
+            - id: 3
+              type: "sink"
+              uri: "velocity:${bodyAs(String)}"

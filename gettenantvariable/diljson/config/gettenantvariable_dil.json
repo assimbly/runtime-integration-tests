@@ -1,0 +1,57 @@
+{
+  "dil": {
+    "integrations": {
+      "integration": {
+        "flows": {
+          "flow": {
+            "id": "gettenantvariable_test1",
+            "name": "gettenantvariable_test1",
+            "type": "esb",
+            "steps": {
+              "step": [
+                {
+                  "id": "1",
+                  "type": "source",
+                  "uri": "http://0.0.0.0:9001/1/gettenantvariable"
+                },
+                {
+                  "id": "2",
+                  "type": "action",
+                  "uri": "tenantvariables://MyVariable",
+                  "options": {
+                    "operation": "SET",
+                    "expressionType": "simple",
+                    "value": "RAW(eWVzISEh)",
+                    "encrypt": "false",
+                    "modifier": "ComponentsTests/GetVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "3",
+                  "type": "action",
+                  "uri": "tenantvariables://MyVariable",
+                  "options": {
+                    "operation": "GET",
+                    "header": "MyVariable",
+                    "environment": "test",
+                    "tenant": "default"
+                  }
+                },
+                {
+                  "id": "4",
+                  "type": "sink",
+                  "uri": "setbody:${header.MyVariable}",
+                  "options": {
+                    "language": "simple"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

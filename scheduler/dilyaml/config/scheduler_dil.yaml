@@ -1,0 +1,45 @@
+---
+dil:
+  integrations:
+    integration:
+      flows:
+        flow:
+          name: "scheduler_test1"
+          id: "scheduler_test1"
+          type: "esb"
+          steps:
+            step:
+            - options:
+                cron: "0+*+*+*+*+?"
+                trigger.timeZone: "Europe/Amsterdam"
+              links:
+                link:
+                  bound: "out"
+                  id: 2
+                  transport: "sync"
+              id: 1
+              type: "source"
+              uri: "quartz://ID_627a612138c74a0013000639_timer"
+            - links:
+                link:
+                - bound: "in"
+                  id: 2
+                  transport: "sync"
+                - bound: "out"
+                  id: 3
+                  transport: "sync"
+              id: 2
+              type: "action"
+              uri:
+              - - "setbody:"
+                - "<persons>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t<name>John Doe</name>\t\
+                  \t\t\t\t\t\t  </person>\t\t\t\t\t\t\t  <person>\t\t\t\t\t\t\t\t\
+                  <name>Jane Does</name>\t\t\t\t\t\t\t  </person>\t\t\t\t\t\t\t</persons>"
+            - links:
+                link:
+                  bound: "in"
+                  id: 3
+                  transport: "sync"
+              id: 3
+              type: "sink"
+              uri: "log"
